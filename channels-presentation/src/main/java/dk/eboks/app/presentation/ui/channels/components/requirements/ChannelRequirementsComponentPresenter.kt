@@ -1,35 +1,22 @@
 package dk.eboks.app.presentation.ui.channels.components.requirements
 
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.channel.Requirement
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-internal class ChannelRequirementsComponentPresenter @Inject constructor(val appState: AppStateManager) :
+internal class ChannelRequirementsComponentPresenter @Inject constructor() :
     ChannelRequirementsComponentContract.Presenter,
     BasePresenterImpl<ChannelRequirementsComponentContract.View>() {
 
-    init {
-    }
-
-    private val unverifiedRequirements: ArrayList<Requirement> = ArrayList()
-
     override fun setup(channel: Channel) {
-        buildUnverifiedRequirements(channel)
         view {
             setupView(channel)
-            showUnverifiedRequirements(unverifiedRequirements)
-        }
-    }
-
-    private fun buildUnverifiedRequirements(channel: Channel) {
-        channel.requirements?.let { reqs ->
-            unverifiedRequirements.clear()
-            unverifiedRequirements.addAll(reqs.filter { it.verified != null && it.verified == false })
+            showUnverifiedRequirements(channel.requirements
+                ?.filter { it.verified != null && it.verified == false }
+                ?: listOf())
         }
     }
 }

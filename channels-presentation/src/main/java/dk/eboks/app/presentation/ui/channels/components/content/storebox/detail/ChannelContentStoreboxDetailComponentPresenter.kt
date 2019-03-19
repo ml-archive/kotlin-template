@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.storebox.detail
 
+import androidx.annotation.VisibleForTesting
 import dk.eboks.app.domain.interactors.storebox.DeleteStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.SaveReceiptInteractor
@@ -25,9 +26,9 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
     SaveReceiptInteractor.Output,
     ShareReceiptInteractor.Output {
 
-    private var currentReceipt: StoreboxReceipt? = null
-    private var currentFolderName: String? = null
-    private var shareAsMail = false
+    @VisibleForTesting var currentReceipt: StoreboxReceipt? = null
+    @VisibleForTesting var currentFolderName: String? = null
+    @VisibleForTesting var shareAsMail = false
 
     init {
         getStoreboxReceiptInteractor.output = this
@@ -36,10 +37,9 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
         shareReceiptInteractor.output = this
     }
 
-    override fun loadReceipt() {
+    override fun loadReceipt(receiptId: String) {
         Timber.d("loadReceipt")
-        val storeboxId = view?.getReceiptId() ?: return
-        getStoreboxReceiptInteractor.input = GetStoreboxReceiptInteractor.Input(storeboxId)
+        getStoreboxReceiptInteractor.input = GetStoreboxReceiptInteractor.Input(receiptId)
         getStoreboxReceiptInteractor.run()
     }
 

@@ -27,7 +27,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     override fun onCreate() {
         super.onCreate()
         appComponent.inject(this)
-        App._instance = this
         appInitializers.init(this)
         registerActivityLifecycleCallbacks(this)
     }
@@ -39,22 +38,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         MultiDex.install(this)
     }
 
-    companion object {
-        private lateinit var _instance: App
-        private var activityRef: WeakReference<Activity?>? = null
+    private var activityRef: WeakReference<Activity?>? = null
 
-        fun instance(): App {
-            return _instance
-        }
-
-        fun currentActivity(): Activity? {
-            activityRef?.let {
-                if (it.get() != null)
-                    return it.get()
-            }
-            return null
-        }
-    }
+    val currentActivity: Activity? = activityRef?.get()
 
     override fun onActivityPaused(activity: Activity?) {
         activityRef = null

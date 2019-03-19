@@ -33,13 +33,19 @@ class NewFolderPresenterTest {
     private val sharedUser = SharedUser(12, 12, name = "Shared User")
     private val currentUser = User(123, "Current USer")
 
-
     @Before
     fun setUp() {
-        every { appStateManager.state } returns AppState(impersoniateUser = sharedUser, currentUser = currentUser)
+        every { appStateManager.state } returns AppState(
+            impersoniateUser = sharedUser,
+            currentUser = currentUser
+        )
 
-
-        presenter = NewFolderComponentPresenter(appStateManager, createFolderInteractor, deleteFolderInteractor, editFolderInteractor)
+        presenter = NewFolderComponentPresenter(
+            appStateManager,
+            createFolderInteractor,
+            deleteFolderInteractor,
+            editFolderInteractor
+        )
         presenter.onViewCreated(mockView, mockLifecycle)
     }
 
@@ -49,19 +55,17 @@ class NewFolderPresenterTest {
         val parentFolder = 21
         val name = "new folder name"
 
-
         // Shared user is disabled
         every { mockView.overrideActiveUser } returns false
-
 
         presenter.createNewFolder(parentFolder, name)
 
         verify {
             // user id should be null
-            createFolderInteractor.input = CreateFolderInteractor.Input(FolderRequest(null, parentFolder, name))
+            createFolderInteractor.input =
+                CreateFolderInteractor.Input(FolderRequest(null, parentFolder, name))
             createFolderInteractor.run()
         }
-
     }
 
     @Test
@@ -70,21 +74,18 @@ class NewFolderPresenterTest {
         val parentFolder = 21
         val name = "new folder name"
 
-
         // Shared user is enabled
         every { mockView.overrideActiveUser } returns true
-
 
         presenter.createNewFolder(parentFolder, name)
 
         verify {
             // user id should be null
-            createFolderInteractor.input = CreateFolderInteractor.Input(FolderRequest(sharedUser.userId, parentFolder, name))
+            createFolderInteractor.input =
+                CreateFolderInteractor.Input(FolderRequest(sharedUser.userId, parentFolder, name))
             createFolderInteractor.run()
         }
-
     }
-
 
     @Test
     fun `Delete Folder Test`() {

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.managers
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Handler
 import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
@@ -28,7 +29,7 @@ class UIManagerImpl(val context: Context) : UIManager {
     // so it needs to be skipped (using the "noboot" extra). Otherwise, we'll end in a, infinite loop
     override fun showLoginScreen() {
         handler.post {
-            App.currentActivity()?.let {
+            (context.applicationContext as? App)?.currentActivity?.let {
                 ActivityStarter(it)
                     .activity(StartActivity::class.java)
                     .putExtra("noboot", true)
@@ -37,6 +38,7 @@ class UIManagerImpl(val context: Context) : UIManager {
             }.guard {
                 val i = Intent(context, StartActivity::class.java)
                 i.putExtra("noboot", true)
+                i.addFlags(FLAG_ACTIVITY_NEW_TASK)
                 i.putExtra("sessionExpired", true)
                 context.startActivity(i)
             }
@@ -45,7 +47,7 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageScreen() {
         handler.post {
-            App.currentActivity()?.let {
+            (context.applicationContext as? App)?.currentActivity?.let {
                 it.startActivity(
                     Intent(
                         context,
@@ -53,13 +55,13 @@ class UIManagerImpl(val context: Context) : UIManager {
                     )
                 ); it.overridePendingTransition(0, 0)
             }
-                .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
+                .guard { context.startActivity(Intent(context, MessageActivity::class.java).addFlags(FLAG_ACTIVITY_NEW_TASK)) }
         }
     }
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            App.currentActivity()?.let {
+            (context.applicationContext as? App)?.currentActivity?.let {
                 it.startActivity(
                     Intent(
                         context,
@@ -72,7 +74,7 @@ class UIManagerImpl(val context: Context) : UIManager {
                         Intent(
                             context,
                             MessageEmbeddedActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }
@@ -80,14 +82,14 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageOpeningScreen() {
         handler.post {
-            App.currentActivity()
+            (context.applicationContext as? App)?.currentActivity
                 ?.startActivity(Intent(context, MessageOpeningActivity::class.java))
                 .guard {
                     context.startActivity(
                         Intent(
                             context,
                             MessageOpeningActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }
@@ -97,21 +99,21 @@ class UIManagerImpl(val context: Context) : UIManager {
         val intent = Intent(context, MailListActivity::class.java)
         intent.putExtra("folder", folder)
         handler.post {
-            App.currentActivity()?.startActivity(intent)
-                .guard { context.startActivity(intent) }
+            (context.applicationContext as? App)?.currentActivity?.startActivity(intent)
+                .guard { context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))}
         }
     }
 
     override fun showPermissionRequestScreen() {
         handler.post {
-            App.currentActivity()
+            (context.applicationContext as? App)?.currentActivity
                 ?.startActivity(Intent(context, PermissionRequestActivity::class.java))
                 .guard {
                     context.startActivity(
                         Intent(
                             context,
                             PermissionRequestActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }

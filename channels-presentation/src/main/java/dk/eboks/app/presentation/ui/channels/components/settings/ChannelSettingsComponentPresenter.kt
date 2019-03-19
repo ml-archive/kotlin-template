@@ -99,11 +99,9 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun removeChannel() {
+        uninstallChannelInteractor.input = UninstallChannelInteractor.Input(currentChannel?.id ?: return)
         view { showProgress(true) }
-        currentChannel?.let {
-            uninstallChannelInteractor.input = UninstallChannelInteractor.Input(it.id)
-            uninstallChannelInteractor.run()
-        }
+        uninstallChannelInteractor.run()
     }
 
     private fun refreshChannel(channelId: Int) {
@@ -115,7 +113,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
      * Interactor callbacks ----------------------------------------------------------------------->
      */
 
-    override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
+    override fun onGetCardsSuccessful(result: List<StoreboxCreditCard>) {
         view {
             showProgress(false)
             setCreditCards(result)

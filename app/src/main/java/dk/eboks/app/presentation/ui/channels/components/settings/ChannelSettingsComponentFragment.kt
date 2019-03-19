@@ -163,7 +163,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         }
     }
 
-    override fun setCreditCards(cards: MutableList<StoreboxCreditCard>) {
+    override fun setCreditCards(cards: List<StoreboxCreditCard>) {
         Timber.d("CARDS: ${cards.size}")
         showProgress(false)
         adapter.creditCards.clear()

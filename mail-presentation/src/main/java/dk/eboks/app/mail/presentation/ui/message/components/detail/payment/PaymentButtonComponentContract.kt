@@ -11,5 +11,4 @@ interface PaymentButtonComponentContract {
     interface View : BaseView {
         fun showPaymentDetails(payment: Payment)
     }
-
 }

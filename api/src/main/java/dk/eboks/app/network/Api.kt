@@ -13,14 +13,15 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
+import dk.eboks.app.domain.models.formreply.ReplyFormOutput
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.StorageInfo
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.payment.PaymentCallback
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.sender.CollectionContainer
@@ -32,7 +33,17 @@ import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.models.shared.ResourceLink
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by bison on 20-05-2017.
@@ -148,24 +159,26 @@ interface Api {
     @DELETE("mail/folders/{folderId}/messages/{messageId}")
     fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String): Call<Void>
 
-
     @GET("mail/folders/{folderId}/messages/{messageId}/payment")
-    fun getPaymentDetails(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Payment>
+    fun getPaymentDetails(@Path("folderId") folderId: Int, @Path("messageId") messageId: String): Call<Payment>
 
     @FormUrlEncoded
     @PATCH("mail/folders/{folderId}/messages/{messageId}/payment")
     fun togglePaymentNotifications(
-            @Path("folderId") folderId: Int,
-            @Path("messageId") messageId: String,
-            @Field("notification") on: Boolean) : Call<Void>
+        @Path("folderId") folderId: Int,
+        @Path("messageId") messageId: String,
+        @Field("notification") on: Boolean
+    ): Call<Void>
 
     @GET("mail/folders/{folderId}/messages/{messageId}/payment/{type}/link")
-    fun getPaymentLink(@Path("folderId") folderId: Int,
-                       @Path("messageId")  messageId: String,
-                       @Path("type") paymentType: String,
-                       @Query("callback_success") successCallback: String = PaymentCallback.SUCCESS.url,
-                       @Query("callback_error") failureCallback: String = PaymentCallback.FAILURE.url,
-                       @Query("callback_cancel") cancelCallback: String = PaymentCallback.CANCEL.url) : Call<Link>
+    fun getPaymentLink(
+        @Path("folderId") folderId: Int,
+        @Path("messageId") messageId: String,
+        @Path("type") paymentType: String,
+        @Query("callback_success") successCallback: String = PaymentCallback.SUCCESS.url,
+        @Query("callback_error") failureCallback: String = PaymentCallback.FAILURE.url,
+        @Query("callback_cancel") cancelCallback: String = PaymentCallback.CANCEL.url
+    ): Call<Link>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights")
@@ -197,18 +210,18 @@ interface Api {
     @GET("mail/folders/{folderId}/messages/{id}/reply")
     fun getMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int): Call<ReplyForm>
 
-    @PATCH("mail/folders/{folderId}/messages/{id}/reply")
-    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyForm): Call<Any>
+    @PUT("mail/folders/{folderId}/messages/{id}/reply")
+    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyFormOutput): Call<Response<Void>>
 
     // channels
     @GET("channels")
-    fun getChannels(): Call<MutableList<Channel>>
+    fun getChannels(): Call<List<Channel>>
 
     @GET("channels?pinned=true")
-    fun getChannelsPinned(): Call<MutableList<Channel>>
+    fun getChannelsPinned(): Call<List<Channel>>
 
     @GET("channels?installed=true")
-    fun getChannelsInstalled(): Call<MutableList<Channel>>
+    fun getChannelsInstalled(): Call<List<Channel>>
 
     @GET("channels/{id}")
     fun getChannel(@Path("id") id: Int): Call<Channel>
@@ -257,7 +270,7 @@ interface Api {
     fun getStoreboxCardLink(@Query("callback_success") callbackSuccess: String, @Query("callback_error") callbackError: String): Call<Link>
 
     @GET("channels/storebox/user/cards")
-    fun getStoreboxCreditCards(): Call<MutableList<StoreboxCreditCard>>
+    fun getStoreboxCreditCards(): Call<List<StoreboxCreditCard>>
 
     @DELETE("channels/storebox/user/cards/{cardId}")
     fun deleteStoreboxCreditCard(@Path("cardId") id: String): Call<Void>

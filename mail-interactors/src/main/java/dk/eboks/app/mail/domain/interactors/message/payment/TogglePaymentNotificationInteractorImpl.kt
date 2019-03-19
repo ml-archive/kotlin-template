@@ -6,13 +6,12 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 internal class TogglePaymentNotificationInteractorImpl @Inject constructor(
-        executor: Executor,
-        private val api: Api)
-    : BaseInteractor(executor), TogglePaymentNotificationInteractor {
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), TogglePaymentNotificationInteractor {
 
     override var input: TogglePaymentNotificationInteractor.Input? = null
     override var output: TogglePaymentNotificationInteractor.Output? = null
@@ -28,6 +27,4 @@ internal class TogglePaymentNotificationInteractorImpl @Inject constructor(
             }
         }
     }
-
-
 }

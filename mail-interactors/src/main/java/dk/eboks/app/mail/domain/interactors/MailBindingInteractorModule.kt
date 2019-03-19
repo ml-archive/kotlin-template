@@ -34,7 +34,12 @@ import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
 import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.payment.*
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentDetailsInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentDetailsInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentLinkInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentLinkInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.payment.TogglePaymentNotificationInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.TogglePaymentNotificationInteractorImpl
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractorImpl
 import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
@@ -112,13 +117,11 @@ abstract class MailBindingInteractorModule {
     internal abstract fun bindGetAllSharesInteractor(interactor: GetAllSharesInteractorImpl): GetAllSharesInteractor
 
     @Binds
-    internal abstract fun bindGetPaymentLinkInteractor(interactor: GetPaymentLinkInteractorImpl) : GetPaymentLinkInteractor
+    internal abstract fun bindGetPaymentLinkInteractor(interactor: GetPaymentLinkInteractorImpl): GetPaymentLinkInteractor
 
     @Binds
-    internal abstract fun bindGetPaymentDetailsInteractor(interactor: GetPaymentDetailsInteractorImpl) : GetPaymentDetailsInteractor
+    internal abstract fun bindGetPaymentDetailsInteractor(interactor: GetPaymentDetailsInteractorImpl): GetPaymentDetailsInteractor
 
     @Binds
-    internal abstract fun bindTogglePaymentNotificationInteractor(interactor: TogglePaymentNotificationInteractorImpl) : TogglePaymentNotificationInteractor
-
-
+    internal abstract fun bindTogglePaymentNotificationInteractor(interactor: TogglePaymentNotificationInteractorImpl): TogglePaymentNotificationInteractor
 }

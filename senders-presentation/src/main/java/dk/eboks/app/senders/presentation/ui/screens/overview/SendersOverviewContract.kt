@@ -2,7 +2,6 @@ package dk.eboks.app.senders.presentation.ui.screens.overview
 
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -20,7 +19,7 @@ interface SendersOverviewContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun registerSender(sender: Sender)
-        fun unregisterSender(sender: Sender)
+        fun registerSender(senderId: Long)
+        fun unregisterSender(senderId: Long)
     }
 }

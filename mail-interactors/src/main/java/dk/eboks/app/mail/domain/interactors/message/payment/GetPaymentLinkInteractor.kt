@@ -15,5 +15,4 @@ interface GetPaymentLinkInteractor : Interactor {
         fun onPaymentLinkLoaded(link: Link)
         fun onPaymentLinkLoadingError(viewError: ViewError)
     }
-
 }

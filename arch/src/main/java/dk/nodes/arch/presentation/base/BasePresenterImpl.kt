@@ -3,6 +3,7 @@ package dk.nodes.arch.presentation.base
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import dk.nodes.arch.extensions.guard
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +21,7 @@ import kotlin.coroutines.resume
 
 abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
 
-    private val cachedViewActions = LinkedBlockingQueue<Runnable>()
+    private val cachedViewActions = LinkedBlockingQueue<(V) -> Unit>()
     protected var view: V? = null
     protected var lifecycle: Lifecycle? = null
     protected var job: Job = Job()
@@ -47,7 +48,6 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
     override fun onViewCreated(view: V, lifecycle: Lifecycle) {
         this.view = view
         this.lifecycle = lifecycle
-
         lifecycle.addObserver(this)
     }
 
@@ -58,7 +58,7 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     override fun onResume() {
         while (!cachedViewActions.isEmpty() && view != null) {
-            view?.let { cachedViewActions.poll().run() }
+            view?.let(cachedViewActions.poll()::invoke)
         }
     }
 
@@ -78,30 +78,11 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
         job.cancel()
     }
 
-    fun runAction(runnable: Runnable) {
-        if (view != null) {
-            view?.let {
-                runnable.run()
-            }
-        } else {
-            cachedViewActions.add(runnable)
-        }
-    }
-
     fun runAction(action: (V) -> Unit) {
-        if (view != null) {
-            view?.let {
-                action(it)
-            }
-        } else {
-            cachedViewActions.add(Runnable {
-                action(view!!)
-            })
-        }
+        view?.let(action).guard { cachedViewActions.add(action) }
     }
 
-    fun view(block: V.() -> Unit) =
-        view?.let(block) ?: cachedViewActions.add(Runnable { view?.block() })
+    fun view(block: V.() -> Unit) = view?.let(block) ?: cachedViewActions.add(block)
 
     fun launchOnUI(block: suspend CoroutineScope.() -> Unit): Job {
         return mainScope.launch(context = mainCoroutineContext, block = block)

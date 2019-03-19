@@ -26,7 +26,6 @@ class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentCon
         presenter.onViewCreated(this, lifecycle)
     }
 
-
     override fun showPaymentDetails(payment: Payment) {
         paymentButton.text = "${payment.status.title} ${payment.amount ?: ""}"
         paymentDueTv.text = payment.status.text
@@ -41,11 +40,9 @@ class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentCon
 
         private const val ARG_PAYMENT = "Payment"
 
-        fun newInstance(payment: Payment) : PaymentButtonComponentFragment {
+        fun newInstance(payment: Payment): PaymentButtonComponentFragment {
             val args = Bundle().apply { putParcelable(ARG_PAYMENT, payment) }
             return PaymentButtonComponentFragment().apply { arguments = args }
         }
-
     }
-
 }

@@ -18,7 +18,8 @@ class GetSendersInteractorImplTest {
     private val sendersRepository = mockk<SendersRepository>()
     private val categoryRepository = mockk<SenderCategoriesRepository>()
 
-    private val interactor = GetSendersInteractorImpl(executor, sendersRepository, categoryRepository)
+    private val interactor =
+        GetSendersInteractorImpl(executor, sendersRepository, categoryRepository)
 
     // Dummy data
     private val cachedSenders = listOf(Sender(1, "cached"))

@@ -7,7 +7,6 @@ import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class GetPaymentDetailsInteractorImplTest {
@@ -16,7 +15,6 @@ class GetPaymentDetailsInteractorImplTest {
     private val repository = mockk<MessagesRepository>()
 
     private val interactor = GetPaymentDetailsInteractorImpl(executor, repository)
-
 
     @Test
     fun `Test Get Payment Details`() {
@@ -39,9 +37,7 @@ class GetPaymentDetailsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Test Get Payment Details Error`() {
@@ -64,7 +60,5 @@ class GetPaymentDetailsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 }

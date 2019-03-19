@@ -38,7 +38,6 @@ internal class MailListComponentPresenter @Inject constructor(
     private var currentFolder: Folder? = null
     private var currentSender: Sender? = null
 
-
     @VisibleForTesting var currentOffset: Int = 0
     @VisibleForTesting val currentLimit: Int = 30
     @VisibleForTesting var totalMessages: Int = -1

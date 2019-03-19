@@ -7,7 +7,6 @@ import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class UpdateMessagesInteractorImplTest {

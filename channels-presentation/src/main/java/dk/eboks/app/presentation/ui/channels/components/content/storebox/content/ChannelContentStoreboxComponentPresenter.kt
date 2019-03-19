@@ -57,7 +57,7 @@ internal class ChannelContentStoreboxComponentPresenter @Inject constructor(
         view { showErrorDialog(error) }
     }
 
-    override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
+    override fun onGetCardsSuccessful(result: List<StoreboxCreditCard>) {
         // if no credits are added show specialized call to action empty view
         if (result.isEmpty()) {
             view { showNoCreditCardsEmptyView(true) }

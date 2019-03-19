@@ -1,8 +1,8 @@
 package dk.nodes.arch.domain.interactor
 
-import android.util.Log
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.executor.TestExecutor
+import timber.log.Timber
 
 abstract class BaseInteractor(protected val executor: Executor) : Interactor {
 
@@ -14,11 +14,8 @@ abstract class BaseInteractor(protected val executor: Executor) : Interactor {
                 if (executor is TestExecutor) {
                     throw t
                 } else {
-                    Log.e(
-                        "BaseInteractor",
-                        "Uncaught throwable in thread ${Thread.currentThread()?.name}"
-                    )
-                    Log.e("BaseInteractor", Log.getStackTraceString(t))
+                    Timber.e("Uncaught throwable in thread ${Thread.currentThread()?.name}")
+                    Timber.e(t)
                     submitToHockey(t)
                 }
             }
@@ -35,20 +32,20 @@ abstract class BaseInteractor(protected val executor: Executor) : Interactor {
         try {
             val exceptionHandlerCls = Class.forName("net.hockeyapp.android.ExceptionHandler")
             try {
-                val default_handler =
+                val defaultHandler =
                     exceptionHandlerCls.cast(Thread.getDefaultUncaughtExceptionHandler())
                 val method = exceptionHandlerCls.getMethod(
                     "uncaughtException",
                     Thread::class.java,
                     Throwable::class.java
                 )
-                method.invoke(default_handler, Thread.currentThread(), t)
+                method.invoke(defaultHandler, Thread.currentThread(), t)
             } catch (ex: ClassCastException) {
                 // e.printStackTrace()
-                Log.e("BaseInteractor", "Could not get HockeySDK uncaught exception handler")
+                Timber.e("Could not get HockeySDK uncaught exception handler")
             }
         } catch (e: ClassNotFoundException) {
-            Log.e("BaseInteractor", "Could not load HockeyApp SDK Classes, cannot record crash")
+            Timber.e("Could not load HockeyApp SDK Classes, cannot record crash")
         }
     }
 }

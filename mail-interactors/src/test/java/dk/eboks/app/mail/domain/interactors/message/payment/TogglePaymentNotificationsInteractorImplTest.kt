@@ -7,7 +7,6 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
 import retrofit2.Response
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class TogglePaymentNotificationsInteractorImplTest {
@@ -17,12 +16,13 @@ class TogglePaymentNotificationsInteractorImplTest {
 
     private val interactor = TogglePaymentNotificationInteractorImpl(executor, api)
 
-
     @Test
     fun `Payment Notifications Toggle Test`() {
         val latch = CountDownLatch(1)
 
-        every { api.togglePaymentNotifications(any(), any(), any()).execute() } returns Response.success(null)
+        every {
+            api.togglePaymentNotifications(any(), any(), any()).execute()
+        } returns Response.success(null)
 
         interactor.input = TogglePaymentNotificationInteractor.Input(1, "", true)
         interactor.output = object : TogglePaymentNotificationInteractor.Output {
@@ -39,7 +39,6 @@ class TogglePaymentNotificationsInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 
     @Test
     fun `Payment Notifications Toggle Error Test`() {
@@ -62,6 +61,4 @@ class TogglePaymentNotificationsInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
-
 }

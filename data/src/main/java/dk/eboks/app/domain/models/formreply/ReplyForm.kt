@@ -7,3 +7,12 @@ import kotlinx.android.parcel.Parcelize
 data class ReplyForm(
     var inputs: List<FormInput> = ArrayList()
 ) : Parcelable
+
+fun ReplyForm.toOutputForm(): ReplyFormOutput {
+    return ReplyFormOutput(inputs.filter { it.name != null }.map {
+        FormOutput(
+            it.name!!,
+            it.value!!
+        )
+    })
+}

@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.EmbeddedViewer
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfPrintAdapter
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfViewComponentContract
+import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewerFragment
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import timber.log.Timber
 import javax.inject.Inject

@@ -18,6 +18,6 @@ interface ReplyFormContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup(msg: Message)
-        fun submit()
+        fun submit(formList: List<FormInput>)
     }
 }

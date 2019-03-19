@@ -7,10 +7,10 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-internal class GetPaymentLinkInteractorImpl @Inject constructor(executor: Executor,
-                                   private val repository: MessagesRepository)
-    : BaseInteractor(executor),
-        GetPaymentLinkInteractor {
+internal class GetPaymentLinkInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val repository: MessagesRepository
+) : BaseInteractor(executor), GetPaymentLinkInteractor {
 
     override var input: GetPaymentLinkInteractor.Input? = null
     override var output: GetPaymentLinkInteractor.Output? = null
@@ -27,9 +27,6 @@ internal class GetPaymentLinkInteractorImpl @Inject constructor(executor: Execut
             } catch (e: Exception) {
                 output?.onPaymentLinkLoadingError(exceptionToViewError(e))
             }
-
         }
     }
-
-
 }

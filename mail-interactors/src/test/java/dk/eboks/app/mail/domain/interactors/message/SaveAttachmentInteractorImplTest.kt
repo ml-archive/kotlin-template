@@ -22,8 +22,10 @@ class SaveAttachmentInteractorImplTest {
     @Test
     fun `Save Attachment Test`() {
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val filename = "filename"
         val message = mockk<Message>()
 
@@ -52,8 +54,10 @@ class SaveAttachmentInteractorImplTest {
     @Test
     fun `Save Attachment Without Permission Error Test`() {
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val filename = "filename"
         val message = mockk<Message>()
 
@@ -80,11 +84,14 @@ class SaveAttachmentInteractorImplTest {
         interactor.run()
         latch.await()
     }
+
     @Test
     fun `Save Attachment That's not exists Error`() {
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val filename = "filename"
         val message = mockk<Message>()
 

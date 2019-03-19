@@ -6,7 +6,11 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.*
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Sign
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
@@ -29,7 +33,6 @@ class MessagePresenterTest {
 
     private lateinit var presenter: MessagePresenter
 
-
     private val replyStatus: Status = mockk(relaxed = true)
     private val payment: Payment = mockk(relaxed = true)
     private val attachments: List<Content> = listOf()
@@ -47,11 +50,14 @@ class MessagePresenterTest {
 
         every { appStateManager.state } returns AppState(currentMessage = message)
 
-        presenter = MessagePresenter(appStateManager, appConfig, deleteMessagesInteractor, updateMessageInteractor)
+        presenter = MessagePresenter(
+            appStateManager,
+            appConfig,
+            deleteMessagesInteractor,
+            updateMessageInteractor
+        )
         presenter.onViewCreated(view, lifecycle)
-
     }
-
 
     @Test
     fun `Setup Test`() {
@@ -78,7 +84,6 @@ class MessagePresenterTest {
             view.addFolderInfoComponentFragment()
             view.showTitle(message)
             view.addAttachmentsComponentFragment()
-
         }
 
         // Replies, action etc actions called only once
@@ -86,7 +91,6 @@ class MessagePresenterTest {
             view.addReplyButtonComponentFragment(message)
         }
     }
-
 
     @Test
     fun `Test Move Message`() {
@@ -98,7 +102,8 @@ class MessagePresenterTest {
 
         verify {
             val patch = MessagePatch(folderId = folder.id)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
@@ -115,7 +120,6 @@ class MessagePresenterTest {
         }
     }
 
-
     @Test
     fun `Test Archive Message`() {
 
@@ -124,7 +128,8 @@ class MessagePresenterTest {
 
         verify {
             val patch = MessagePatch(archive = true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
@@ -137,11 +142,10 @@ class MessagePresenterTest {
 
         verify {
             val patch = MessagePatch(unread = false)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
-
-
     }
 
     @Test
@@ -152,11 +156,11 @@ class MessagePresenterTest {
 
         verify {
             val patch = MessagePatch(unread = true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
-
 
     @Test
     fun `Test On Update Message Error`() {
@@ -167,5 +171,4 @@ class MessagePresenterTest {
             view.showErrorDialog(error)
         }
     }
-
 }

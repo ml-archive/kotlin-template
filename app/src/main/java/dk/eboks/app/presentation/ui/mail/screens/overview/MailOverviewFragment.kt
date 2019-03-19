@@ -57,11 +57,11 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
             if (!mainTb.getChildrenViews().any { view -> view is ImageView }) {
                 val imageView = ImageView(context)
                 imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
-                val layoutparams = LinearLayout.LayoutParams(
+                val layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
-                imageView.layoutParams = layoutparams
+                imageView.layoutParams = layoutParams
                 mainTb.addView(imageView)
             }
             mainTb.isClickable = true

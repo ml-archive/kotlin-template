@@ -88,7 +88,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
         setupTopbar()
         setupRecyclers()
-        presenter.loadReceipt()
+        presenter.loadReceipt(arguments?.getString(StoreboxReceipt.KEY_ID) ?: return)
     }
 
     private fun setupTopbar() {
@@ -125,10 +125,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         storeboxDetailRvPayments.adapter = paymentAdapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvPayments, false)
-    }
-
-    override fun getReceiptId(): String? {
-        return arguments?.getString(StoreboxReceipt.KEY_ID)
     }
 
     override fun showProgress(isLoading: Boolean) {

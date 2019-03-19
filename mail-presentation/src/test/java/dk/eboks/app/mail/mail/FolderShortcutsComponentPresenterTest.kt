@@ -4,12 +4,11 @@ import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.mail.domain.interactors.categories.GetCategoriesInteractor
-import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentPresenter
-import io.mockk.*
-import org.greenrobot.eventbus.EventBus
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
@@ -22,13 +21,11 @@ class FolderShortcutsComponentPresenterTest {
 
     private lateinit var presenter: FolderShortcutsComponentPresenter
 
-
     @Before
     fun setUp() {
         presenter = FolderShortcutsComponentPresenter(getCategoriesInteractor, openFolderInteractor)
         presenter.onViewCreated(view, lifecycle)
     }
-
 
     @Test
     fun `Test Open Folder`() {
@@ -59,8 +56,4 @@ class FolderShortcutsComponentPresenterTest {
             view.showProgress(false)
         }
     }
-
-
-
-
 }

@@ -1,11 +1,11 @@
 package dk.eboks.app.keychain.presentation.components.providers
 
 import dk.eboks.app.domain.config.AppConfig
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.presentation.base.ViewController
 import javax.inject.Inject
 

@@ -3,16 +3,12 @@ package dk.eboks.app.senders.presentation.ui.screens.overview
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.senders.interactors.GetCollectionsInteractor
 import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,7 +36,7 @@ internal class SendersOverviewPresenter @Inject constructor(
         getSenderCategoriesInteractor.output = this
         getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(true)
         collectionsInteractor.input = GetCollectionsInteractor.Input(false)
-        GlobalScope.launch(Dispatchers.IO) {
+        launchOnIO {
             collectionsInteractor.run()
             getPendingInteractor.run()
             getSenderCategoriesInteractor.run()
@@ -49,7 +45,7 @@ internal class SendersOverviewPresenter @Inject constructor(
 
     override fun onGetCollections(collections: List<CollectionContainer>) {
         Timber.i("Collection loaded")
-        GlobalScope.launch(Dispatchers.IO) {
+        launchOnIO {
             collections.forEach {
                 Timber.d("Container type: ${it.type}")
             }
@@ -67,14 +63,14 @@ internal class SendersOverviewPresenter @Inject constructor(
         }
     }
 
-    override fun unregisterSender(sender: Sender) {
-        registerInteractor.inputSender = RegisterInteractor.InputSender(sender.id)
-        registerInteractor.run()
+    override fun unregisterSender(senderId: Long) {
+        unRegisterInteractor.inputSender = UnRegisterInteractor.InputSender(senderId)
+        unRegisterInteractor.run()
     }
 
-    override fun registerSender(sender: Sender) {
-        unRegisterInteractor.inputSender = UnRegisterInteractor.InputSender(sender.id)
-        unRegisterInteractor.run()
+    override fun registerSender(senderId: Long) {
+        registerInteractor.inputSender = RegisterInteractor.InputSender(senderId)
+        registerInteractor.run()
     }
 
     override fun onSuccess() {

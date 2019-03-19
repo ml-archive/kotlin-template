@@ -24,10 +24,10 @@ class FolderComponentPresenterTest {
 
     private lateinit var presenter: FoldersComponentPresenter
 
-
     @Before
     fun setUp() {
-        presenter = FoldersComponentPresenter(appStaManager, getFoldersInteractor, openFoldersInteractor)
+        presenter =
+            FoldersComponentPresenter(appStaManager, getFoldersInteractor, openFoldersInteractor)
         presenter.onViewCreated(mockView, mockLifecycle)
     }
 
@@ -66,7 +66,6 @@ class FolderComponentPresenterTest {
         }
     }
 
-
     @Test
     fun `On Open Folder Error Test`() {
         val error = ViewError()
@@ -76,6 +75,4 @@ class FolderComponentPresenterTest {
             mockView.showErrorDialog(error)
         }
     }
-
-
 }

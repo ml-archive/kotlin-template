@@ -9,8 +9,9 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
 class PaymentButtonComponentPresenter @Inject constructor(
-        private val appStateManager: AppStateManager,
-        private val getPaymentDetailsInteractor: GetPaymentDetailsInteractor) :
+    private val appStateManager: AppStateManager,
+    private val getPaymentDetailsInteractor: GetPaymentDetailsInteractor
+) :
         BasePresenterImpl<PaymentButtonComponentContract.View>(),
         PaymentButtonComponentContract.Presenter,
         GetPaymentDetailsInteractor.Output {
@@ -29,7 +30,5 @@ class PaymentButtonComponentPresenter @Inject constructor(
     }
 
     override fun onPaymentDetailsLoadingError(viewError: ViewError) {
-
     }
-
 }

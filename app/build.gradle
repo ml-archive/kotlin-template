@@ -44,7 +44,7 @@ android {
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "true"
         buildConfigField "Boolean", "ENABLE_SHARES", "false"
-        buildConfigField "Boolean", "ENABLE_REPLY", "false"
+        buildConfigField "Boolean", "ENABLE_REPLY", "true"
         buildConfigField "Boolean", "ENABLE_SIGN", "true"
         buildConfigField "Boolean", "ENABLE_FINGERPRINT_NONVERIFIED", "false"
         buildConfigField "Boolean", "ENABLE_BETA_DISCLAIMER", "true"
@@ -121,7 +121,7 @@ android {
 
         release {
             //debuggable true
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             productFlavors.all { flavor ->

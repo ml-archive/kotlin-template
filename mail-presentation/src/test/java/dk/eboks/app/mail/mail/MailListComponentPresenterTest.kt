@@ -31,11 +31,14 @@ class MailListComponentPresenterTest {
 
     @Before
     fun setUp() {
-        presenter = MailListComponentPresenter(getMessagesInteractor, deleteMessagesInteractor, moveMessagesInteractor, updateMessageInteractor)
+        presenter = MailListComponentPresenter(
+            getMessagesInteractor,
+            deleteMessagesInteractor,
+            moveMessagesInteractor,
+            updateMessageInteractor
+        )
         presenter.onViewCreated(mockView, mockLifecycle)
-
     }
-
 
     @Test
     fun `Test Setup With Folder`() {
@@ -43,12 +46,17 @@ class MailListComponentPresenterTest {
         presenter.setup(folder)
 
         verify {
-            getMessagesInteractor.input = GetMessagesInteractor.Input(false, folder, null, presenter.currentOffset, presenter.currentLimit)
+            getMessagesInteractor.input = GetMessagesInteractor.Input(
+                false,
+                folder,
+                null,
+                presenter.currentOffset,
+                presenter.currentLimit
+            )
 
             presenter.isLoading = true
 
             mockView.showProgress(true)
-
         }
     }
 
@@ -57,16 +65,20 @@ class MailListComponentPresenterTest {
         val sender = mockk<Sender>()
         presenter.setup(sender)
         verify {
-            getMessagesInteractor.input = GetMessagesInteractor.Input(false, null, sender, presenter.currentOffset, presenter.currentLimit)
+            getMessagesInteractor.input = GetMessagesInteractor.Input(
+                false,
+                null,
+                sender,
+                presenter.currentOffset,
+                presenter.currentLimit
+            )
             getMessagesInteractor.run()
 
             presenter.isLoading = true
 
             mockView.showProgress(true)
         }
-
     }
-
 
     @Test
     fun `Test Load Next Page`() {
@@ -77,11 +89,9 @@ class MailListComponentPresenterTest {
         // Page gets loaded
         presenter.loadNextPage()
 
-
         // Page Wont be loaded becuase last loading is not finished
         presenter.isLoading = true
         presenter.loadNextPage()
-
 
         presenter.isLoading = false
         presenter.currentOffset = 100
@@ -89,7 +99,6 @@ class MailListComponentPresenterTest {
 
         // No pages left to load
         presenter.loadNextPage()
-
 
         // Loading starts only once
         verify(exactly = 1) {
@@ -104,7 +113,6 @@ class MailListComponentPresenterTest {
         verify { getMessagesInteractor.run() }
     }
 
-
     @Test
     fun `Delete Messages Test`() {
         val messagesToDelete = mockk<MutableList<Message>>(relaxed = true)
@@ -112,10 +120,10 @@ class MailListComponentPresenterTest {
 
         verify {
             mockView.showProgress(true)
-            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(ArrayList(messagesToDelete))
+            deleteMessagesInteractor.input =
+                DeleteMessagesInteractor.Input(ArrayList(messagesToDelete))
             deleteMessagesInteractor.run()
         }
-
     }
 
     @Test
@@ -140,7 +148,8 @@ class MailListComponentPresenterTest {
         verify {
             val patch = MessagePatch(unread)
             mockView.showProgress(true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(ArrayList(messages), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(ArrayList(messages), patch)
             updateMessageInteractor.run()
         }
     }
@@ -153,29 +162,26 @@ class MailListComponentPresenterTest {
         verify {
             val patch = MessagePatch(archive = true)
             mockView.showProgress(true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(ArrayList(messages), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(ArrayList(messages), patch)
             updateMessageInteractor.run()
         }
     }
-
 
     @Test
     fun `Test On Get Messages`() {
         presenter.isLoading = true
         presenter.currentOffset = 0
 
-
         val messages = List(30) { mockk<Message>(relaxed = true) }
 
         presenter.onGetMessages(messages)
-
 
         verify {
             mockView.showProgress(false)
             mockView.showRefreshProgress(false)
             mockView.showMessages(messages)
         }
-
     }
 
     @Test
@@ -183,20 +189,16 @@ class MailListComponentPresenterTest {
         presenter.isLoading = true
         presenter.currentOffset = 0
 
-
         val messages = listOf<Message>()
 
         presenter.onGetMessages(messages)
-
 
         verify {
             mockView.showProgress(false)
             mockView.showRefreshProgress(false)
             mockView.showEmpty(true)
         }
-
     }
-
 
     @Test
     fun `On Get Messages Error Test`() {
@@ -211,7 +213,6 @@ class MailListComponentPresenterTest {
             mockView.showEmpty(true)
         }
     }
-
 
     @Test
     fun `On Move Message Error`() {

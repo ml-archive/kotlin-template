@@ -75,11 +75,11 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     }
 
     override fun onRegisterSenderClick(sender: Sender) {
-        presenter.registerSender(sender)
+        presenter.registerSender(sender.id)
     }
 
     override fun onUnregisterSenderClick(sender: Sender) {
-        presenter.unregisterSender(sender)
+        presenter.unregisterSender(sender.id)
     }
 
     override fun onSegmentClick(segment: Segment) {

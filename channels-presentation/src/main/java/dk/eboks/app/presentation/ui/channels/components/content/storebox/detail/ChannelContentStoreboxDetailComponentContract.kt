@@ -10,7 +10,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelContentStoreboxDetailComponentContract {
     interface View : BaseView {
-        fun getReceiptId(): String?
         fun setReceipt(receipt: StoreboxReceipt)
         fun showProgress(isLoading: Boolean)
         fun returnToMasterView()
@@ -19,7 +18,7 @@ interface ChannelContentStoreboxDetailComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadReceipt()
+        fun loadReceipt(receiptId: String)
         fun deleteReceipt()
         fun saveReceipt(dstFolder: Folder)
         fun shareReceipt(asMail: Boolean)

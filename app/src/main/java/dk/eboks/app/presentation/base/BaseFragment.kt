@@ -17,7 +17,7 @@ import timber.log.Timber
 
 abstract class BaseFragment : Fragment(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus()
+        (requireContext().applicationContext as App).appComponent.plus()
     }
 
     /**

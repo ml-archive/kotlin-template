@@ -36,7 +36,6 @@ class GetPaymentLinkInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -59,6 +58,5 @@ class GetPaymentLinkInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 }

@@ -2,9 +2,6 @@ package dk.eboks.app.keychain.injection
 
 import dagger.Binds
 import dagger.Module
-import dk.eboks.app.keychain.interactors.user.CheckSsnExistsInteractor
-import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
-import dk.eboks.app.keychain.interactors.user.CreateUserInteractorImpl
 import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractor
 import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractorImpl
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
@@ -29,7 +26,10 @@ import dk.eboks.app.keychain.interactors.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.keychain.interactors.mobileacces.GenerateRSAKeyInteractorImpl
 import dk.eboks.app.keychain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.keychain.interactors.signup.CheckSignupMailInteractorImpl
+import dk.eboks.app.keychain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.keychain.interactors.user.CheckSsnExistsInteractorImpl
+import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
+import dk.eboks.app.keychain.interactors.user.CreateUserInteractorImpl
 import dk.eboks.app.keychain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.keychain.interactors.user.DeleteUserInteractorImpl
 import dk.eboks.app.keychain.interactors.user.GetUsersInteractor

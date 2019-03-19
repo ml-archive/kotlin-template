@@ -1,11 +1,12 @@
 package dk.eboks.app.mail.presentation.ui.message.screens.reply
 
 import androidx.annotation.VisibleForTesting
-import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
-import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
+import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
+import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,10 +39,10 @@ internal class ReplyFormPresenter @Inject constructor(
         view { clearForm() }
     }
 
-    override fun submit() {
-        if (currentMessage != null && currentForm != null) {
+    override fun submit(formList: List<FormInput>) {
+        currentMessage?.let {
             submitReplyFormInteractor.input =
-                SubmitReplyFormInteractor.Input(currentMessage!!, currentForm!!)
+                SubmitReplyFormInteractor.Input(it, ReplyForm(formList))
             submitReplyFormInteractor.run()
         }
     }
@@ -50,9 +51,7 @@ internal class ReplyFormPresenter @Inject constructor(
         currentForm = form
         view {
             showProgress(false)
-            for (input in form.inputs) {
-                showFormInput(input)
-            }
+            form.inputs.forEach(::showFormInput)
         }
         Timber.e("Received replyform $form")
     }

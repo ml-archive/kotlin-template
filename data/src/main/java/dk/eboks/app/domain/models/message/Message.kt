@@ -15,30 +15,30 @@ import java.util.Date
  */
 @Parcelize
 data class Message(
-        var id: String,
-        var subject: String,
-        var received: Date,
-        var unread: Boolean,
-        var sender: Sender? = null,
-        var type: MessageType? = MessageType.RECEIVED,
-        var recipient: Sender? = null,
-        var folder: Folder? = null,
-        var folderId: Int = 0,
-        var content: Content? = null,
-        var attachments: List<Content>? = null,
-        var numberOfAttachments: Int = 0,
-        var payment: Payment? = null,
-        var sign: Sign? = null,
-        var reply: Status? = null,
-        var link: Link? = null,
-        var paymentStatus: Status? = null,
-        var signStatus: Status? = null,
-        var replyStatus: Status? = null,
-        @SerializedName("locked")
-        var lockStatus: Status? = null,
-        var status: Status? = null,
-        @SerializedName("Note")
-        var note: String? = ""
+    var id: String,
+    var subject: String,
+    var received: Date,
+    var unread: Boolean,
+    var sender: Sender? = null,
+    var type: MessageType? = MessageType.RECEIVED,
+    var recipient: Sender? = null,
+    var folder: Folder? = null,
+    var folderId: Int = 0,
+    var content: Content? = null,
+    var attachments: List<Content>? = null,
+    var numberOfAttachments: Int = 0,
+    var payment: Payment? = null,
+    var sign: Sign? = null,
+    var reply: Status? = null,
+    var link: Link? = null,
+    var paymentStatus: Status? = null,
+    var signStatus: Status? = null,
+    var replyStatus: Status? = null,
+    @SerializedName("locked")
+    var lockStatus: Status? = null,
+    var status: Status? = null,
+    @SerializedName("Note")
+    var note: String? = ""
 ) : Parcelable {
 
     fun findFolderId(): Int {

@@ -14,7 +14,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface ChannelSettingsComponentContract {
     interface View : BaseView {
         fun setupChannel(channel: Channel)
-        fun setCreditCards(cards: MutableList<StoreboxCreditCard>)
+        fun setCreditCards(cards: List<StoreboxCreditCard>)
         fun showProgress(boolean: Boolean)
         fun showEmptyView(boolean: Boolean)
         fun setOnlyDigitalReceipts(onlyDigital: Boolean)

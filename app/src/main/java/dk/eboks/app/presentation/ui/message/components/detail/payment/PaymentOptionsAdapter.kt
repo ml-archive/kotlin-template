@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.payment.PaymentOption
 import kotlinx.android.synthetic.main.viewholder_payment_option.view.*
 
-class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: PaymentOptionListener) : RecyclerView.Adapter<PaymentOptionsAdapter.ViewHolder>(){
+class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: PaymentOptionListener) : RecyclerView.Adapter<PaymentOptionsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_payment_option, parent, false)
@@ -33,5 +33,4 @@ class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: Paym
     interface PaymentOptionListener {
         fun onPaymentOptionSelected(paymentOption: PaymentOption)
     }
-
 }

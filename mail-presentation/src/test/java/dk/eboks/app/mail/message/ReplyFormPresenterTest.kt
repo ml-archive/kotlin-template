@@ -12,7 +12,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import java.util.Date
 
 class ReplyFormPresenterTest {
 
@@ -22,7 +22,8 @@ class ReplyFormPresenterTest {
     private val view: ReplyFormContract.View = mockk(relaxUnitFun = true)
     private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
-    private val message = Message("id", folderId = 12, subject = "s", received = Date(), unread = false)
+    private val message =
+        Message("id", folderId = 12, subject = "s", received = Date(), unread = false)
 
     private lateinit var presenter: ReplyFormPresenter
 
@@ -31,7 +32,6 @@ class ReplyFormPresenterTest {
         presenter = ReplyFormPresenter(getReplyFormInteractor, submitReplyFormInteractor)
         presenter.onViewCreated(view, lifecycle)
     }
-
 
     @Test
     fun `Setup Test`() {
@@ -42,29 +42,26 @@ class ReplyFormPresenterTest {
             getReplyFormInteractor.run()
             view.clearForm()
         }
-
     }
 
     @Test
     fun `Submit Test`() {
 
-        presenter.currentForm = ReplyForm()
+        val replyForm = ReplyForm()
         presenter.currentMessage = message
 
-        presenter.submit()
+        presenter.submit(replyForm.inputs)
 
         presenter.currentMessage = null
         presenter.currentForm = null
 
-        presenter.submit()
+        presenter.submit(replyForm.inputs)
 
         // Submit interactor runs only once
         verify(exactly = 1) {
             submitReplyFormInteractor.run()
         }
-
     }
-
 
     @Test
     fun `On Get Reply Form Test`() {

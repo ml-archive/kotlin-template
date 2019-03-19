@@ -99,6 +99,7 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
             return
         }
 
+        formInput.value = selectedOptions.map { it.value }.joinToString(separator = ",") { it }
         setError(null)
         isValid = true
         return

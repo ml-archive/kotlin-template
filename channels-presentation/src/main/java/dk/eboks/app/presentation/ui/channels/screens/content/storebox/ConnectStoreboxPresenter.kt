@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.screens.content.storebox
 
+import androidx.annotation.VisibleForTesting
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.LinkStoreboxInteractor
@@ -21,7 +22,7 @@ internal class ConnectStoreboxPresenter @Inject constructor(
     LinkStoreboxInteractor.Output,
     ConfirmStoreboxInteractor.Output,
     CreateStoreboxInteractor.Output {
-    private var returnCode: String? = null
+    @VisibleForTesting var returnCode: String? = null
 
     init {
         linkStoreboxInteractor.output = this
@@ -39,12 +40,11 @@ internal class ConnectStoreboxPresenter @Inject constructor(
     }
 
     override fun confirm(code: String) {
-        view { showProgress(true) }
         Timber.d("id: $returnCode code: $code")
-        returnCode?.let {
-            confirmStoreboxInteractor.input = ConfirmStoreboxInteractor.Input(it, code)
-            confirmStoreboxInteractor.run()
-        }
+        confirmStoreboxInteractor.input =
+            ConfirmStoreboxInteractor.Input(returnCode ?: return, code)
+        view { showProgress(true) }
+        confirmStoreboxInteractor.run()
     }
 
     override fun createStoreboxUser() {

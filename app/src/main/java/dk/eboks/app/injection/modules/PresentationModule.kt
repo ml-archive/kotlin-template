@@ -89,5 +89,4 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun bindHomePresenter(presenter: HomePresenter): HomeContract.Presenter
-
 }

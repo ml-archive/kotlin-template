@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.EmbeddedViewer
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.text.TextViewComponentContract
+import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.util.visible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
@@ -113,16 +113,16 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
     @Throws(UnsupportedEncodingException::class)
     private fun utf8Test(latin1String: String): Boolean {
         val charset = Charset.forName("ISO-8859-1")
-        val test1 = String("æ".toByteArray(), charset)     // shown as Ã¦
-        val test2 = String("Æ".toByteArray(), charset)     // shown as Ã
-        val test3 = String("ø".toByteArray(), charset)     // shown as Ã¸
-        val test4 = String("Ø".toByteArray(), charset)     // shown as Ã
-        val test5 = String("å".toByteArray(), charset)     // shown as Ã¥
-        val test6 = String("Å".toByteArray(), charset)     // shown as Ã
-        val test7 = String("ä".toByteArray(), charset)     // shown as Ã¤
-        val test8 = String("Ä".toByteArray(), charset)     // shown as Ã
-        val test9 = String("ö".toByteArray(), charset)     // shown as Ã¶
-        val test10 = String("Ö".toByteArray(), charset)    // shown as Ã
+        val test1 = String("æ".toByteArray(), charset) // shown as Ã¦
+        val test2 = String("Æ".toByteArray(), charset) // shown as Ã
+        val test3 = String("ø".toByteArray(), charset) // shown as Ã¸
+        val test4 = String("Ø".toByteArray(), charset) // shown as Ã
+        val test5 = String("å".toByteArray(), charset) // shown as Ã¥
+        val test6 = String("Å".toByteArray(), charset) // shown as Ã
+        val test7 = String("ä".toByteArray(), charset) // shown as Ã¤
+        val test8 = String("Ä".toByteArray(), charset) // shown as Ã
+        val test9 = String("ö".toByteArray(), charset) // shown as Ã¶
+        val test10 = String("Ö".toByteArray(), charset) // shown as Ã
 
         return latin1String.contains(test1) || latin1String.contains(test2) ||
             latin1String.contains(test3) || latin1String.contains(test4) ||

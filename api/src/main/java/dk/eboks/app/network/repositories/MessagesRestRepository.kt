@@ -9,7 +9,11 @@ import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
-import dk.eboks.app.domain.models.message.*
+import dk.eboks.app.domain.models.formreply.toOutputForm
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.Link
@@ -54,11 +58,11 @@ class MessagesRestRepository @Inject constructor(
 
     private val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "folder_id_message_store.json",
-                object : TypeToken<MutableMap<Long, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "folder_id_message_store.json",
+            object : TypeToken<MutableMap<Long, List<Message>>>() {}.type
         ) { key ->
             val response = api.getMessages(key, appState.state?.impersoniateUser?.userId).execute()
             var result: List<Message>? = null
@@ -72,15 +76,15 @@ class MessagesRestRepository @Inject constructor(
 
     private val highlightsMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "highlights_message_store.json",
-                object : TypeToken<MutableMap<String, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "highlights_message_store.json",
+            object : TypeToken<MutableMap<String, List<Message>>>() {}.type
         ) { key ->
             val response =
-                    api.getHighlights(terms = appState.state?.openingState?.acceptPrivateTerms)
-                            .execute()
+                api.getHighlights(terms = appState.state?.openingState?.acceptPrivateTerms)
+                    .execute()
             var result: List<Message>? = null
             response.let {
                 if (it.isSuccessful)
@@ -92,14 +96,14 @@ class MessagesRestRepository @Inject constructor(
 
     private val latestMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "latest_message_store.json",
-                object : TypeToken<MutableMap<String, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "latest_message_store.json",
+            object : TypeToken<MutableMap<String, List<Message>>>() {}.type
         ) { key ->
             val response =
-                    api.getLatest(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+                api.getLatest(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result: List<Message>? = null
             response.let {
                 if (it.isSuccessful)
@@ -111,14 +115,14 @@ class MessagesRestRepository @Inject constructor(
 
     private val unreadMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "unread_message_store.json",
-                object : TypeToken<MutableMap<String, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "unread_message_store.json",
+            object : TypeToken<MutableMap<String, List<Message>>>() {}.type
         ) { key ->
             val response =
-                    api.getUnread(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+                api.getUnread(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result: List<Message>? = null
             response.let {
                 if (it.isSuccessful)
@@ -130,11 +134,11 @@ class MessagesRestRepository @Inject constructor(
 
     private val uploadsMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "uploads_message_store.json",
-                object : TypeToken<MutableMap<String, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "uploads_message_store.json",
+            object : TypeToken<MutableMap<String, List<Message>>>() {}.type
         ) { key ->
             val response = api.getUploads().execute()
             var result: List<Message>? = null
@@ -148,14 +152,14 @@ class MessagesRestRepository @Inject constructor(
 
     private val senderIdMessageStore: SenderIdMessageStore by lazy {
         SenderIdMessageStore(
-                cacheManager,
-                context,
-                gson,
-                "sender_id_message_store.json",
-                object : TypeToken<MutableMap<Long, List<Message>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "sender_id_message_store.json",
+            object : TypeToken<MutableMap<Long, List<Message>>>() {}.type
         ) { key ->
             val response =
-                    api.getMessagesBySender(key, appState.state?.impersoniateUser?.userId).execute()
+                api.getMessagesBySender(key, appState.state?.impersoniateUser?.userId).execute()
             var result: List<Message>? = null
             response.let {
                 if (it.isSuccessful)
@@ -248,7 +252,8 @@ class MessagesRestRepository @Inject constructor(
 
     override fun submitMessageReplyForm(msg: Message, form: ReplyForm) {
         msg.folder?.let {
-            val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form)
+
+            val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form.toOutputForm())
             val result = call.execute()
             result.let { response ->
                 if (response.isSuccessful) {
@@ -348,13 +353,12 @@ class MessagesRestRepository @Inject constructor(
             throw(RuntimeException())
     }
 
-
     override fun getPaymentDetails(folderId: Int, messageId: String): Payment {
         val call = api.getPaymentDetails(folderId, messageId)
         return call.execute().body() ?: throw RuntimeException()
     }
 
-    override fun getPaymentLink(folderId: Int, messageId: String, type: String) : Link? {
+    override fun getPaymentLink(folderId: Int, messageId: String, type: String): Link? {
         return api.getPaymentLink(folderId, messageId, type).execute().body()
     }
 }

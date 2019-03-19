@@ -4,8 +4,6 @@ import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.message.MessageOpeningState
-import dk.eboks.app.mail.presentation.ui.message.components.opening.quarantine.QuarantineComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.quarantine.QuarantineComponentPresenter
 import dk.eboks.app.mail.presentation.ui.message.components.opening.recalled.RecalledComponentContract
 import dk.eboks.app.mail.presentation.ui.message.components.opening.recalled.RecalledComponentPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -17,14 +15,13 @@ import org.junit.Test
 
 class RecalledComponentPresnterTest {
 
-    private val appStateManager : AppStateManager = mockk(relaxUnitFun = true)
-    private val executor : Executor = TestExecutor()
+    private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
+    private val executor: Executor = TestExecutor()
 
-    private val view : RecalledComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: RecalledComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: RecalledComponentPresenter
-
 
     @Before
     fun setUp() {
@@ -32,11 +29,14 @@ class RecalledComponentPresnterTest {
         presenter.onViewCreated(view, lifecycle)
     }
 
-
     @Test
     fun `Test Set Should Proceed`() {
 
-        every { appStateManager.state } returns AppState(openingState = MessageOpeningState(shouldProceedWithOpening = false))
+        every { appStateManager.state } returns AppState(
+            openingState = MessageOpeningState(
+                shouldProceedWithOpening = false
+            )
+        )
 
         presenter.setShouldProceed(true)
         assert(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
@@ -44,5 +44,4 @@ class RecalledComponentPresnterTest {
         presenter.setShouldProceed(false)
         assert(appStateManager.state?.openingState?.shouldProceedWithOpening == false)
     }
-
 }
