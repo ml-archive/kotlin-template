@@ -15,14 +15,12 @@ android {
 
 dependencies {
     implementation project(':core')
-    implementation project(':api')
     implementation project(':data')
-    implementation project(':profile-interactors')
-    implementation project(':arch')
-
+    implementation project(':keychain:interactors')
     implementation Libs.Kotlin.stdlib
-    implementation Libs.eventbus
+
     implementation Libs.timber
+    implementation project(':arch')
     implementation Libs.Dagger.dagger
 
     testImplementation Libs.Test.mockk

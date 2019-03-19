@@ -31,6 +31,11 @@ android {
                 apiKey: Keys.apiKey
         ]
 
+        packagingOptions {
+            exclude 'META-INF/presentation_debug.kotlin_module'
+            exclude 'META-INF/interactors_debug.kotlin_module'
+        }
+
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "2100L"
 
         // flags for disabling various functionality for the different betas
@@ -221,16 +226,16 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':api')
-    implementation project(':channels-interactors')
-    implementation project(':channels-presentation')
-    implementation project(':mail-presentation')
-    implementation project(':mail-interactors')
-    implementation project(':keychain-presentation')
-    implementation project(':keychain-interactors')
-    implementation project(':profile-interactors')
-    implementation project(':profile-presentation')
-    implementation project(':senders-interactors')
-    implementation project(':senders-presentation')
+    implementation project(':channels:interactors')
+    implementation project(':channels:presentation')
+    implementation project(':mail:presentation')
+    implementation project(':mail:interactors')
+    implementation project(':keychain:presentation')
+    implementation project(':keychain:interactors')
+    implementation project(':profile:interactors')
+    implementation project(':profile:presentation')
+    implementation project(':senders:interactors')
+    implementation project(':senders:presentation')
     implementation project(':arch')
 
     // uncomment me if using multidex

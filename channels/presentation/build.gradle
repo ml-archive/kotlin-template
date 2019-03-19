@@ -16,18 +16,23 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':api')
-    implementation project(':arch')
     implementation project(':data')
-    implementation project(':senders-interactors')
-    implementation project(':mail-interactors')
+    implementation project(':channels:interactors')
 
-    implementation Libs.Coroutines.core
+    implementation Libs.Nodes.locksmith
+    implementation project(':arch')
+
+
     implementation Libs.eventbus
     implementation Libs.timber
+    implementation Libs.gson
     implementation Libs.Dagger.dagger
 
-    testImplementation Libs.Test.mockk
     testImplementation Libs.junit
+    testImplementation Libs.Test.PowerMock.core
+    testImplementation Libs.Test.PowerMock.module
+    testImplementation Libs.Test.mockk
+    testImplementation Libs.Test.mockitoKotlin
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

@@ -15,16 +15,18 @@ android {
 
 dependencies {
     implementation project(':core')
+    implementation project(':api')
     implementation project(':data')
-    implementation project(':keychain-interactors')
-    implementation Libs.Kotlin.stdlib
-
-    implementation Libs.timber
+    implementation project(':mail:interactors')
     implementation project(':arch')
+
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.eventbus
+    implementation Libs.timber
     implementation Libs.Dagger.dagger
 
-    testImplementation Libs.Test.mockk
     testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }
