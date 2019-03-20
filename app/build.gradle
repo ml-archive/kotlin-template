@@ -1,6 +1,7 @@
 import dk.eboks.buildsrc.AppVersions
 import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -223,20 +224,20 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation project(':core')
-    implementation project(':data')
-    implementation project(':api')
-    implementation project(':channels:interactors')
-    implementation project(':channels:presentation')
-    implementation project(':mail:presentation')
-    implementation project(':mail:interactors')
-    implementation project(':keychain:presentation')
-    implementation project(':keychain:interactors')
-    implementation project(':profile:interactors')
-    implementation project(':profile:presentation')
-    implementation project(':senders:interactors')
-    implementation project(':senders:presentation')
-    implementation project(':arch')
+    implementation project(Modules.core)
+    implementation project(Modules.data)
+    implementation project(Modules.api)
+    implementation project(Modules.arch)
+    implementation project(Modules.Channels.interactors)
+    implementation project(Modules.Channels.presentation)
+    implementation project(Modules.Mail.presentation)
+    implementation project(Modules.Mail.interactors)
+    implementation project(Modules.Keychain.presentation)
+    implementation project(Modules.Keychain.interactors)
+    implementation project(Modules.Profile.interactors)
+    implementation project(Modules.Profile.presentation)
+    implementation project(Modules.Senders.interactors)
+    implementation project(Modules.Senders.presentation)
 
     // uncomment me if using multidex
     implementation Libs.multidex

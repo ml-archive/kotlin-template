@@ -1,4 +1,5 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -14,13 +15,14 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':data')
-    implementation project(':keychain:interactors')
+    implementation project(Modules.core)
+    implementation project(Modules.data)
+    implementation project(Modules.Keychain.interactors)
+    implementation project(Modules.arch)
+
     implementation Libs.Kotlin.stdlib
 
     implementation Libs.timber
-    implementation project(':arch')
     implementation Libs.Dagger.dagger
 
     testImplementation Libs.Test.mockk

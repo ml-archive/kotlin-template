@@ -5,20 +5,36 @@ object Versions {
 }
 
 object Modules {
+    const val app = ":app"
+    const val arch = ":arch"
     const val core = ":core"
     const val data = ":data"
     const val api = ":api"
-    const val channelsInteractors = ":channels:interactors"
-    const val channelsPresentation = ":channels:presentation"
-    const val mailPresentation = ":mail:presentation"
-    const val mailInteractors = ":mail:interactors"
-    const val keychainPresentation = ":keychain:presentation"
-    const val keychainInteractors = ":keychain:interactors"
-    const val profileInteractors = ":profile:interactors"
-    const val profilePresentation = ":profile:presentation"
-    const val sendersInteractors = ":senders:interactors"
-    const val sendersPresentation = ":senders:presentation"
-    const val arch = ":arch"
+
+    object Mail {
+        const val interactors = ":mail:interactors"
+        const val presentation = ":mail:presentation"
+    }
+
+    object Channels {
+        const val interactors = ":channels:interactors"
+        const val presentation = ":channels:presentation"
+    }
+
+    object Keychain {
+        const val presentation = ":keychain:presentation"
+        const val interactors = ":keychain:interactors"
+    }
+
+    object Senders {
+        const val interactors = ":senders:interactors"
+        const val presentation = ":senders:presentation"
+    }
+
+    object Profile {
+        const val interactors = ":profile:interactors"
+        const val presentation = ":profile:presentation"
+    }
 }
 
 object Libs {
