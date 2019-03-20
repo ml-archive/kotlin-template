@@ -4,6 +4,39 @@ object Versions {
     const val ktlint = "0.31.0"
 }
 
+object Modules {
+    const val app = ":app"
+    const val arch = ":arch"
+    const val core = ":core"
+    const val data = ":data"
+    const val api = ":api"
+
+    object Mail {
+        const val interactors = ":mail:interactors"
+        const val presentation = ":mail:presentation"
+    }
+
+    object Channels {
+        const val interactors = ":channels:interactors"
+        const val presentation = ":channels:presentation"
+    }
+
+    object Keychain {
+        const val presentation = ":keychain:presentation"
+        const val interactors = ":keychain:interactors"
+    }
+
+    object Senders {
+        const val interactors = ":senders:interactors"
+        const val presentation = ":senders:presentation"
+    }
+
+    object Profile {
+        const val interactors = ":profile:interactors"
+        const val presentation = ":profile:presentation"
+    }
+}
+
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:3.3.2"
 

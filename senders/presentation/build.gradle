@@ -1,4 +1,5 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -14,12 +15,12 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':api')
-    implementation project(':arch')
-    implementation project(':data')
-    implementation project(':senders:interactors')
-    implementation project(':mail:interactors')
+    implementation project(Modules.core)
+    implementation project(Modules.api)
+    implementation project(Modules.arch)
+    implementation project(Modules.data)
+    implementation project(Modules.Senders.interactors)
+    implementation project(Modules.Mail.interactors)
 
     implementation Libs.Coroutines.core
     implementation Libs.eventbus
