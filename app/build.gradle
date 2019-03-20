@@ -292,6 +292,8 @@ dependencies {
     kapt Libs.Glide.compiler
 
     implementation Libs.AndroidX.ktx
+    implementation Libs.AndroidX.Fragment.ktx
+    implementation Libs.AndroidX.Fragment.fragment
 
     // Testing
     testImplementation Libs.junit

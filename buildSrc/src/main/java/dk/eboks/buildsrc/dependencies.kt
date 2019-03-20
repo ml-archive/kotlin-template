@@ -93,7 +93,14 @@ object Libs {
         const val recyclerview = "androidx.recyclerview:recyclerview:1.0.0"
         const val cardview = "androidx.cardview:cardview:1.0.0"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
-        const val ktx = "androidx.core:core-ktx:1.0.0-alpha1"
+        const val ktx = "androidx.core:core-ktx:1.0.1"
+
+        object Fragment {
+            private const val version = "1.1.0-alpha05"
+            const val fragment = "androidx.fragment:fragment:$version"
+            const val ktx = "androidx.fragment:fragment-ktx:$version"
+            const val test = "androidx.fragment:fragment-testing:$version"
+        }
 
         object Lifecycle {
 
@@ -151,9 +158,9 @@ object Libs {
         }
 
         object AndroidX {
-            const val fragment = "androidx.fragment:fragment-testing:1.1.0-alpha01"
             const val junit = "androidx.test.ext:junit:1.1.0"
-            const val ktx = "androidx.test:core-ktx:1.1.0"
+            const val ktx = Libs.AndroidX.Fragment.ktx
+            const val fragment = "androidx.fragment:fragment-testing:1.1.0-alpha01"
         }
 
         object PowerMock {
