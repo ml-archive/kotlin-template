@@ -93,6 +93,7 @@ object Libs {
         const val recyclerview = "androidx.recyclerview:recyclerview:1.0.0"
         const val cardview = "androidx.cardview:cardview:1.0.0"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
+        const val ktx = "androidx.core:core-ktx:1.0.0-alpha1"
 
         object Lifecycle {
 
@@ -142,9 +143,23 @@ object Libs {
         const val assertjCore = "org.assertj:assertj-core:3.12.1"
         const val junit = Libs.junit
 
+        object Roboletric {
+
+            private const val version = "4.2.1"
+            const val roboletric = "org.robolectric:robolectric:$version"
+            const val multidex = "org.robolectric:shadows-multidex:$version"
+        }
+
+        object AndroidX {
+            const val fragment = "androidx.fragment:fragment-testing:1.1.0-alpha01"
+            const val junit = "androidx.test.ext:junit:1.1.0"
+            const val ktx = "androidx.test:core-ktx:1.1.0"
+        }
+
         object PowerMock {
-            const val core = "org.powermock:powermock-api-mockito2:2.0.0"
-            const val module = "org.powermock:powermock-module-junit4:2.0.0"
+            private const val version = "2.0.0"
+            const val core = "org.powermock:powermock-api-mockito2:$version"
+            const val module = "org.powermock:powermock-module-junit4:$version"
         }
 
         object Expresso {

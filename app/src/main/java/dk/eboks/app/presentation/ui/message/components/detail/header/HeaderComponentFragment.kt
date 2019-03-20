@@ -33,7 +33,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
         return inflater.inflate(R.layout.fragment_header_component, container, false)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as? HeaderFragmentListener
     }
