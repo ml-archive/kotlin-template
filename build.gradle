@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 import dk.eboks.buildsrc.Libs
 import dk.eboks.buildsrc.Versions
+import dk.eboks.buildsrc.Modules
 
 buildscript {
 
@@ -25,6 +26,7 @@ buildscript {
         classpath Libs.Nodes.Nstack.translation
         classpath Libs.Nodes.bitrise
         classpath Libs.ribbonizer
+        classpath Libs.Test.jacoco
 
     }
 }
@@ -44,6 +46,8 @@ allprojects {
         google()
         mavenLocal()
     }
+
+
 }
 
 subprojects {
@@ -54,6 +58,46 @@ subprojects {
             ktlint(Versions.ktlint)
         }
     }
+}
+
+/**
+ * Modules to include in unit-test reports
+ */
+def modules = [
+        Modules.core,
+        Modules.Channels.interactors,
+        Modules.Channels.presentation,
+        Modules.Mail.presentation,
+        Modules.Mail.interactors,
+        Modules.Keychain.presentation,
+        Modules.Keychain.interactors,
+        Modules.Profile.interactors,
+        Modules.Profile.presentation,
+        Modules.Senders.interactors,
+        Modules.Senders.presentation,
+]
+
+
+def moduleTasks = modules.collect { it + ":jacocoTestReport" }
+
+
+apply plugin: 'jacoco'
+
+/**
+ * Runs unit-tests for specified modules and creates coverage global report
+ */
+task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
+
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        csv.enabled = false
+    }
+
+    executionData = files(moduleTasks.collect { tasks.getByPath(it).executionData })
+    sourceDirectories = files(moduleTasks.collect { tasks.getByPath(it).sourceDirectories })
+    classDirectories = files(moduleTasks.collect { tasks.getByPath(it).classDirectories })
+
 }
 
 dependencyUpdates.resolutionStrategy {
