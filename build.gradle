@@ -47,8 +47,6 @@ allprojects {
     }
 
 
-
-
 }
 
 subprojects {
@@ -61,33 +59,25 @@ subprojects {
     }
 }
 
-def coverageExcludes = ['**/R.class',
-                        '**/R$*.class',
-                        '**/*$$ViewBinder*.*',
-                        '**/inject/*',
-                        '**/*$InjectAdapter.*',
-                        '**/BuildConfig.*',
-                        '**/Manifest*.*',
-                        '**/Dagger*.*',
-                        '**/*_Provide*Factory.*',
-                        '**/*_Member*Injector.*',
-                        '**/*_Factory.*']
+def modules = [
+        "core",
+        "mail-interactors",
+        "mail-presentation",
+        "keychain-interactors",
+        "keychain-presentation",
+        "channels-presentation",
+        "channels-interactors",
+        "profile-interactors",
+        "profile-presentation",
+        "senders-interactors",
+        "senders-presentation"
+]
 
-def modules = ["core", "data"]
 def moduleTasks = modules.collect { it + ":jacocoTestReport" }
 
-def coverageSourceDirs = modules.collect { it + "src/main/java"}
-def coverageClassDirectories = modules.collect { fileTree(dir: it + "/build/intermediates/classes/debug", excludes: coverageExcludes) }
 
-
+apply plugin: 'jacoco'
 task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
-    apply plugin: 'jacoco'
-
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
-    classDirectories = files(coverageClassDirectories)
-
-    executionData = files(moduleTasks.collect { tasks.getByPath(it).executionData })
 
 
     reports {
@@ -96,15 +86,12 @@ task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
         xml.enabled = false
         csv.enabled = false
     }
-    onlyIf = {
-        true
-    }
 
-    doFirst {
-        executionData = files(executionData.findAll {
-            it.exists()
-        })
-    }
+    executionData = files(moduleTasks.collect { tasks.getByPath(it).executionData })
+    sourceDirectories = files(moduleTasks.collect { tasks.getByPath(it).sourceDirectories })
+    classDirectories = files(moduleTasks.collect { tasks.getByPath(it).classDirectories })
+
+
 }
 
 dependencyUpdates.resolutionStrategy {

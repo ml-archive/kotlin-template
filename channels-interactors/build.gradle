@@ -8,9 +8,12 @@ apply from: '../jacoco.gradle'
 android {
     compileSdkVersion buildConfig.compileSdk
 
+
+
     defaultConfig {
         minSdkVersion buildConfig.minSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
 
     }
 }

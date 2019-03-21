@@ -21,17 +21,37 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports"
 
+
+
+    def mainSrc = "$project.projectDir/src/main/java"
+
+
+    sourceDirectories = files([mainSrc])
+    additionalSourceDirs = files([mainSrc])
+
+    classDirectories = fileTree(dir: 'build/tmp/kotlin-classes/debug',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$$ViewBinder*.*',
+                       '**/inject/*',
+                       '**/*$InjectAdapter.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       '**/Dagger*.*',
+                       '**/*_Provide*Factory.*',
+                       '**/*_Member*Injector.*',
+                       '**/*_Factory.*'])
+
+
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+
+
+
+
     reports {
-        xml.enabled = true
+        xml.enabled = false
         html.enabled = true
     }
 
-    def fileFilter = [ '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*' ]
-    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
-    def mainSrc = "$project.projectDir/src/main/kotlin"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = files('build/jacoco/testDebugUnitTest.exec')
-
 }
+

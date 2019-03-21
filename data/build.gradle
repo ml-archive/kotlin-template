@@ -5,7 +5,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'dk.nstack.translation.plugin'
-apply from: '../jacoco.gradle'
 
 translation {
     appId = Keys.appId
