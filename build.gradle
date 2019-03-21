@@ -61,6 +61,7 @@ subprojects {
 }
 
 def modules = [
+        Modules.core,
         Modules.Channels.interactors,
         Modules.Channels.presentation,
         Modules.Mail.presentation,

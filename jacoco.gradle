@@ -33,7 +33,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
             excludes: ['**/R.class',
                        '**/R$*.class',
                        '**/*$$ViewBinder*.*',
-                       '**/inject/*',
+                       '**/injection/*',
                        '**/*$InjectAdapter.*',
                        '**/BuildConfig.*',
                        '**/Manifest*.*',
