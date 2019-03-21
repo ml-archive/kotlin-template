@@ -3,11 +3,14 @@ package dk.eboks.app.presentation.ui.mail.components.maillist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
@@ -30,10 +33,12 @@ import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.util.BundleKeys
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.visible
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -45,17 +50,16 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     @Inject lateinit var formatter: EboksFormatter
     @Inject lateinit var adapter: MailMessagesAdapter
 
-    private var checkedList: MutableList<Message> = ArrayList()
-    private var editEnabled: Boolean = false
+    @VisibleForTesting internal var checkedList: MutableList<Message> = ArrayList()
+
     private var editAction: ButtonType? = null
-    private var showUploads: Boolean = false
     private var menuProfile: MenuItem? = null
 
     private var componentListener: MailListComponentListener? = null
 
     private var scrollListener: EndlessRecyclerViewScrollListener? = null
 
-    var sender: Sender? = null
+    private lateinit var fragmentArguments: Arguments
 
     var folder: Folder? = null
         set(value) {
@@ -89,44 +93,23 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
+        arguments.guard {
+            onBackPressed()
+            return
+        }?.let { bundle -> fragmentArguments = bundle.getParcelable(BundleKeys.Arguments)!! }
         presenter.onViewCreated(this, lifecycle)
-        showUploads = arguments?.getBoolean("showUploads", false) ?: false
         setupRecyclerView()
         setupFab()
         checkFabState()
-
         refreshSrl.setOnRefreshListener {
             scrollListener?.resetState()
             presenter.refresh()
         }
-        if (arguments == null) {
-            onBackPressed()
-            return
-        }
-        getFolderFromBundle()
-        getSenderFromBundle()
-        getEditFromBundle()
+        fragmentArguments.folder?.let(presenter::setup)
+        fragmentArguments.sender?.let(presenter::setup)
+
+        folder = fragmentArguments.folder
         setupTopBar()
-        presenter.refresh()
-    }
-
-    private fun getFolderFromBundle() {
-        (arguments?.getSerializable("folder") as? Folder)?.let { folder ->
-            this.folder = folder
-            presenter.setup(folder)
-        }
-    }
-
-    private fun getSenderFromBundle() {
-        arguments?.getParcelable<Sender>("sender")?.let {
-            sender = it
-            presenter.setup(it)
-        }
-        // this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
-    }
-
-    private fun getEditFromBundle() {
-        editEnabled = arguments?.getBoolean("edit", true) ?: true
     }
 
     private fun setupFab() {
@@ -217,7 +200,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             onBackPressed()
         }
 
-        if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+        if (fragmentArguments.isEdit && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
             menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
@@ -284,7 +267,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                             }
                         }
                     }.guard {
-                        sender?.name?.let(mainTb::setTitle)
+                        fragmentArguments.sender?.name?.let(mainTb::setTitle)
                     }
                 }
             }
@@ -292,7 +275,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun setupRecyclerView() {
-        adapter.showUploads = showUploads
+        adapter.showUploads = fragmentArguments.showUploads
         val layoutManager = LinearLayoutManager(
             context,
             RecyclerView.VERTICAL,
@@ -306,11 +289,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
         }
         messagesRv.addOnScrollListener(scrollListener!!)
-        messagesRv.addItemDecoration(DividerItemDecoration(
+        messagesRv.addItemDecoration(
+            DividerItemDecoration(
                 drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
                 indentationDp = 72,
                 backgroundColor = ContextCompat.getColor(context!!, R.color.white)
-        ))
+            )
+        )
 
         adapter.onActionEvent = { message, mailMessageEvent ->
             Timber.d("onActionEvent: %s", mailMessageEvent)
@@ -392,7 +377,21 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     companion object {
         var refreshOnResume: Boolean = false
+        @JvmStatic
+        fun newInstance(fragmentArguments: Arguments): MailListComponentFragment {
+            return MailListComponentFragment().apply {
+                this.arguments = bundleOf(BundleKeys.Arguments to fragmentArguments)
+            }
+        }
     }
+
+    @Parcelize
+    data class Arguments(
+        val folder: Folder? = null,
+        val showUploads: Boolean = false,
+        val sender: Sender? = null,
+        val isEdit: Boolean = true
+    ) : Parcelable
 
     interface MailListComponentListener {
         fun onEditModeActive(active: Boolean)
