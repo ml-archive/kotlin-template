@@ -4,16 +4,21 @@ import dk.eboks.buildsrc.Libs
 import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'dk.nodes.ci.bitrise'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 bitrise {
     defaultDeployMode = "release|debug"
     branchMode = true
 }
+
+androidExtensions {
+    experimental = true
+}
+
 android {
     compileSdkVersion buildConfig.compileSdk
     buildToolsVersion buildConfig.buildTools

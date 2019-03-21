@@ -1,15 +1,26 @@
 package dk.eboks.app.presentation
 
-import androidx.test.espresso.ViewAssertion
-import androidx.test.espresso.assertion.ViewAssertions
+import android.view.View
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
+import org.hamcrest.Description
+import org.hamcrest.Matcher
 
-fun isGone() = getViewAssertion(ViewMatchers.Visibility.GONE)
+fun isGone() = ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.GONE)
 
-fun isVisible() = getViewAssertion(ViewMatchers.Visibility.VISIBLE)
+fun isVisible() = ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)
 
-fun isInvisible() = getViewAssertion(ViewMatchers.Visibility.INVISIBLE)
+fun isInvisible() = ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)
 
-private fun getViewAssertion(visibility: ViewMatchers.Visibility): ViewAssertion? {
-    return ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(visibility))
-}
+fun isRefreshing(): Matcher<View> =
+    object : BoundedMatcher<View, SwipeRefreshLayout>(SwipeRefreshLayout::class.java) {
+
+        override fun describeTo(description: Description) {
+            description.appendText("is refreshing")
+        }
+
+        override fun matchesSafely(view: SwipeRefreshLayout): Boolean {
+            return view.isRefreshing
+        }
+    }

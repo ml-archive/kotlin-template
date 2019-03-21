@@ -8,7 +8,6 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.mail.presentation.ui.screens.list.MailListContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
-import dk.eboks.app.util.putArg
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_mail_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -26,19 +25,16 @@ class MailListActivity : BaseActivity(), MailListContract.View,
         setContentView(R.layout.activity_mail_list)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        val frag = MailListComponentFragment()
-        intent?.extras?.let { extras ->
-            extras.getParcelable<Sender>("sender")?.let { sender ->
-                presenter.setupSender(sender)
-                frag.putArg("sender", sender)
-            }
-
-            (extras.getSerializable("folder") as? Folder)?.let { folder ->
-                presenter.setupFolder(folder)
-                frag.putArg("folder", folder)
-            }
-        }
-
+        val sender = intent?.extras?.getParcelable<Sender>("sender")
+        val folder = intent?.extras?.getSerializable("folder") as? Folder
+        val frag = MailListComponentFragment.newInstance(
+            MailListComponentFragment.Arguments(
+                sender = sender,
+                folder = folder
+            )
+        )
+        folder?.let(presenter::setupFolder)
+        sender?.let(presenter::setupSender)
         setRootFragment(R.id.containerFl, frag)
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {

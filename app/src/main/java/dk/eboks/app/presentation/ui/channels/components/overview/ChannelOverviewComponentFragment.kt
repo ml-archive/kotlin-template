@@ -80,7 +80,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 .putExtra(Channel::class.java.simpleName, channel).start()
         }
 
-        // addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel), false)
+        // addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment.newInstance(channel), false)
 
         /*
         when (channel.type) {
