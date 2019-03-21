@@ -2,11 +2,7 @@ package dk.eboks.app.presentation.ui.channels.components.opening
 
 import org.junit.Test
 
-import org.junit.Assert.*
-
 class ChannelOpeningComponentFragmentTest {
-
-    
 
     @Test
     fun showOpenState() {

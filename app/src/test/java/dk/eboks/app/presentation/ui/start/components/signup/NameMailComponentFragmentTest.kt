@@ -62,7 +62,7 @@ class NameMailComponentFragmentTest {
             it.showProgress(true)
         }
 
-        //Then
+        // Then
         onView(withId(R.id.progress)).check(matches(isVisible()))
         onView(withId(R.id.scrollView)).check(matches(isGone()))
     }

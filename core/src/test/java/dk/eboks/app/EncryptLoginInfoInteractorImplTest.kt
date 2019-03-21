@@ -30,7 +30,7 @@ class EncryptLoginInfoInteractorImplTest {
                 actvationCode = "activate!")
 
         interactor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
-        interactor.output = object: EncryptUserLoginInfoInteractor.Output {
+        interactor.output = object : EncryptUserLoginInfoInteractor.Output {
             override fun onSuccess() {
                 assert(true)
                 latch.countDown()
@@ -59,7 +59,7 @@ class EncryptLoginInfoInteractorImplTest {
                 actvationCode = "activate!")
 
         interactor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
-        interactor.output = object: EncryptUserLoginInfoInteractor.Output {
+        interactor.output = object : EncryptUserLoginInfoInteractor.Output {
             override fun onSuccess() {
                 assert(false)
                 latch.countDown()
@@ -73,6 +73,5 @@ class EncryptLoginInfoInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 }

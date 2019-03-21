@@ -19,7 +19,6 @@ class TestLoginInteractorImplTest {
 
     private val interactor = TestLoginInteractorImpl(executor, authClient)
 
-
     @Test
     fun `Test Login Success`() {
         val latch = CountDownLatch(1)
@@ -48,11 +47,10 @@ class TestLoginInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Test Login Ivalid Credentials Error`() {
         val latch = CountDownLatch(1)
-        val invalidError =  ViewError(
+        val invalidError = ViewError(
                 title = Translation.error.genericTitle,
                 message = Translation.error.genericMessage,
                 shouldCloseView = false
@@ -82,7 +80,6 @@ class TestLoginInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Test Login Generic Error`() {
         val latch = CountDownLatch(1)
@@ -110,5 +107,4 @@ class TestLoginInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }
