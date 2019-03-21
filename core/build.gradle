@@ -1,4 +1,5 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -17,6 +18,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
     }
 
     testOptions {
@@ -26,8 +28,9 @@ android {
     }
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':data')
+
+    implementation project(Modules.data)
+    implementation project(Modules.arch)
 
     implementation Libs.AndroidX.appcompat
     implementation Libs.AndroidX.recyclerview
@@ -41,7 +44,6 @@ dependencies {
 
     // Encryption Lib
     implementation Libs.Nodes.locksmith
-    implementation project(':arch')
     implementation Libs.gson
 
     implementation Libs.Nodes.Nstack.kotlin

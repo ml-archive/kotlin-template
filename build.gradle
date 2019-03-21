@@ -77,7 +77,7 @@ def moduleTasks = modules.collect { it + ":jacocoTestReport" }
 
 
 apply plugin: 'jacoco'
-task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
+/*task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
 
 
     reports {
@@ -92,7 +92,7 @@ task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
     classDirectories = files(moduleTasks.collect { tasks.getByPath(it).classDirectories })
 
 
-}
+}*/
 
 dependencyUpdates.resolutionStrategy {
     componentSelection { rules ->

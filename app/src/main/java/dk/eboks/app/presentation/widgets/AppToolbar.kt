@@ -12,6 +12,4 @@ class AppToolbar @JvmOverloads constructor(context: Context, attributeSet: Attri
         super.setNavigationIcon(resId)
         navigationContentDescription = Translation.accessibility.navigateBackButton
     }
-
-
 }

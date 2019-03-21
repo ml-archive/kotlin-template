@@ -1,7 +1,10 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: '../jacoco.gradle'
+apply from: '../../jacoco.gradle'
+
 android {
     compileSdkVersion buildConfig.compileSdk
 
@@ -13,19 +16,18 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':api')
-    implementation project(':data')
-    implementation project(':mail-interactors')
-    implementation project(':arch')
+    implementation project(Modules.core)
+    implementation project(Modules.api)
+    implementation project(Modules.data)
+    implementation project(Modules.arch)
 
     implementation Libs.Kotlin.stdlib
-    implementation Libs.eventbus
     implementation Libs.timber
+    implementation Libs.Retrofit.retrofit
     implementation Libs.Dagger.dagger
 
-    testImplementation Libs.junit
     testImplementation Libs.Test.mockk
+    testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

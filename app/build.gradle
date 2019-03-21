@@ -1,6 +1,7 @@
 import dk.eboks.buildsrc.AppVersions
 import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -30,6 +31,11 @@ android {
                 appId : Keys.appId,
                 apiKey: Keys.apiKey
         ]
+
+        packagingOptions {
+            exclude 'META-INF/presentation_debug.kotlin_module'
+            exclude 'META-INF/interactors_debug.kotlin_module'
+        }
 
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "2100L"
 
@@ -209,6 +215,12 @@ android {
         }
 
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 repositories {
@@ -218,20 +230,20 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation project(':core')
-    implementation project(':data')
-    implementation project(':api')
-    implementation project(':channels-interactors')
-    implementation project(':channels-presentation')
-    implementation project(':mail-presentation')
-    implementation project(':mail-interactors')
-    implementation project(':keychain-presentation')
-    implementation project(':keychain-interactors')
-    implementation project(':profile-interactors')
-    implementation project(':profile-presentation')
-    implementation project(':senders-interactors')
-    implementation project(':senders-presentation')
-    implementation project(':arch')
+    implementation project(Modules.core)
+    implementation project(Modules.data)
+    implementation project(Modules.api)
+    implementation project(Modules.arch)
+    implementation project(Modules.Channels.interactors)
+    implementation project(Modules.Channels.presentation)
+    implementation project(Modules.Mail.presentation)
+    implementation project(Modules.Mail.interactors)
+    implementation project(Modules.Keychain.presentation)
+    implementation project(Modules.Keychain.interactors)
+    implementation project(Modules.Profile.interactors)
+    implementation project(Modules.Profile.presentation)
+    implementation project(Modules.Senders.interactors)
+    implementation project(Modules.Senders.presentation)
 
     // uncomment me if using multidex
     implementation Libs.multidex
@@ -264,28 +276,33 @@ dependencies {
     implementation Libs.eventbus
 
     implementation Libs.fastscroll
-
     implementation Libs.materialedittext
 
     // circular progress
     implementation Libs.circularProgressBar
     implementation Libs.gson
 
-    implementation Libs.RxJava.rxAndroid
-    implementation Libs.RxJava.rxJava
-    implementation Libs.RxJava.rxKotlin
-
     implementation Libs.Retrofit.retrofit
 
     implementation Libs.Glide.glide
     kapt Libs.Glide.compiler
 
+    implementation Libs.AndroidX.ktx
+    implementation Libs.AndroidX.Fragment.ktx
+    implementation Libs.AndroidX.Fragment.fragment
+
     // Testing
     testImplementation Libs.junit
+    testImplementation Libs.Test.AndroidX.fragment
+    testImplementation Libs.Test.AndroidX.junit
+    testImplementation Libs.Test.AndroidX.ktx
+    testImplementation Libs.Test.Roboletric.roboletric
+    testImplementation Libs.Test.Roboletric.multidex
+    testImplementation Libs.Test.mockk
     // required if you want to use Mockito for unit tests
     testImplementation Libs.Test.Mockito.core
     // required if you want to use Mockito for Android tests
-    androidTestImplementation Libs.Test.Mockito.android
+    testImplementation Libs.Test.Mockito.android
 
     //For Espresso UI testing
     androidTestImplementation Libs.Test.Expresso.core

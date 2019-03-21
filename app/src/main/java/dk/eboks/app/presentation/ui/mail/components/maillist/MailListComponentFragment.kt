@@ -306,7 +306,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
         }
         messagesRv.addOnScrollListener(scrollListener!!)
-        messagesRv.addItemDecoration( DividerItemDecoration(
+        messagesRv.addItemDecoration(DividerItemDecoration(
                 drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
                 indentationDp = 72,
                 backgroundColor = ContextCompat.getColor(context!!, R.color.white)

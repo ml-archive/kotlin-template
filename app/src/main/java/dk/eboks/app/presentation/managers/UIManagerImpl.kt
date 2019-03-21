@@ -100,7 +100,7 @@ class UIManagerImpl(val context: Context) : UIManager {
         intent.putExtra("folder", folder)
         handler.post {
             (context.applicationContext as? App)?.currentActivity?.startActivity(intent)
-                .guard { context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))}
+                .guard { context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK)) }
         }
     }
 

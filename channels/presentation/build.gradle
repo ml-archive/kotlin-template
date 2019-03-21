@@ -1,8 +1,9 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply from: '../jacoco.gradle'
+apply from: '../../jacoco.gradle'
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -12,29 +13,27 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':data')
-    implementation project(':api')
-    implementation project(':arch')
+    implementation project(Modules.core)
+    implementation project(Modules.api)
+    implementation project(Modules.data)
+    implementation project(Modules.arch)
+    implementation project(Modules.Channels.interactors)
 
-    implementation Libs.Kotlin.stdlib
+    implementation Libs.Nodes.locksmith
+
+    implementation Libs.eventbus
     implementation Libs.timber
+    implementation Libs.gson
     implementation Libs.Dagger.dagger
 
-    implementation Libs.gson
-    implementation Libs.Retrofit.retrofit
-
     testImplementation Libs.junit
+    testImplementation Libs.Test.PowerMock.core
+    testImplementation Libs.Test.PowerMock.module
     testImplementation Libs.Test.mockk
+    testImplementation Libs.Test.mockitoKotlin
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
-}
-repositories {
-    mavenCentral()
 }

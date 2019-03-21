@@ -1,4 +1,5 @@
 import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Modules
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -14,11 +15,6 @@ android {
     }
 
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -27,9 +23,9 @@ android {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(':data')
-    implementation project(':arch')
+    implementation project(Modules.core)
+    implementation project(Modules.data)
+    implementation project(Modules.arch)
 
     implementation Libs.Kotlin.stdlib
     implementation Libs.timber
