@@ -282,10 +282,6 @@ dependencies {
     implementation Libs.circularProgressBar
     implementation Libs.gson
 
-    implementation Libs.RxJava.rxAndroid
-    implementation Libs.RxJava.rxJava
-    implementation Libs.RxJava.rxKotlin
-
     implementation Libs.Retrofit.retrofit
 
     implementation Libs.Glide.glide

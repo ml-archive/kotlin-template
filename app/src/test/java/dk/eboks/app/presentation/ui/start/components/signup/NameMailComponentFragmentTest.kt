@@ -12,6 +12,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import dk.eboks.app.R
 import dk.eboks.app.keychain.presentation.components.SignupComponentContract
+import dk.eboks.app.presentation.isGone
+import dk.eboks.app.presentation.isVisible
 import io.mockk.mockk
 import io.mockk.verify
 import junit.framework.Assert.assertFalse
@@ -50,16 +52,42 @@ class NameMailComponentFragmentTest {
     }
 
     @Test
+    fun `Test show progress`() {
+
+        // When
+        scenario.onFragment {
+            it.showProgress(false)
+        }
+        // Then
+        onView(withId(R.id.progress)).check(isGone())
+        onView(withId(R.id.scrollView)).check(isVisible())
+
+        // When
+        scenario.onFragment {
+            it.showProgress(true)
+        }
+
+        //Then
+        onView(withId(R.id.progress)).check(isVisible())
+        onView(withId(R.id.scrollView)).check(isGone())
+    }
+
+    @Test
     fun `Test email valid and button click`() {
+        // Given
         val presenter = mockk<SignupComponentContract.Presenter>(relaxUnitFun = true)
         val email = "eboks@eboks.com"
         val name = "eboks user"
+
         scenario.onFragment {
             it.presenter = presenter
             it.emailEt?.setText(email)
             it.nameEt.setText(name)
         }
+        // When
         onView(withId(R.id.continueBtn)).perform(click())
+
+        // Then
         verify { presenter.confirmMail(email, name) }
         onView(withId(R.id.progress)).check(matches(isDisplayed()))
         onView(withId(R.id.scrollView)).check(matches(not((isDisplayed()))))
