@@ -1,6 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 import dk.eboks.buildsrc.Libs
 import dk.eboks.buildsrc.Versions
+import dk.eboks.buildsrc.Modules
 
 buildscript {
 
@@ -60,24 +61,23 @@ subprojects {
 }
 
 def modules = [
-        "core",
-        "mail-interactors",
-        "mail-presentation",
-        "keychain-interactors",
-        "keychain-presentation",
-        "channels-presentation",
-        "channels-interactors",
-        "profile-interactors",
-        "profile-presentation",
-        "senders-interactors",
-        "senders-presentation"
+        Modules.Channels.interactors,
+        Modules.Channels.presentation,
+        Modules.Mail.presentation,
+        Modules.Mail.interactors,
+        Modules.Keychain.presentation,
+        Modules.Keychain.interactors,
+        Modules.Profile.interactors,
+        Modules.Profile.presentation,
+        Modules.Senders.interactors,
+        Modules.Senders.presentation,
 ]
 
 def moduleTasks = modules.collect { it + ":jacocoTestReport" }
 
 
 apply plugin: 'jacoco'
-/*task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
+task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
 
 
     reports {
@@ -92,7 +92,7 @@ apply plugin: 'jacoco'
     classDirectories = files(moduleTasks.collect { tasks.getByPath(it).classDirectories })
 
 
-}*/
+}
 
 dependencyUpdates.resolutionStrategy {
     componentSelection { rules ->
