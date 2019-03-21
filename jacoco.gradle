@@ -1,4 +1,5 @@
 import dk.eboks.buildsrc.Versions
+
 apply plugin: 'jacoco'
 
 jacoco {
@@ -22,30 +23,31 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
     description = "Generate Jacoco coverage reports"
 
 
-
     def mainSrc = "$project.projectDir/src/main/java"
 
+    // These files are gonna be excluded from report
+    def toExclude = ['**/R.class',
+                     '**/R$*.class',
+                     '**/*$$ViewBinder*.*',
+                     '**/injection/*',
+                     '**/*$InjectAdapter.*',
+                     '**/BuildConfig.*',
+                     '**/Manifest*.*',
+                     '**/Dagger*.*',
+                     '**/*_Provide*Factory.*',
+                     '**/*_Member*Injector.*',
+                     '**/*_Factory.*']
 
     sourceDirectories = files([mainSrc])
     additionalSourceDirs = files([mainSrc])
 
-    classDirectories = fileTree(dir: 'build/tmp/kotlin-classes/debug',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$$ViewBinder*.*',
-                       '**/injection/*',
-                       '**/*$InjectAdapter.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*',
-                       '**/Dagger*.*',
-                       '**/*_Provide*Factory.*',
-                       '**/*_Member*Injector.*',
-                       '**/*_Factory.*'])
+    classDirectories = fileTree(
+            dir: 'build/tmp/kotlin-classes/debug',
+            excludes: toExclude
+    )
 
 
     executionData = files('build/jacoco/testDebugUnitTest.exec')
-
-
 
 
     reports {

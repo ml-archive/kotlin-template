@@ -60,6 +60,9 @@ subprojects {
     }
 }
 
+/**
+ * Modules to include in unit-test reports
+ */
 def modules = [
         Modules.core,
         Modules.Channels.interactors,
@@ -74,15 +77,18 @@ def modules = [
         Modules.Senders.presentation,
 ]
 
+
 def moduleTasks = modules.collect { it + ":jacocoTestReport" }
 
 
 apply plugin: 'jacoco'
+
+/**
+ * Runs unit-tests for specified modules and creates coverage global report
+ */
 task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
 
-
     reports {
-
         html.enabled = true
         xml.enabled = false
         csv.enabled = false
@@ -91,7 +97,6 @@ task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
     executionData = files(moduleTasks.collect { tasks.getByPath(it).executionData })
     sourceDirectories = files(moduleTasks.collect { tasks.getByPath(it).sourceDirectories })
     classDirectories = files(moduleTasks.collect { tasks.getByPath(it).classDirectories })
-
 
 }
 
