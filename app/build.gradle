@@ -215,6 +215,12 @@ android {
         }
 
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 repositories {
@@ -270,7 +276,6 @@ dependencies {
     implementation Libs.eventbus
 
     implementation Libs.fastscroll
-
     implementation Libs.materialedittext
 
     // circular progress
@@ -286,15 +291,25 @@ dependencies {
     implementation Libs.Glide.glide
     kapt Libs.Glide.compiler
 
+    implementation Libs.AndroidX.ktx
+    implementation Libs.AndroidX.Fragment.ktx
+    implementation Libs.AndroidX.Fragment.fragment
+
     // Testing
     testImplementation Libs.junit
+    testImplementation Libs.Test.AndroidX.fragment
+    testImplementation Libs.Test.AndroidX.junit
+    testImplementation Libs.Test.AndroidX.ktx
+    testImplementation Libs.Test.Roboletric.roboletric
+    testImplementation Libs.Test.Roboletric.multidex
+    testImplementation Libs.Test.mockk
     // required if you want to use Mockito for unit tests
     testImplementation Libs.Test.Mockito.core
     // required if you want to use Mockito for Android tests
-    androidTestImplementation Libs.Test.Mockito.android
+    testImplementation Libs.Test.Mockito.android
 
     //For Espresso UI testing
-    androidTestImplementation Libs.Test.Expresso.core
-    androidTestImplementation Libs.Test.Expresso.intent
-    androidTestImplementation Libs.Test.Expresso.contrib
+    testImplementation Libs.Test.Expresso.core
+    testImplementation Libs.Test.Expresso.intent
+    testImplementation Libs.Test.Expresso.contrib
 }

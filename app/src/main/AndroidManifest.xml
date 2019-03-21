@@ -178,6 +178,10 @@
             android:name=".presentation.ui.message.screens.sign.SignActivity"
             android:screenOrientation="portrait" />
 
+        <!--Remove this when Roboletric is fixed-->
+        <activity android:name="androidx.fragment.app.testing.FragmentScenario$EmptyFragmentActivity"/>
+
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
