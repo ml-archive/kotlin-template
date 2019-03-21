@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import dk.eboks.app.R
@@ -36,9 +37,9 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     @Inject
     lateinit var presenter: SignupComponentContract.Presenter
 
-    var nameValid = false
-    var emailValid = false
-    var handler = Handler()
+    @VisibleForTesting internal var nameValid = false
+    @VisibleForTesting internal var emailValid = false
+    private var handler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,8 +102,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     private fun hideKeyboard(view: View?) {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         val inputMethodManager =
-            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun setupEmailListeners() {
