@@ -312,7 +312,7 @@ dependencies {
     testImplementation Libs.Test.Mockito.android
 
     //For Espresso UI testing
-    androidTestImplementation Libs.Test.Expresso.core
-    androidTestImplementation Libs.Test.Expresso.intent
-    androidTestImplementation Libs.Test.Expresso.contrib
+    testImplementation Libs.Test.Expresso.core
+    testImplementation Libs.Test.Expresso.intent
+    testImplementation Libs.Test.Expresso.contrib
 }
