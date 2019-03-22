@@ -40,6 +40,8 @@ android {
         packagingOptions {
             exclude 'META-INF/presentation_debug.kotlin_module'
             exclude 'META-INF/interactors_debug.kotlin_module'
+            exclude 'META-INF/interactors_release.kotlin_module'
+            exclude 'META-INF/presentation_release.kotlin_module'
         }
 
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "2100L"
