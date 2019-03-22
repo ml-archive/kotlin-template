@@ -21,21 +21,24 @@ class ConfirmDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val root = RelativeLayout(activity)
+        val root = RelativeLayout(requireContext())
         root.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        dialogInstance = Dialog(activity)
+        dialogInstance = Dialog(requireContext())
         dialogInstance.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialogInstance.setContentView(root)
-        dialogInstance.window.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        dialogInstance.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        parentView = dialogInstance.window.decorView.rootView
+        dialogInstance.window?.run {
+            setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            parentView = decorView.rootView
+        }
+
         val size = (resources.displayMetrics.density * 32.0f).toInt()
         parentView?.setPadding(size, 0, size, 0)
 

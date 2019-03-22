@@ -1,13 +1,12 @@
 package dk.eboks.app.util
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.core.os.bundleOf
 import dk.eboks.app.domain.models.channel.Channel
 
-interface FragmentArguments {
-    fun toBundle(): Bundle {
-        return bundleOf(BundleKeys.arguments to this)
-    }
+interface FragmentArguments: Parcelable {
+    fun toBundle() = bundleOf(BundleKeys.arguments to this)
 }
 
 fun Channel.toBundle() = bundleOf(BundleKeys.channel to this)

@@ -391,7 +391,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         val showUploads: Boolean = false,
         val sender: Sender? = null,
         val isEdit: Boolean = true
-    ) : Parcelable, FragmentArguments
+    ) : FragmentArguments
 
     interface MailListComponentListener {
         fun onEditModeActive(active: Boolean)
