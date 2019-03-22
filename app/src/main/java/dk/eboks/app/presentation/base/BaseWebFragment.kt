@@ -35,7 +35,7 @@ abstract class BaseWebFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         refreshSrl.isEnabled = false
         setupWebView()
-        Timber.e("Arguments: ${arguments?.containsKey("closeLoginOnBack")} ${arguments?.toString()}")
+        Timber.e("arguments: ${arguments?.containsKey("closeLoginOnBack")} ${arguments?.toString()}")
         arguments?.getBoolean("closeLoginOnBack", false)?.let {
             Timber.e("closeLoginOnBack read as $it")
             closeLoginOnBack = it

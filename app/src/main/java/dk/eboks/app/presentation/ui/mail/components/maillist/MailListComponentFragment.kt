@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
@@ -35,6 +34,7 @@ import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.util.BundleKeys
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
+import dk.eboks.app.util.FragmentArguments
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.visible
@@ -96,7 +96,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         arguments.guard {
             onBackPressed()
             return
-        }?.let { bundle -> fragmentArguments = bundle.getParcelable(BundleKeys.Arguments)!! }
+        }?.let { bundle -> fragmentArguments = bundle.getParcelable(BundleKeys.arguments)!! }
         presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
         setupFab()
@@ -380,7 +380,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         @JvmStatic
         fun newInstance(fragmentArguments: Arguments): MailListComponentFragment {
             return MailListComponentFragment().apply {
-                this.arguments = bundleOf(BundleKeys.Arguments to fragmentArguments)
+                this.arguments = fragmentArguments.toBundle()
             }
         }
     }
@@ -391,7 +391,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         val showUploads: Boolean = false,
         val sender: Sender? = null,
         val isEdit: Boolean = true
-    ) : Parcelable
+    ) : Parcelable, FragmentArguments
 
     interface MailListComponentListener {
         fun onEditModeActive(active: Boolean)

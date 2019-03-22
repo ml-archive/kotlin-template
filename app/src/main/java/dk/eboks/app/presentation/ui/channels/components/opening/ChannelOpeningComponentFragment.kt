@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -26,10 +25,11 @@ import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectSto
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
-import dk.eboks.app.util.BundleKeys
 import dk.eboks.app.util.ChannelType
+import dk.eboks.app.util.getChannel
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.toBundle
 import dk.eboks.app.util.type
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.*
@@ -64,7 +64,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        arguments?.getParcelable<Channel>(BundleKeys.channel)?.let {
+        arguments?.getChannel()?.let {
             presenter.setup(it.id)
             setupToolbar(it)
         }.guard {
@@ -277,10 +277,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     companion object {
         @JvmStatic
-        fun newInstance(channel: Channel): ChannelOpeningComponentFragment {
-            return ChannelOpeningComponentFragment().apply {
-                arguments = bundleOf(BundleKeys.channel to channel)
-            }
+        fun newInstance(channel: Channel) = ChannelOpeningComponentFragment().apply {
+            arguments = channel.toBundle()
         }
     }
 }

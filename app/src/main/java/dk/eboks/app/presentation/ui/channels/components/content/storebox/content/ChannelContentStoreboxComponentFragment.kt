@@ -16,9 +16,12 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.util.getChannel
 import dk.eboks.app.util.inflate
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.toBundle
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -52,9 +55,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         setup()
         setupTopbar()
 
-        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.let {
-            channel = it
-        }
+        channel = arguments?.getChannel()
 
         addCreditCardsBtn.setOnClickListener {
             val arguments = Bundle()
@@ -191,6 +192,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(channel: Channel) = ChannelOpeningComponentFragment().apply {
+            arguments = channel.toBundle()
         }
     }
 }
