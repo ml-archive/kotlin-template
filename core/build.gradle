@@ -4,6 +4,7 @@ import dk.eboks.buildsrc.Modules
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply from: '../jacoco.gradle'
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -14,18 +15,12 @@ android {
 
     }
 
-    buildTypes {
-        debug {
-        }
-        release {
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+
     }
 
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 }
 dependencies {
 
@@ -56,6 +51,7 @@ dependencies {
     implementation Libs.timber
 
     testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

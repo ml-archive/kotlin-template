@@ -2,7 +2,6 @@ import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 android {
     compileSdkVersion buildConfig.compileSdk
 

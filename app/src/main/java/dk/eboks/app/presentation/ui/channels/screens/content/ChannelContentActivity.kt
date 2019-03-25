@@ -25,10 +25,7 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
             if (!opendirectly) {
                 supportFragmentManager.beginTransaction().add(
                     R.id.content,
-                    ChannelOpeningComponentFragment().putArg(
-                        Channel::class.java.simpleName,
-                        channel
-                    ),
+                    ChannelOpeningComponentFragment.newInstance(channel),
                     ChannelOpeningComponentFragment::class.java.simpleName
                 ).commit()
             } else {

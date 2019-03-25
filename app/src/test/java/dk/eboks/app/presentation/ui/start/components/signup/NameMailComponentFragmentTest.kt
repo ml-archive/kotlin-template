@@ -6,7 +6,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -42,13 +41,9 @@ class NameMailComponentFragmentTest {
     @Test
     fun `Test email invalid`() {
         val email = "eboksom"
-        scenario.onFragment {
-            it.emailEt?.setText(email)
-        }
+        scenario.onFragment { it.emailEt?.setText(email) }
         onView(withId(R.id.continueBtn)).check(matches(not(isEnabled())))
-        scenario.onFragment {
-            assertFalse(it.emailValid)
-        }
+        scenario.onFragment { assertFalse(it.emailValid) }
     }
 
     @Test
@@ -59,17 +54,17 @@ class NameMailComponentFragmentTest {
             it.showProgress(false)
         }
         // Then
-        onView(withId(R.id.progress)).check(isGone())
-        onView(withId(R.id.scrollView)).check(isVisible())
+        onView(withId(R.id.progress)).check(matches(isGone()))
+        onView(withId(R.id.scrollView)).check(matches(isVisible()))
 
         // When
         scenario.onFragment {
             it.showProgress(true)
         }
 
-        //Then
-        onView(withId(R.id.progress)).check(isVisible())
-        onView(withId(R.id.scrollView)).check(isGone())
+        // Then
+        onView(withId(R.id.progress)).check(matches(isVisible()))
+        onView(withId(R.id.scrollView)).check(matches(isGone()))
     }
 
     @Test
@@ -89,7 +84,5 @@ class NameMailComponentFragmentTest {
 
         // Then
         verify { presenter.confirmMail(email, name) }
-        onView(withId(R.id.progress)).check(matches(isDisplayed()))
-        onView(withId(R.id.scrollView)).check(matches(not((isDisplayed()))))
     }
 }

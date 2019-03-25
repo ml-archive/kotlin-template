@@ -16,6 +16,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.dpToPx
+import dk.eboks.app.util.hideKeyboad
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
 import kotlinx.android.synthetic.main.fragment_signup_password_component.view.*
@@ -169,6 +170,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     private fun onContinueClicked() {
         // (activity as StartActivity).showLogo(false)
         presenter.setPassword(passwordEt.text.toString().trim())
+        passwordEt.hideKeyboad()
         showProgress(true)
         content.postDelayed({
             showProgress(false)
