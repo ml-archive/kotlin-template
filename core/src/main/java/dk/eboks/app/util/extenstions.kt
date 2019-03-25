@@ -1,7 +1,9 @@
 package dk.eboks.app.util
 
+import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -43,6 +45,12 @@ val ViewGroup.views: List<View>
 
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
+}
+
+fun View.hideKeyboad() {
+    val inputMethodManager =
+        context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
 fun BaseInteractor.exceptionToViewError(
