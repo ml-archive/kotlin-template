@@ -138,14 +138,17 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 addFolderBtn.setOnClickListener {
                     openDrawer()
                 }
+                editMarginView.visibility = View.GONE
                 systemFoldersLl.visibility = View.VISIBLE
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
+                editMarginView.visibility = View.GONE
                 systemFoldersLl.visibility = View.GONE
             }
             FolderMode.EDIT -> {
                 setEditTopBar()
+                editMarginView.visibility = View.VISIBLE
                 systemFoldersLl.visibility = View.GONE
 
                 for (view in foldersLl.views) {
