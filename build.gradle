@@ -88,6 +88,9 @@ apply plugin: 'jacoco'
  */
 task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
 
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports"
+
     reports {
         html.enabled = true
         xml.enabled = false
