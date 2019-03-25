@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isInvisible
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
-import dk.eboks.app.util.invisible
 import kotlinx.android.synthetic.main.fragment_signup_accept_terms_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -79,7 +79,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
     }
 
     override fun showProgress(show: Boolean) {
-        termsButtonsLl.invisible = show
-        progressFl.invisible = !show
+        termsButtonsLl.isInvisible = show
+        progressFl.isInvisible = !show
     }
 }

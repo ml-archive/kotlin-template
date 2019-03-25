@@ -13,9 +13,9 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
-import dk.eboks.app.util.invisible
+import androidx.core.view.isInvisible
 import dk.eboks.app.util.translatedName
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_device_activation_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -60,9 +60,9 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     }
 
     override fun showProgress(show: Boolean) {
-        activateDevicebuttonGroupLl.invisible = show
-        activateDeviceProgressFl.visible = show
-        progressBar.visible = show
+        activateDevicebuttonGroupLl.isInvisible = show
+        activateDeviceProgressFl.isVisible = show
+        progressBar.isVisible = show
     }
 
     override fun setupButtons() {

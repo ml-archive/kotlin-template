@@ -24,7 +24,7 @@ import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragmen
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.getWorkaroundUrl
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_folder_preview_component.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -76,8 +76,8 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     }
 
     private fun showEmptyState(show: Boolean, verifiedUser: Boolean) {
-        emptyStateLl.visible = show
-        mailListContentLL.visible = !show
+        emptyStateLl.isVisible = show
+        mailListContentLL.isVisible = !show
 
         // show the header in the parent activity if said activity is HomeActivity
         if (activity is HomeActivity) {
@@ -188,7 +188,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     }
 
     override fun showProgress(show: Boolean) {
-        progressFolderFl.visible = show
+        progressFolderFl.isVisible = show
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

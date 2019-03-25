@@ -12,8 +12,8 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
-import dk.eboks.app.util.views
-import dk.eboks.app.util.visible
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import dk.nodes.nstack.kotlin.util.getChildrenViews
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import javax.inject.Inject
@@ -81,7 +81,7 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
 
     private fun resetToolbar() {
         val mainTb = activity?.getToolbar() ?: return
-        val imageView = mainTb.views.firstOrNull { it is ImageView } ?: return
+        val imageView = mainTb.children.firstOrNull { it is ImageView } ?: return
         mainTb.removeView(imageView)
         mainTb.isClickable = false
     }
@@ -94,7 +94,7 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
     override fun setUser(user: User?, userName: String?) {
         setupToolbar(userName)
         user?.let {
-            folderShortcutsFragmentContainerFl.visible = (it.verified)
+            folderShortcutsFragmentContainerFl.isVisible = (it.verified)
         }
     }
 }

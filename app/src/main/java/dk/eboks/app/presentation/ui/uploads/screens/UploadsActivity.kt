@@ -5,7 +5,7 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_uploads.*
 
 import javax.inject.Inject
@@ -36,6 +36,6 @@ class UploadsActivity : BaseActivity(), UploadsContract.View,
     }
 
     override fun onEditModeActive(active: Boolean) {
-        navBarContainer.visible = !active
+        navBarContainer.isVisible = !active
     }
 }

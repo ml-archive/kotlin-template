@@ -14,7 +14,7 @@ import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -206,7 +206,7 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
 
     override fun showLoading(loading: Boolean) {
         saveMenuItem?.isEnabled = !loading
-        progressBar.visible = loading
+        progressBar.isVisible = loading
     }
 
     private fun isDataValid(): Boolean {

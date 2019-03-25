@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.forEach
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -27,8 +29,6 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.Rece
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.views
-import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -123,7 +123,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     private fun setupBottomView(channels: List<Channel>) {
         if (channels.isEmpty()) {
             (activity as HomeActivity).showChannelControlsHeader(false)
-            teaserLl.visible = (false)
+            teaserLl.isVisible = false
             emptyStateChannelLl.visibility = View.VISIBLE
             // bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
@@ -143,16 +143,16 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             teaserChannelBtn.setOnClickListener {
                 NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
-            teaserLl.visible = (true)
+            teaserLl.isVisible = true
         }
     }
 
     override fun showProgress(show: Boolean) {
-        progressChannelFl.visible = show
+        progressChannelFl.isVisible = show
     }
 
     private fun findControlView(channelId: Int): View? {
-        for (v in channelsContentLL.views) {
+        channelsContentLL.forEach { v ->
             if (v.tag as Int == channelId) {
                 return v
             }
@@ -185,15 +185,19 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             val logoIv = view.findViewById<ImageView>(R.id.logoIv)
             val errorTv = view.findViewById<TextView>(R.id.errorTextTv)
             val progressPb = view.findViewById<ProgressBar>(R.id.progressPb)
-            progressPb.visible = (false)
-            logoIv.visible = (true)
+            progressPb.isVisible = false
+            logoIv.isVisible = true
             errorTv.text = text
-            errorTv.visible = (true)
+            errorTv.isVisible = true
             // channelsContentLL.removeView(view)
         }
     }
 
-    private fun instantiateChannelControl(channel: Channel, control: Control, view: View): ChannelControl? {
+    private fun instantiateChannelControl(
+        channel: Channel,
+        control: Control,
+        view: View
+    ): ChannelControl? {
         when (control.type) {
             ItemType.RECEIPTS -> {
                 return ReceiptsChannelControl(

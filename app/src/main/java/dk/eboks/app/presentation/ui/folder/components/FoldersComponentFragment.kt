@@ -12,6 +12,8 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.forEach
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
@@ -27,8 +29,6 @@ import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentContr
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.views
-import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_folders_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_folder.view.*
@@ -128,11 +128,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         when (mode) {
             FolderMode.NORMAL -> {
                 setNormalTopbar()
-                for (view in systemFoldersLl.views) {
-                    normalView(view, view.tag as Folder)
-                }
-
-                for (view in foldersLl.views) {
+                systemFoldersLl.forEach { view ->
                     normalView(view, view.tag as Folder)
                 }
                 addFolderBtn.setOnClickListener {
@@ -150,10 +146,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 setEditTopBar()
                 editMarginView.visibility = View.VISIBLE
                 systemFoldersLl.visibility = View.GONE
-
-                for (view in foldersLl.views) {
-                    editView(view)
-                }
+                foldersLl.forEach(this::editView)
                 mainFab.visibility = View.VISIBLE
             }
         }
@@ -280,7 +273,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
-    private fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
+    private fun processFoldersRecursive(
+        folders: List<Folder>,
+        level: Int,
+        parentFolder: Folder? = null
+    ) {
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
 
@@ -421,7 +418,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = show
+        progressFl.isVisible = show
     }
 
     override fun showEmpty(show: Boolean) {

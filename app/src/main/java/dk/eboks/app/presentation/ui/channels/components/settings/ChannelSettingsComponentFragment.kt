@@ -22,7 +22,7 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentAct
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -174,7 +174,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun showProgress(boolean: Boolean) {
-        storagePb.visible = (boolean)
+        storagePb.isVisible = (boolean)
 
         containerContent.visibility = if (boolean) {
             View.INVISIBLE

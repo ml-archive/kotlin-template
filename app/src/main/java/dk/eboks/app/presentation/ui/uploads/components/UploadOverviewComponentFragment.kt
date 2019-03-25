@@ -22,7 +22,7 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
@@ -82,10 +82,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
     override fun setupView(verifiedUser: Boolean) {
         activity?.mainTb?.title = Translation.uploads.title
-        storageRowContainer.visible = (false)
-        emptyVerifiedUserTv.visible = (false)
-        emptyNonVerifiedUserLl.visible = (false)
-        emptyVerifiedUserTv.visible = (false)
+        storageRowContainer.isVisible = false
+        emptyVerifiedUserTv.isVisible = false
+        emptyNonVerifiedUserLl.isVisible = false
+        emptyVerifiedUserTv.isVisible = false
         // verified user
         verified = verifiedUser
         if (verifiedUser) {
@@ -137,7 +137,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         if (uploads.size > 0) {
             // if user is not verified but have uploads show the small verify teaser
             if (!verified) {
-                storageRowContainer.visible = (true)
+                storageRowContainer.isVisible = true
             }
             latestUploadsLl.visibility = View.VISIBLE
             latestUploadsFl.visibility = View.VISIBLE
@@ -153,8 +153,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 val dividerV = v.findViewById<View>(R.id.dividerV)
                 val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
                 val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
-                showContainerLl.visible = (true)
-                uploadingContainerLl.visible = (false)
+                showContainerLl.isVisible = true
+                uploadingContainerLl.isVisible = false
 
                 headerTv.text = currentItem.subject
                 subHeaderTv.text = currentItem.sender?.name ?: ""
@@ -178,14 +178,14 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             }
         } else {
             if (verified) {
-                emptyVerifiedUserTv.visible = (true)
+                emptyVerifiedUserTv.isVisible = true
             } else {
-                emptyNonVerifiedUserLl.visible = (true)
+                emptyNonVerifiedUserLl.isVisible = true
             }
 
-            latestUploadsTopRowFl.visible = (false)
-            latestUploadsFl.visible = (false)
-            latestUploadsLl.visible = (false)
+            latestUploadsTopRowFl.isVisible = false
+            latestUploadsFl.isVisible = false
+            latestUploadsLl.isVisible = false
         }
     }
 

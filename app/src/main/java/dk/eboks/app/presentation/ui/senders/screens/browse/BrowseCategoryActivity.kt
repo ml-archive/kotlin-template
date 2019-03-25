@@ -23,7 +23,7 @@ import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.invisible
+import androidx.core.view.isInvisible
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -181,7 +181,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
             // this will hide-show the first-letter textview
             fun showIndex(show: Boolean) {
-                indexTv.invisible = !show
+                indexTv.isInvisible = !show
             }
         }
     }

@@ -8,7 +8,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.mail.presentation.ui.screens.list.MailListContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_mail_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -61,6 +61,6 @@ class MailListActivity : BaseActivity(), MailListContract.View,
     }
 
     override fun onEditModeActive(active: Boolean) {
-        navBarContainer.visible = !active
+        navBarContainer.isVisible = !active
     }
 }

@@ -18,7 +18,7 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_senders_search_senders.*
 import javax.inject.Inject
 
@@ -95,7 +95,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     override fun showSenders(senders: List<Sender>) {
-        emptyTv.visible = senders.isEmpty()
+        emptyTv.isVisible = senders.isEmpty()
         this.senders.clear()
         this.senders.addAll(senders)
         searchSenderRv.adapter?.notifyDataSetChanged()

@@ -37,7 +37,7 @@ import dk.eboks.app.util.BundleKeys
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -356,12 +356,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = show
+        progressFl.isVisible = show
     }
 
     override fun showEmpty(show: Boolean) {
-        emptyFl.visible = show
-        contentFl.visible = !show
+        emptyFl.isVisible = show
+        contentFl.isVisible = !show
     }
 
     override fun showMessages(messages: List<Message>) {
