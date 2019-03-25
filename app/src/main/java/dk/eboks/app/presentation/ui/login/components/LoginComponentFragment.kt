@@ -36,11 +36,11 @@ import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.util.KeyboardUtils
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.invisible
+import androidx.core.view.isInvisible
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.putArg
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.CANCEL
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR
@@ -378,7 +378,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             when (provider.id) {
                 "email" -> {
                     setupUserView(user)
-                    userEmailCprTv.visible = (true)
+                    userEmailCprTv.isVisible = true
                     cprEmailEt.inputType =
                         InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
@@ -386,7 +386,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }
-                    userEmailCprTv.visible = (false)
+                    userEmailCprTv.isVisible = false
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
@@ -523,7 +523,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun showProgress(show: Boolean) {
         continueBtn.isEnabled = !show
-        continuePb.invisible = !show
+        continuePb.isInvisible = !show
     }
 
     override fun onDestroy() {

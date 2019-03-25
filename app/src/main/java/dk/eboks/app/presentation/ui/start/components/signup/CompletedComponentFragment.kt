@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_signup_completed_component.*
 import javax.inject.Inject
 
@@ -36,8 +36,8 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
     }
 
     override fun showProgress(show: Boolean) {
-        content.visible = !show
-        progress.visible = show
+        content.isVisible = !show
+        progress.isVisible = show
     }
 
     private fun onContinueClicked() {

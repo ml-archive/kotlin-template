@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.viewholder_pdfpage.view.*
 import timber.log.Timber
 
@@ -98,7 +98,7 @@ class PdfReaderView @JvmOverloads constructor(
 
             fun bindView(page: RenderedPage) {
                 itemView.imageView.setImageBitmap(page.page)
-                itemView.progressBar.visible = !page.loaded
+                itemView.progressBar.isVisible = !page.loaded
             }
         }
 

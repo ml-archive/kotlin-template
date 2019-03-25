@@ -42,8 +42,8 @@ import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivi
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.getWorkaroundUrl
-import dk.eboks.app.util.views
-import dk.eboks.app.util.visible
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
 import kotlinx.android.synthetic.main.fragment_folder_preview_component.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -122,15 +122,15 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     }
 
     override fun showMailsHeader(show: Boolean) {
-        mailHeaderFl.visible = show
+        mailHeaderFl.isVisible = show
     }
 
     override fun showChannelControlsHeader(show: Boolean) {
-        channelsHeaderFl.visible = show
+        channelsHeaderFl.isVisible = show
     }
 
     override fun showFolderProgress(show: Boolean) {
-        progressFolderFl.visible = show
+        progressFolderFl.isVisible = show
     }
 
     override fun onRefreshFolderDone() {
@@ -221,7 +221,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     }
 
     override fun showChannelProgress(show: Boolean) {
-        progressChannelFl.visible = show
+        progressChannelFl.isVisible = show
     }
 
     override fun setupChannels(channels: List<Channel>) {
@@ -258,7 +258,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
         }
         if (channels.isEmpty()) {
             showChannelControlsHeader(false)
-            teaserLl.visible = (false)
+            teaserLl.isVisible = false
             emptyStateChannelLl.visibility = View.VISIBLE
             // bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
@@ -278,7 +278,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             teaserChannelBtn.setOnClickListener {
                 (activity as? MainNavigator)?.showMainSection(Section.Channels)
             }
-            teaserLl.visible = (true)
+            teaserLl.isVisible = true
         }
     }
 
@@ -370,7 +370,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     }
 
     private fun findControlView(channelId: Int): View? {
-        for (v in channelsContentLL.views) {
+        for (v in channelsContentLL.children) {
             if (v.tag as? Int == channelId) {
                 return v
             }
@@ -385,17 +385,17 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             val logoIv = view.findViewById<ImageView>(R.id.logoIv)
             val errorTv = view.findViewById<TextView>(R.id.errorTextTv)
             val progressPb = view.findViewById<ProgressBar>(R.id.progressPb)
-            progressPb.visible = (false)
-            logoIv.visible = (true)
+            progressPb.isVisible = false
+            logoIv.isVisible = true
             errorTv.text = text
-            errorTv.visible = (true)
+            errorTv.isVisible = true
             // channelsContentLL.removeView(view)
         }
     }
 
     private fun showEmptyState(show: Boolean, verifiedUser: Boolean) {
-        emptyStateLl.visible = show
-        mailListContentLL.visible = !show
+        emptyStateLl.isVisible = show
+        mailListContentLL.isVisible = !show
 
         // show the header in the parent activity if said activity is HomeActivity
         showMailsHeader(!show)

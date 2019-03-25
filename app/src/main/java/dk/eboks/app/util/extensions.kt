@@ -17,11 +17,14 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
+import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.ToggleButton
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -32,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.AppConfigImpl
+import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
@@ -263,24 +267,6 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
-var View.visible: Boolean
-    get() = visibility == View.VISIBLE
-    set(value) {
-        visibility = if (value) View.VISIBLE else View.GONE
-    }
-
-var View.invisible: Boolean
-    get() = visibility == View.INVISIBLE
-    set(value) {
-        visibility = if (value) View.INVISIBLE else View.VISIBLE
-    }
-
-var View.gone: Boolean
-    get() = visibility == View.GONE
-    set(value) {
-        visibility = if (value) View.GONE else View.VISIBLE
-    }
-
 fun TextInputEditText.onTextChanged(block: (String) -> Unit) {
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
@@ -307,4 +293,23 @@ fun TextInputEditText.onImeActionDone(block: () -> Unit) {
 fun Date.formatPayment(): String {
     val formatter = SimpleDateFormat("d MMMM YYYY", Locale.getDefault())
     return "Payment due on ${formatter.format(this)}"
+}
+fun CompoundButton.updateCheckDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
+    if (isChecked) {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0)
+    } else {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+}
+
+fun ToggleButton.onClick(block: () -> Unit) {
+    setOnTouchListener { view, motionEvent ->
+        return@setOnTouchListener when (motionEvent.action) {
+            MotionEvent.ACTION_UP -> {
+                block()
+                true
+            }
+            else -> view.onTouchEvent(motionEvent)
+        }
+    }
 }

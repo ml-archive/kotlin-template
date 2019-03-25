@@ -19,7 +19,7 @@ import dk.eboks.app.presentation.ui.message.components.viewers.pdf.PdfViewCompon
 import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.activity_base_sheet.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -48,7 +48,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         setContentSheet(R.layout.sheet_file_upload)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        mainTb.visible = (false)
+        mainTb.isVisible = false
 
         mainHandler.post {
             intent.getStringExtra("uriString")?.let { uriString ->
@@ -136,7 +136,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     }
 
     override fun showNoPreviewAvailable() {
-        noPreviewAvailableTv.visible = (true)
+        noPreviewAvailableTv.isVisible = true
     }
 
     override fun addPdfViewer(uri: String) {

@@ -90,16 +90,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginTop="12dp"
+                        android:layout_marginBottom="20dp"
                         android:fontFamily="sans-serif-medium"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
+                        android:text="@string/nstack_folders_noFoldersBtn"
                         android:textSize="14dp"
-                        android:textStyle="normal"
-                        android:text="folders_noFoldersBtn" />
+                        android:textStyle="normal" />
+
+
                 </LinearLayout>
 
+                <View
+                    android:id="@+id/editMarginView"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_margin="16dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -108,10 +115,10 @@
         android:id="@+id/mainFab"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:contentDescription="@string/nstack_accessibility_createFolderButton"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:contentDescription="@string/nstack_accessibility_createFolderButton"
         android:src="@drawable/icon_48_plus_white_big"
         android:visibility="gone" />
 

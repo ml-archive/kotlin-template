@@ -79,7 +79,7 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
 
         /*
         checkBoxesLl?.setOnCheckedChangeListener({radioGroup, i ->
-            for(cb in radioGroup.views)
+            for(cb in radioGroup.children)
             {
                 if((cb as RadioButton).isChecked)
                     selectedOptions.add(cb.tag as FormInputOption)

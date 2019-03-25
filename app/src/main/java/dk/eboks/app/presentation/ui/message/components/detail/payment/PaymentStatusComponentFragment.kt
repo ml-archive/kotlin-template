@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_payment_status_component.*
 
 class PaymentStatusComponentFragment : BaseFragment() {
@@ -47,14 +47,14 @@ class PaymentStatusComponentFragment : BaseFragment() {
     }
 
     fun showCreditCardReceipt(isCancellable: Boolean) {
-        paymentServiceLl.visible = false
-        paymentCancelLl.visible = isCancellable
+        paymentServiceLl.isVisible = false
+        paymentCancelLl.isVisible = isCancellable
     }
 
     fun showServiceReceipt() {
-        paymentCancelLl.visible = false
-        paymentServiceLl.visible = true
-        dividerTransaction.visible = false
-        paymentTransactionLl.visible = false
+        paymentCancelLl.isVisible = false
+        paymentServiceLl.isVisible = true
+        dividerTransaction.isVisible = false
+        paymentTransactionLl.isVisible = false
     }
 }

@@ -10,7 +10,7 @@ import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.nstack.kotlin.util.getChildrenViews
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -75,7 +75,7 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     override fun setUser(user: User?, userName: String?) {
         setupTopbar(userName)
         user?.let {
-            folderShortcutsFragmentContainerFl.visible = it.verified
+            folderShortcutsFragmentContainerFl.isVisible = it.verified
         }
     }
 

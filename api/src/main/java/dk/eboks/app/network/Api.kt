@@ -196,6 +196,9 @@ interface Api {
     @GET("mail/storage")
     fun getStorageInfo(): Call<StorageInfo>
 
+    @GET("/groups/senders/{senderId}/link")
+    fun getSenderRegistrationLink(@Path("senderId") senderId: Long): Call<Link>
+
     // sign
     @GET("mail/folders/{folderId}/messages/{id}/sign/link")
     fun getSignLink(
@@ -294,8 +297,8 @@ interface Api {
     @GET("groups/segments/type/{segment}/categories")
     fun getSenderCategories(@Path("segment") segment: String): Call<List<SenderCategory>> // private or public
 
-    @GET("groups/categories/{id}/senders")
-    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
+    @GET("groups/{id}")
+    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory>
 
     @GET("groups/senders")
     fun searchSenders(@Query("searchText") searchText: String): Call<List<Sender>>

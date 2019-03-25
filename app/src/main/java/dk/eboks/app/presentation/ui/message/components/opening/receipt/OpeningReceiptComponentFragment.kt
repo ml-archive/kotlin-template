@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.mail.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -45,8 +45,8 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
 
         voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
 
-        buttonsLl.visible = true
-        openMessageButtons.visible = true
+        buttonsLl.isVisible = true
+        openMessageButtons.isVisible = true
 
         openBtn.setOnClickListener {
             presenter.setShouldProceed(proceed = true, receipt = true)
@@ -55,7 +55,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
 
         if (voluntaryReceipt) {
             Timber.e("This is a voluntary receipt")
-            secondaryOptionBtn.visible = (true)
+            secondaryOptionBtn.isVisible = true
             secondaryOptionBtn.setOnClickListener {
                 presenter.setShouldProceed(proceed = true, receipt = false)
             }
@@ -94,7 +94,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visible = show
-        buttonsLl.visible = !show
+        progressPb.isVisible = show
+        buttonsLl.isVisible = !show
     }
 }

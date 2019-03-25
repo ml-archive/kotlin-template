@@ -20,7 +20,7 @@ import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.util.getWorkaroundUrl
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import kotlinx.android.synthetic.main.viewholder_circular_sender.view.*
 import javax.inject.Inject
@@ -79,23 +79,23 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = show
+        progressFl.isVisible = show
     }
 
     override fun showEmpty(show: Boolean, verified: Boolean) {
         if (verified) {
-            sendersListEmptyUnverifiedLl.visible = false
-            sendersListEmptyLl.visible = show
+            sendersListEmptyUnverifiedLl.isVisible = false
+            sendersListEmptyLl.isVisible = show
         } else {
-            sendersListEmptyLl.visible = false
-            sendersListEmptyUnverifiedLl.visible = show
+            sendersListEmptyLl.isVisible = false
+            sendersListEmptyUnverifiedLl.isVisible = show
         }
-        sendersListLl.visible = (!show)
+        sendersListLl.isVisible = (!show)
     }
 
     override fun showEmpty(show: Boolean) {
-        sendersListEmptyLl.visible = show
-        sendersListLl.visible = !show
+        sendersListEmptyLl.isVisible = show
+        sendersListLl.isVisible = !show
     }
 
     inner class HorizontalSendersAdapter :

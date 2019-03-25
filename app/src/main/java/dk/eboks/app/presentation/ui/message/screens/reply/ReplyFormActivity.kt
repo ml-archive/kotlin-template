@@ -10,8 +10,8 @@ import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.invisible
-import dk.eboks.app.util.views
+import androidx.core.view.isInvisible
+import androidx.core.view.children
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_reply_form.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -43,17 +43,15 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
 
         submitBtn.setOnClickListener {
             presenter.submit(
-                replyForms().map { it.formInput }
+                replyForms().map { it.formInput }.toList()
             )
         }
     }
 
-    private fun replyForms(): List<ReplyFormInput> {
-        return formInputLl
-            .views
+    private fun replyForms() = formInputLl
+            .children
             .map { it.tag }
             .filterIsInstance<ReplyFormInput>()
-    }
 
     private fun setupTopBar(txt: String) {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
@@ -92,7 +90,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.invisible = !show
+        progressFl.isInvisible = !show
     }
 
     override fun clearForm() {

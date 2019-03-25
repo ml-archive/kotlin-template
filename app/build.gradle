@@ -48,8 +48,8 @@ android {
 
         // flags for disabling various functionality for the different betas
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "false"
-        buildConfigField "Boolean", "ENABLE_SENDERS", "false"
         buildConfigField "Boolean", "ENABLE_PAYMENTS", "false"
+        buildConfigField "Boolean", "ENABLE_SENDERS", "false"
         buildConfigField "Boolean", "ENABLE_UPLOADS", "true"
         buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "true"
         buildConfigField "Boolean", "ENABLE_FOLDERS_ACTIONS", "true"

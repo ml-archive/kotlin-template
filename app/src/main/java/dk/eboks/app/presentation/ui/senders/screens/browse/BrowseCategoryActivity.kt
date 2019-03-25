@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,8 +23,6 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
-import dk.eboks.app.util.guard
-import dk.eboks.app.util.invisible
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -77,9 +76,9 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
                 )
             )
         } else {
-            cat.senders?.let(::showSenders).guard {
-                presenter.loadSenders(cat.id)
-            }
+            // cat.senders?.let(::showSenders).guard {
+            presenter.loadSenders(cat.id)
+            // }
             mainTb.title = cat.name
         }
         ContextCompat.getDrawable(this, R.drawable.fastscroll_bubble)
@@ -133,16 +132,17 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
             // REMOVED FEATURE
             //  determine if we need to show the first-letter
-//            var firstInGroup = true
-//            try {
-//                val prev = senders[position - 1]
-//                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
-//                    firstInGroup = false
-//                }
-//            }  catch (e : Exception) {}
+            var firstInGroup = true
+            try {
+                val prev = senders[position - 1]
+                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
+                    firstInGroup = false
+                }
+            } catch (e: Exception) {
+            }
 
             holder.bind(s)
-//            holder?.showIndex(firstInGroup)
+            holder.showIndex(firstInGroup)
         }
 
         override fun getItemCount(): Int {
@@ -181,7 +181,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
             // this will hide-show the first-letter textview
             fun showIndex(show: Boolean) {
-                indexTv.invisible = !show
+                indexTv.isInvisible = !show
             }
         }
     }

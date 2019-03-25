@@ -21,7 +21,7 @@ import dk.eboks.app.mail.presentation.ui.folder.components.FolderSelectUserCompo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_folders_selectuser.*
 import kotlinx.android.synthetic.main.viewholder_select_user.view.*
 import timber.log.Timber
@@ -116,8 +116,8 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     }
 
     override fun showProgress(visible: Boolean) {
-        profileProgress.visible = visible
-        profileContentLl.visible = !visible
+        profileProgress.isVisible = visible
+        profileContentLl.isVisible = !visible
     }
 
     inner class SharedUserAdapter : RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {

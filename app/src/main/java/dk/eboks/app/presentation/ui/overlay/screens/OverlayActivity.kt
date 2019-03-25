@@ -9,10 +9,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.forEach
+import androidx.core.view.isVisible
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.util.views
-import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_overlay.*
@@ -79,7 +79,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     }
 
     override fun onLanguageChanged(locale: Locale) {
-        for (v in buttonContainerLl.views) {
+        buttonContainerLl.forEach { v ->
             val buttonObj = v.tag as OverlayButton
             v.textTv.text = buttonObj.getText(buttonObj.type)
         }
@@ -87,10 +87,10 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
 
     private fun closeAnimation(item: ButtonType?) {
         var delay = animationTime
-        for (v in buttonContainerLl.views) {
+        buttonContainerLl.forEach { v ->
             handler.postDelayed({
                 v.textTv.visibility = View.GONE
-                v.buttonFab.visible = false
+                v.buttonFab.isVisible = false
             }, delay)
             delay += animationTime
         }

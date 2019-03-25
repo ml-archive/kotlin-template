@@ -17,7 +17,7 @@ import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFr
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.BroadcastReceiver
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -226,7 +226,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             debugConfEnvTv.text =
                 "Conf/Env: ${appConfig.currentConfigName}/${appConfig.currentEnvironmentName}"
-            debugConfEnvTv.visible = true
+            debugConfEnvTv.isVisible = true
         }
     }
 }

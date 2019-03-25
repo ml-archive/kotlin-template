@@ -13,7 +13,7 @@ import dk.eboks.app.domain.models.getIconResId
 import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -82,7 +82,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = show
+        progressFl.isVisible = show
     }
 
     override fun showEmpty(show: Boolean) {

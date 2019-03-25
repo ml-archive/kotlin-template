@@ -9,7 +9,7 @@ import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.Embedde
 import dk.eboks.app.mail.presentation.ui.message.components.viewers.text.TextViewComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
 import kotlinx.coroutines.Dispatchers
@@ -99,8 +99,8 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
     }
 
     private fun show(decoded: String) {
-        progresspb.visible = (false)
-        contentTv.visible = (true)
+        progresspb.isVisible = false
+        contentTv.isVisible = true
         try {
             Timber.e("Setting textview")
             contentTv.text = decoded

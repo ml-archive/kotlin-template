@@ -11,7 +11,7 @@ import dk.eboks.app.domain.models.message.payment.PaymentCallback
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_payment_web_view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -67,8 +67,8 @@ class PaymentWebViewActivity : BaseActivity() {
     }
 
     private fun showPaymentComplete() {
-        paymentDoneCl.visible = true
-        paymentWebView.visible = false
+        paymentDoneCl.isVisible = true
+        paymentWebView.isVisible = false
 
         doneButton.setOnClickListener {
             setResult(Activity.RESULT_OK)

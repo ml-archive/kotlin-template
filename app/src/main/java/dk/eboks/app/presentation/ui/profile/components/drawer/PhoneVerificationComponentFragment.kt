@@ -12,7 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.profile.presentation.ui.components.drawer.PhoneVerificationComponentContract
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_profile_verify_mobile_number_component.*
 import javax.inject.Inject
 
@@ -105,7 +105,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = (show)
+        progressFl.isVisible = (show)
     }
 
     override fun showNumber(mobile: String) {

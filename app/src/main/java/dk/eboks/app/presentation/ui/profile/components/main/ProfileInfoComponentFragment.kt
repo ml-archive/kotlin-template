@@ -32,7 +32,7 @@ import dk.eboks.app.presentation.ui.start.components.signup.AcceptTermsComponent
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.profile.presentation.ui.components.main.ProfileInfoComponentContract
 import dk.eboks.app.util.dpToPx
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
@@ -125,11 +125,11 @@ class ProfileInfoComponentFragment : BaseFragment(), ProfileInfoComponentContrac
             val fingerprintManager =
                 context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
             if (fingerprintManager?.isHardwareDetected == true) {
-                profileDetailSwFingerprint.visible = (true)
+                profileDetailSwFingerprint.isVisible = true
                 // Device doesn't support fingerprint authentication
             } else fingerprintManager?.isHardwareDetected
         } else
-            profileDetailSwFingerprint.visible = (false)
+            profileDetailSwFingerprint.isVisible = false
     }
 
     override fun attachListeners() {
@@ -375,8 +375,8 @@ class ProfileInfoComponentFragment : BaseFragment(), ProfileInfoComponentContrac
 
     override fun showProgress(show: Boolean) {
         Timber.e("showChannelProgress $show called in ProfileInfoComponentFragment")
-        progressFl.visible = show
-        profileFragmentRootContainer.visible = !show
+        progressFl.isVisible = show
+        profileFragmentRootContainer.isVisible = !show
     }
 
     companion object {

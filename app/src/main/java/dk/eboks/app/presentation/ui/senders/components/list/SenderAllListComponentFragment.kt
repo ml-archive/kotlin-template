@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,7 +20,6 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentContract
-import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_senders_list.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -134,7 +134,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     override fun showProgress(show: Boolean) {
-        progressBarFl.visible = show
+        progressBarFl.isVisible = show
         refreshSrl.isRefreshing = show
     }
 

@@ -39,7 +39,7 @@ import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.FileUtils
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_payment_line.view.*
@@ -128,8 +128,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     override fun showProgress(isLoading: Boolean) {
-        storeboxDetailProgressBar.visible = (isLoading)
-        storeboxDetailContentContainer.visible = (!isLoading)
+        storeboxDetailProgressBar.isVisible = (isLoading)
+        storeboxDetailContentContainer.isVisible = (!isLoading)
     }
 
     override fun setReceipt(receipt: StoreboxReceipt) {
@@ -148,7 +148,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
     private fun setLogo(url: String?) {
         if (url == null) {
-            storeboxDetailImageContainer.visible = (false)
+            storeboxDetailImageContainer.isVisible = false
             return
         }
 
@@ -174,13 +174,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
         var zipCityName = ""
         merchant?.let {
-            storeboxDetailTvStoreName.visible = (!it.name.isNullOrBlank())
+            storeboxDetailTvStoreName.isVisible = (!it.name.isNullOrBlank())
             storeboxDetailTvStoreName.text = it.name
-            storeboxDetailTvAddressLineOne.visible = (!it.addressLine1.isNullOrBlank())
+            storeboxDetailTvAddressLineOne.isVisible = (!it.addressLine1.isNullOrBlank())
             storeboxDetailTvAddressLineOne.text = it.addressLine1
-            storeboxDetailTvAddressLineTwo.visible = (!it.addressLine2.isNullOrBlank())
+            storeboxDetailTvAddressLineTwo.isVisible = (!it.addressLine2.isNullOrBlank())
             storeboxDetailTvAddressLineTwo.text = it.addressLine2
-            storeboxDetailTvCvrNumber.visible = (!optionals?.storeRegNumber.isNullOrBlank())
+            storeboxDetailTvCvrNumber.isVisible = (!optionals?.storeRegNumber.isNullOrBlank())
             storeboxDetailTvCvrNumber.text = optionals?.storeRegNumber
 
             if (it.zipCode != null) {
@@ -190,7 +190,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 zipCityName += it.city
             }
         }
-        storeboxDetailTvZipAndCity.visible = (zipCityName.isNotBlank())
+        storeboxDetailTvZipAndCity.isVisible = (zipCityName.isNotBlank())
         storeboxDetailTvZipAndCity.text = zipCityName
     }
 
@@ -225,24 +225,24 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             return
         }
 
-        storeboxDetailOptionalsContainer.visible = (true)
+        storeboxDetailOptionalsContainer.isVisible = true
 
         if (headerIsValid) {
             storeboxDetailTvOptionalHeader.text = optionals.headerText
         } else {
-            storeboxDetailTvOptionalHeader.visible = (false)
+            storeboxDetailTvOptionalHeader.isVisible = false
         }
 
         if (footerIsValid) {
             storeboxDetailTvOptionalFooter.text = optionals.footerText
         } else {
-            storeboxDetailTvOptionalFooter.visible = (false)
+            storeboxDetailTvOptionalFooter.isVisible = false
         }
     }
 
     private fun setBarcode(barcode: StoreboxBarcode?) {
         if (barcode == null) {
-            storeboxDetailBarcodeContainer.visible = (false)
+            storeboxDetailBarcodeContainer.isVisible = false
             return
         }
         val writer = MultiFormatWriter()
@@ -254,11 +254,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 400, 150)
                 drawBarcode(bm, barcode)
             } catch (e: Exception) {
-                storeboxDetailBarcodeContainer.visible = (false)
+                storeboxDetailBarcodeContainer.isVisible = false
                 Timber.e(e)
             }
         } catch (e: Exception) {
-            storeboxDetailBarcodeContainer.visible = (false)
+            storeboxDetailBarcodeContainer.isVisible = false
             Timber.e(e)
         }
     }
@@ -282,11 +282,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
 
         if (bitmap != null) {
-            storeboxDetailBarcodeContainer.visible = (true)
+            storeboxDetailBarcodeContainer.isVisible = true
             storeboxDetailIvBarcode.setImageBitmap(bitmap)
             storeboxDetailTvBarcode.text = barcode.displayValue
         } else {
-            storeboxDetailBarcodeContainer.visible = (false)
+            storeboxDetailBarcodeContainer.isVisible = false
         }
     }
 
@@ -439,10 +439,10 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
-                itemView.viewHolderReceiptTvAmount.visible = (false)
+                itemView.viewHolderReceiptTvAmount.isVisible = false
                 receiptLine.amount?.let { amount ->
                     if (amount > 1) {
-                        itemView.viewHolderReceiptTvAmount.visible = (true)
+                        itemView.viewHolderReceiptTvAmount.isVisible = true
                         itemView.viewHolderReceiptTvAmount.text = String.format(
                             "%s x %.2f",
                             receiptLine.amount?.toInt(),
@@ -450,16 +450,16 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                         )
                     }
                 }.guard {
-                    itemView.viewHolderReceiptTvAmount.visible = (false)
+                    itemView.viewHolderReceiptTvAmount.isVisible = false
                 }
 
                 itemView.viewHolderReceiptTvPrice.text =
                     String.format("%.2f", receiptLine.totalPrice?.value)
 
-                itemView.viewHolderReceiptTvSubtitle.visible = (false)
+                itemView.viewHolderReceiptTvSubtitle.isVisible = false
                 receiptLine.description?.let {
                     if (!it.isBlank()) {
-                        itemView.viewHolderReceiptTvSubtitle.visible = (true)
+                        itemView.viewHolderReceiptTvSubtitle.isVisible = true
                         itemView.viewHolderReceiptTvSubtitle.text = it
                     }
                 }

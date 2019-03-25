@@ -31,7 +31,7 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import dk.eboks.app.util.toBundle
 import dk.eboks.app.util.type
-import dk.eboks.app.util.visible
+import androidx.core.view.isVisible
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
@@ -234,7 +234,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visible = show
+        progress.isVisible = show
     }
 
     override fun showRequirementsDrawer(channel: Channel) {

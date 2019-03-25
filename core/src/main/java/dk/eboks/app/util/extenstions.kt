@@ -1,7 +1,8 @@
 package dk.eboks.app.util
 
+import android.app.Activity
 import android.view.View
-import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -12,37 +13,14 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
-    override fun iterator(): Iterator<View> = object : Iterator<View> {
-        private var nextValue: View? = null
-        private var done = false
-        private var position: Int = 0
-
-        override fun hasNext(): Boolean {
-            if (nextValue == null && !done) {
-                nextValue = getChildAt(position)
-                position++
-                if (nextValue == null) done = true
-            }
-            return nextValue != null
-        }
-
-        override fun next(): View {
-            if (!hasNext()) {
-                throw NoSuchElementException()
-            }
-            val answer = nextValue
-            nextValue = null
-            return answer!!
-        }
-    }
-}
-
-val ViewGroup.views: List<View>
-    get() = asSequence().toList()
-
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
+}
+
+fun View.hideKeyboad() {
+    val inputMethodManager =
+        context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
 fun BaseInteractor.exceptionToViewError(

@@ -50,12 +50,12 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/senderDetailBodyTv"
                     style="@style/text.header4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_half"
-                    android:text="Radius padius radius padius adius padius radius padius adius"
                     android:textAlignment="center"
                     android:textColor="@color/white" />
 
@@ -93,6 +93,13 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,9 +110,11 @@
         <LinearLayout
             android:id="@+id/senderDetailContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:animateLayoutChanges="true">
+
+
 
             <fragment
                 android:id="@+id/senderGroupsListComponentF"
