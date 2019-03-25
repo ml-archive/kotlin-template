@@ -2,7 +2,7 @@ package dk.eboks.buildsrc
 
 object Versions {
     const val ktlint = "0.31.0"
-    const val jacoco = "0.8.1"
+    const val jacoco = "0.8.3"
 }
 
 object Modules {
@@ -148,7 +148,7 @@ object Libs {
         const val runner = "androidx.test:runner:1.1.1"
         const val okhttp = "com.github.gmazzo:okhttp-mock:1.3.1"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-        const val assertjCore = "org.assertj:assertj-core:3.12.1"
+        const val assertjCore = "org.assertj:assertj-core:3.12.2"
         const val junit = Libs.junit
         const val jacoco = "org.jacoco:org.jacoco.core:${Versions.jacoco}"
 
@@ -161,8 +161,8 @@ object Libs {
 
         object AndroidX {
             const val junit = "androidx.test.ext:junit:1.1.0"
-            const val ktx = Libs.AndroidX.Fragment.ktx
-            const val fragment = "androidx.fragment:fragment-testing:1.1.0-alpha01"
+            const val ktx = "androidx.test:core-ktx:1.1.0"
+            const val fragment = Libs.AndroidX.Fragment.test
         }
 
         object PowerMock {
@@ -179,7 +179,7 @@ object Libs {
         }
 
         object Mockito {
-            private const val version = "2.25.0"
+            private const val version = "2.25.1"
             const val core = "org.mockito:mockito-core:$version"
             const val android = "org.mockito:mockito-android:$version"
         }
