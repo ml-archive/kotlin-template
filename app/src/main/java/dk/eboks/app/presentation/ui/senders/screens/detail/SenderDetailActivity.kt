@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.senders.screens.detail
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
@@ -13,7 +14,6 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.senders.presentation.ui.screens.detail.SenderDetailContract
 import dk.eboks.app.util.onClick
 import dk.eboks.app.util.updateCheckDrawable
-import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -101,7 +101,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderDetailRegisterTB.visibility = View.VISIBLE
 
         val iconFallback = if (sender.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
-        senderDetailBodyTv.visible = sender.isPublic
+        senderDetailBodyTv.isVisible = sender.isPublic
 
         Glide.with(this)
                 .load(sender.logo?.url)
@@ -160,8 +160,8 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
     }
 
     override fun toggleLoading(enabled: Boolean) {
-        senderDetailRegisterTB.visible = !enabled
-        senderDetailContainer.visible = !enabled
-        progressBar.visible = enabled
+        senderDetailRegisterTB.isVisible = !enabled
+        senderDetailContainer.isVisible = !enabled
+        progressBar.isVisible = enabled
     }
 }
