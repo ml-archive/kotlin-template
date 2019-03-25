@@ -11,14 +11,14 @@ import dk.eboks.app.mail.domain.interactors.MailBindingInteractorModule
 import dk.eboks.app.profile.injection.ProfileBindingInteractorsModule
 
 @Module(
-    includes = [
-        MailBindingInteractorModule::class,
-        KeychainBindingInteractorsModule::class,
-        ChannelsBindingInteractorModule::class,
-        ProfileBindingInteractorsModule::class,
-        CoreBindingInteractorsModule::class,
-        SendersBindingInteractorModule::class
-    ]
+        includes = [
+            MailBindingInteractorModule::class,
+            KeychainBindingInteractorsModule::class,
+            ChannelsBindingInteractorModule::class,
+            ProfileBindingInteractorsModule::class,
+            CoreBindingInteractorsModule::class,
+            SendersBindingInteractorModule::class
+        ]
 )
 abstract class InteractorModule {
     @Binds

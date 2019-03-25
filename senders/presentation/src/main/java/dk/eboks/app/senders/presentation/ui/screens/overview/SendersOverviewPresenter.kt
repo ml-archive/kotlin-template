@@ -50,7 +50,10 @@ internal class SendersOverviewPresenter @Inject constructor(
                 Timber.d("Container type: ${it.type}")
             }
         }
-        view { showCollections(collections) }
+        view{
+            Timber.d("print: ${collections.first()}")
+            showCollections(collections)
+        }
     }
 
     override fun onRegistrationsLoaded(registrations: List<CollectionContainer>) {

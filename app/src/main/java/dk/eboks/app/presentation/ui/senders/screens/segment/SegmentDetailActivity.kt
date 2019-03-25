@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.senders.screens.segment
 
+import android.content.DialogInterface
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -13,6 +13,9 @@ import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
 import dk.eboks.app.senders.presentation.ui.screens.segment.SegmentDetailContract
+import dk.eboks.app.util.onClick
+import dk.eboks.app.util.updateCheckDrawable
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -42,7 +45,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailContainer.removeAllViews()
         updateHeader(segment)
 
-        // translations
+        //translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
@@ -66,16 +69,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.icon_48_checkmark_white,
-                    0
-                )
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
+            buttonView.updateCheckDrawable()
         }
 
         presenter.loadSegment(segment.id)
@@ -91,66 +85,80 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         val frag = CategoriesComponentFragment()
         frag.arguments = b
         supportFragmentManager.beginTransaction()
-            .add(senderDetailContainer.id, frag)
-            .commit()
+                .add(senderDetailContainer.id, frag)
+                .commit()
 
         // also update the header
         updateHeader(segment)
+
+    }
+
+    override fun toggleLoading(enabled: Boolean) {
+        senderDetailRegisterTB.visible = !enabled
+        senderDetailContainer.visible = !enabled
+        progressBar.visible = enabled
     }
 
     private fun updateHeader(segment: Segment) {
+        senderDetailRegisterTB.visibility = View.VISIBLE
+        senderDetailBodyTv.visible = true
         senderDetailTB.title = segment.name
         senderDetailNameTv.text = segment.name
-        senderDetailRegisterTB.visibility = View.VISIBLE
+
+        if (segment.isPublic) {
+            senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.publicAuthoritiesRegisteredDescription
+            else Translation.senderdetails.publicAuthoritiesUnregisteredDescription
+        } else {
+            senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.privateSegmentRegisteredDescription
+            else Translation.senderdetails.privateSegmentUnregisteredDescription
+
+        }
+
+        val iconFallback = if (segment.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
 
         Glide.with(this)
-            .load(segment.image?.url)
-            .apply(
-                RequestOptions()
-                    .fallback(R.drawable.icon_72_senders_private)
-                    .placeholder(R.drawable.icon_72_senders_private)
-            )
-            .into(senderDetailIv)
+                .load(segment.image?.url)
+                .apply(RequestOptions()
+                        .fallback(iconFallback)
+                        .placeholder(iconFallback)
+                )
+                .into(senderDetailIv)
 
-        senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
-            return@OnTouchListener when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    if (senderDetailRegisterTB.isChecked) {
-                        AlertDialog.Builder(this@SegmentDetailActivity)
-                            .setTitle(Translation.senders.unregisterAlertTitle)
-                            .setMessage(Translation.senders.unregisterAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                senderDetailRegisterTB.visibility = View.INVISIBLE
-                                presenter.unregisterSegment(segment.id)
-                                dialog.dismiss()
-                            }
+        senderDetailRegisterTB.onClick {
+            when {
+                segment.isPublic -> {
+                    AlertDialog.Builder(this)
+                            .setTitle(Translation.senders.cannotUnregister)
+                            .setMessage(Translation.senders.cannotUnregisterPublicDescription)
+                            .setPositiveButton(Translation.defaultSection.ok) { d, _ -> d.dismiss() }
                             .show()
-                    } else {
-                        AlertDialog.Builder(this@SegmentDetailActivity)
-                            .setTitle(Translation.senders.registerAlertTitle)
-                            .setMessage(Translation.senders.registerAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                senderDetailRegisterTB.visibility = View.INVISIBLE
-                                presenter.registerSegment(segment.id)
-                                dialog.dismiss()
-                            }
-                            .show()
-                    }
-                    true
                 }
-                else -> {
-                    v.onTouchEvent(event)
+                senderDetailRegisterTB.isChecked ->
+                    showConfirmationDialog(Translation.senders.unregisterAlertTitle, Translation.senders.unregisterAlertDescription) { dialog ->
+                        senderDetailRegisterTB.visibility = View.INVISIBLE
+                        presenter.unregisterSegment(segment.id)
+                        dialog.dismiss()
+                    }
+                else -> showConfirmationDialog(Translation.senders.registerAlertTitle, Translation.senders.registerAlertDescription) { dialog ->
+                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                    presenter.registerSegment(segment.id)
+                    dialog.dismiss()
                 }
             }
-        })
+        }
 
-        senderDetailRegisterTB.isChecked = segment.registered == 0
+        senderDetailRegisterTB.isChecked = segment.registered != 0
+        senderDetailRegisterTB.updateCheckDrawable()
+
+    }
+
+    private fun showConfirmationDialog(title: String, message: String, onConfirm: (DialogInterface) -> Unit) {
+        AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, _ -> onConfirm(dialog) }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, _ -> dialog.cancel() }
+                .show()
     }
 
     override fun onDestroy() {
