@@ -3,6 +3,7 @@ package dk.eboks.app.senders.presentation.ui.screens.detail
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.senders.interactors.GetSenderDetailInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetSenderRegistrationLinkInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import io.mockk.mockk
@@ -18,13 +19,17 @@ class SenderDetailPresenterTest {
     private val registerInteractor = mockk<RegisterInteractor>(relaxUnitFun = true)
     private val unregisterInteractor = mockk<UnRegisterInteractor>(relaxUnitFun = true)
     private val viewMock = mockk<SenderDetailContract.View>(relaxUnitFun = true)
+    private val linkInteractor: GetSenderRegistrationLinkInteractor = mockk(relaxUnitFun = true)
+
 
     @Before
     fun setUp() {
         presenter = SenderDetailPresenter(
-            getSenderDetailInteractor,
-            registerInteractor,
-            unregisterInteractor
+                linkInteractor,
+                mockk(),
+                getSenderDetailInteractor,
+                registerInteractor,
+                unregisterInteractor
         )
         presenter.onViewCreated(viewMock, mockk(relaxUnitFun = true))
     }
@@ -89,6 +94,18 @@ class SenderDetailPresenterTest {
             viewMock.showSuccess()
         }
     }
+
+    @Test
+    fun `Register View Link Test`() {
+        val id = 1L
+        presenter.registerViaLink(id)
+        verify {
+            linkInteractor.input = GetSenderRegistrationLinkInteractor.Input(id)
+            linkInteractor.run()
+        }
+    }
+
+
 
     @Test
     fun `Test on error`() {

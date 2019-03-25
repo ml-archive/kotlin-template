@@ -17,11 +17,14 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
+import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.ToggleButton
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -32,6 +35,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.AppConfigImpl
+import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
@@ -289,4 +293,23 @@ fun TextInputEditText.onImeActionDone(block: () -> Unit) {
 fun Date.formatPayment(): String {
     val formatter = SimpleDateFormat("d MMMM YYYY", Locale.getDefault())
     return "Payment due on ${formatter.format(this)}"
+}
+fun CompoundButton.updateCheckDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
+    if (isChecked) {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0,resId, 0)
+    } else {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+}
+
+fun ToggleButton.onClick(block: () -> Unit) {
+    setOnTouchListener { view, motionEvent ->
+        return@setOnTouchListener  when (motionEvent.action) {
+            MotionEvent.ACTION_UP -> {
+                block()
+                true
+            }
+            else -> view.onTouchEvent(motionEvent)
+        }
+    }
 }
