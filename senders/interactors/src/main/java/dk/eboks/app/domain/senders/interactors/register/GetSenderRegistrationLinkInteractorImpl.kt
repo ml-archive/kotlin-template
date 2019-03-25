@@ -2,6 +2,7 @@ package dk.eboks.app.domain.senders.interactors.register
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -17,14 +18,19 @@ internal class GetSenderRegistrationLinkInteractorImpl @Inject constructor(execu
 
     override fun execute() {
         input?.id?.let { senderId ->
-            val response = api.getSenderRegistrationLink(senderId).execute()
-            if (response.isSuccessful) {
-                response.body()
-                        ?.let { output?.onLinkLoaded(it) }
-                        .guard { output?.onLinkLoadingError(ViewError()) }
-            } else {
-                output?.onLinkLoadingError(ViewError())
+            try {
+                val response = api.getSenderRegistrationLink(senderId).execute()
+                if (response.isSuccessful) {
+                    response.body()
+                            ?.let { output?.onLinkLoaded(it) }
+                            .guard { output?.onLinkLoadingError(ViewError()) }
+                } else {
+                    output?.onLinkLoadingError(ViewError())
+                }
+            } catch (exception: Exception) {
+                output?.onLinkLoadingError(exceptionToViewError(exception))
             }
+
         }
     }
 }
