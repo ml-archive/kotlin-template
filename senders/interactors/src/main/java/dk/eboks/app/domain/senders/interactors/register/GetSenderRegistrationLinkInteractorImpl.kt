@@ -8,13 +8,11 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-internal class GetSenderRegistrationLinkInteractorImpl @Inject constructor(executor: Executor, private val api: Api)
-    : BaseInteractor(executor), GetSenderRegistrationLinkInteractor {
+internal class GetSenderRegistrationLinkInteractorImpl @Inject constructor(executor: Executor, private val api: Api) :
+    BaseInteractor(executor), GetSenderRegistrationLinkInteractor {
 
     override var input: GetSenderRegistrationLinkInteractor.Input? = null
     override var output: GetSenderRegistrationLinkInteractor.Output? = null
-
-
 
     override fun execute() {
         input?.id?.let { senderId ->
@@ -30,7 +28,6 @@ internal class GetSenderRegistrationLinkInteractorImpl @Inject constructor(execu
             } catch (exception: Exception) {
                 output?.onLinkLoadingError(exceptionToViewError(exception))
             }
-
         }
     }
 }

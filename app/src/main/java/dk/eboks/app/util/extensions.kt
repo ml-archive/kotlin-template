@@ -296,7 +296,7 @@ fun Date.formatPayment(): String {
 }
 fun CompoundButton.updateCheckDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
     if (isChecked) {
-        this.setCompoundDrawablesWithIntrinsicBounds(0, 0,resId, 0)
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, resId, 0)
     } else {
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
@@ -304,7 +304,7 @@ fun CompoundButton.updateCheckDrawable(resId: Int = R.drawable.icon_48_checkmark
 
 fun ToggleButton.onClick(block: () -> Unit) {
     setOnTouchListener { view, motionEvent ->
-        return@setOnTouchListener  when (motionEvent.action) {
+        return@setOnTouchListener when (motionEvent.action) {
             MotionEvent.ACTION_UP -> {
                 block()
                 true

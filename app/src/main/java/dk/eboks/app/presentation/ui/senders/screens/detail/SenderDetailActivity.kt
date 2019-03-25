@@ -103,7 +103,6 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         val iconFallback = if (sender.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
         senderDetailBodyTv.visible = sender.isPublic
 
-
         Glide.with(this)
                 .load(sender.logo?.url)
                 .apply(RequestOptions()
@@ -144,9 +143,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         senderDetailRegisterTB.isChecked = sender.registered != 0
         senderDetailRegisterTB.updateCheckDrawable()
-
     }
-
 
     override fun onDestroy() {
         NStack.removeLanguageChangeListener(onLanguageChangedListener)

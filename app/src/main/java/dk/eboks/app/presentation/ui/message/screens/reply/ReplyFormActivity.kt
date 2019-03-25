@@ -53,7 +53,6 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             .map { it.tag }
             .filterIsInstance<ReplyFormInput>()
 
-
     private fun setupTopBar(txt: String) {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
         mainTb.title = txt

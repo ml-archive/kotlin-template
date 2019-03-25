@@ -10,7 +10,16 @@ import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractorImpl
 import dk.eboks.app.domain.senders.interactors.GetSenderDetailInteractor
 import dk.eboks.app.domain.senders.interactors.GetSenderDetailInteractorImpl
-import dk.eboks.app.domain.senders.interactors.register.*
+import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractorImpl
+import dk.eboks.app.domain.senders.interactors.register.GetRegistrationsInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetRegistrationsInteractorImpl
+import dk.eboks.app.domain.senders.interactors.register.GetSenderRegistrationLinkInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetSenderRegistrationLinkInteractorImpl
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractorImpl
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractorImpl
 
 @Module
 abstract class SendersBindingInteractorModule {
@@ -39,5 +48,5 @@ abstract class SendersBindingInteractorModule {
     internal abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
 
     @Binds
-    internal abstract fun getSenderRegistrationLinkInteractor(interactor: GetSenderRegistrationLinkInteractorImpl) : GetSenderRegistrationLinkInteractor
+    internal abstract fun getSenderRegistrationLinkInteractor(interactor: GetSenderRegistrationLinkInteractorImpl): GetSenderRegistrationLinkInteractor
 }

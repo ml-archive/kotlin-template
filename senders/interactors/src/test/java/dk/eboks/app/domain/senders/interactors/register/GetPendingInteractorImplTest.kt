@@ -38,7 +38,6 @@ class GetPendingInteractorImplTest {
         }
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -60,7 +59,6 @@ class GetPendingInteractorImplTest {
         }
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -82,6 +80,5 @@ class GetPendingInteractorImplTest {
         }
         interactor.run()
         latch.await()
-
     }
 }

@@ -134,7 +134,7 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                     Timber.d("alias: ${it.name}, <${it.key}, ${it.value}>")
                 }
 
-                if(group.registered != false) {
+                if (group.registered != false) {
                     AlertDialog.Builder(context ?: return@setOnClickListener)
                         .setTitle(Translation.senders.unregisterAlertTitle)
                         .setMessage(Translation.senders.unregisterAlertDescription)

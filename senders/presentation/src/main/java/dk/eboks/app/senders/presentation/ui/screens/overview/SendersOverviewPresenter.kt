@@ -50,7 +50,7 @@ internal class SendersOverviewPresenter @Inject constructor(
                 Timber.d("Container type: ${it.type}")
             }
         }
-        view{
+        view {
             Timber.d("print: ${collections.first()}")
             showCollections(collections)
         }

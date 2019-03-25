@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.senders.interactors.register
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.TestExecutor
@@ -40,7 +39,6 @@ class GetRegistraionsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -63,7 +61,6 @@ class GetRegistraionsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -85,6 +82,5 @@ class GetRegistraionsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 }

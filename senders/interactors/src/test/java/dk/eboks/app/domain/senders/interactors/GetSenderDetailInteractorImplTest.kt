@@ -1,9 +1,7 @@
 package dk.eboks.app.domain.senders.interactors
 
-import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
@@ -17,7 +15,6 @@ class GetSenderDetailInteractorImplTest {
     private val repository: SendersRepository = mockk()
 
     private val interactor: GetSenderDetailInteractor = GetSenderDetailInteractorImpl(executor, repository)
-
 
     @Test
     fun `Test Sender Detail Loading Success`() {

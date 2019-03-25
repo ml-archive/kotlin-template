@@ -13,7 +13,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputOption
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
-import androidx.core.view.children
 import androidx.core.view.forEach
 
 class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
@@ -68,7 +67,6 @@ class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
             radioGroup.forEach { rb ->
                 if ((rb as RadioButton).isChecked)
                     selectedOption = rb.tag as FormInputOption
-
             }
             formInput.value = selectedOption?.value
             validate()

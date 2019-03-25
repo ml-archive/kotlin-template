@@ -31,5 +31,4 @@ class GetCollectionsInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

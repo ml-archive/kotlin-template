@@ -685,4 +685,5 @@
   <string name='nstack_accessibility_closeActionsMenuButton' formatted='false'>{accessibility_closeActionsMenuButton}</string>
   <string name='nstack_accessibility_searchSendersButton' formatted='false'>{accessibility_searchSendersButton}</string>
   <string name='nstack_accessibility_messageHeaderDrawer' formatted='false'>{accessibility_messageHeaderDrawer}</string>
+  <string name='nstack_accessibility_closeButton' formatted='false'>{accessibility_closeButton}</string>
 </resources>

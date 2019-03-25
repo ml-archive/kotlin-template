@@ -197,7 +197,7 @@ interface Api {
     fun getStorageInfo(): Call<StorageInfo>
 
     @GET("/groups/senders/{senderId}/link")
-    fun getSenderRegistrationLink(@Path("senderId") senderId: Long) : Call<Link>
+    fun getSenderRegistrationLink(@Path("senderId") senderId: Long): Call<Link>
 
     // sign
     @GET("mail/folders/{folderId}/messages/{id}/sign/link")

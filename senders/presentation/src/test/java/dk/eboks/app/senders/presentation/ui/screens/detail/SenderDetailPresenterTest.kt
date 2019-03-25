@@ -21,7 +21,6 @@ class SenderDetailPresenterTest {
     private val viewMock = mockk<SenderDetailContract.View>(relaxUnitFun = true)
     private val linkInteractor: GetSenderRegistrationLinkInteractor = mockk(relaxUnitFun = true)
 
-
     @Before
     fun setUp() {
         presenter = SenderDetailPresenter(
@@ -104,8 +103,6 @@ class SenderDetailPresenterTest {
             linkInteractor.run()
         }
     }
-
-
 
     @Test
     fun `Test on error`() {

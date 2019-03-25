@@ -58,14 +58,12 @@ class SenderDetailInfoFragment : BaseFragment() {
         setPhone(sender?.address?.phone)
     }
 
-
     private fun setSenderAddress(address: Address) {
 
         val city = StringBuilder()
                 .appendNotEmpty(address.zipCode, false)
                 .append(" ")
                 .appendNotEmpty(address.city, false)
-
 
         val s = StringBuilder()
                 .appendNotEmpty(address.name)
@@ -121,7 +119,6 @@ class SenderDetailInfoFragment : BaseFragment() {
             senderInfoWebLL.visibility = View.VISIBLE
         } else {
             senderInfoWebLL.visibility = View.GONE
-
         }
     }
 
@@ -135,16 +132,14 @@ class SenderDetailInfoFragment : BaseFragment() {
                 if (intent.resolveActivity(v.context.packageManager) != null) {
                     startActivity(intent)
                 }
-
             }
         }
     }
 
-    private fun StringBuilder.appendNotEmpty(string: String?, newLine: Boolean = true) : StringBuilder {
+    private fun StringBuilder.appendNotEmpty(string: String?, newLine: Boolean = true): StringBuilder {
         if (!string.isNullOrBlank()) {
             if (newLine) this.appendln(string) else this.append(string)
         }
-        return  this
+        return this
     }
-
 }

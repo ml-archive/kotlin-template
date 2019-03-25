@@ -45,7 +45,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailContainer.removeAllViews()
         updateHeader(segment)
 
-        //translations
+        // translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
@@ -90,7 +90,6 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         // also update the header
         updateHeader(segment)
-
     }
 
     override fun toggleLoading(enabled: Boolean) {
@@ -111,7 +110,6 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         } else {
             senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.privateSegmentRegisteredDescription
             else Translation.senderdetails.privateSegmentUnregisteredDescription
-
         }
 
         val iconFallback = if (segment.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
@@ -149,7 +147,6 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         senderDetailRegisterTB.isChecked = segment.registered != 0
         senderDetailRegisterTB.updateCheckDrawable()
-
     }
 
     private fun showConfirmationDialog(title: String, message: String, onConfirm: (DialogInterface) -> Unit) {

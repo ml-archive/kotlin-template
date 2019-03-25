@@ -795,5 +795,6 @@ public class Translation {
 		public static String closeActionsMenuButton = "__closeActionsMenuButton";
 		public static String searchSendersButton = "__searchSendersButton";
 		public static String messageHeaderDrawer = "__messageHeaderDrawer";
+		public static String closeButton = "__closeButton";
 	}
 }

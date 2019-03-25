@@ -33,7 +33,6 @@ class RegisterInteractorImplTest {
             override fun onSuccess() {
                 assert(true)
                 latch.countDown()
-
             }
 
             override fun onError(error: ViewError) {
@@ -62,7 +61,6 @@ class RegisterInteractorImplTest {
             override fun onSuccess() {
                 assert(false)
                 latch.countDown()
-
             }
 
             override fun onError(error: ViewError) {
@@ -74,5 +72,4 @@ class RegisterInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

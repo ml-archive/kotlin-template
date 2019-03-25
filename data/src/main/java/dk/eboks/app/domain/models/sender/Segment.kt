@@ -8,24 +8,23 @@ import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Christian on 3/19/2018.
- * @author   Christian
- * @since    3/19/2018.
+ * @author Christian
+ * @since 3/19/2018.
  */
 @Parcelize
 data class Segment(
-        val id: Long,
-        val name : String,
-        val type: String,
-        var image: Image? = null,
-        val numberOfCategories: Int = 0,
-        val categories : List<SenderCategory>? = ArrayList(),
-        val registered: Int? = 0, // (0: No, 1: Yes, 2: Partial)
-        val status: Status? = null
+    val id: Long,
+    val name: String,
+    val type: String,
+    var image: Image? = null,
+    val numberOfCategories: Int = 0,
+    val categories: List<SenderCategory>? = ArrayList(),
+    val registered: Int? = 0, // (0: No, 1: Yes, 2: Partial)
+    val status: Status? = null
 ) : Parcelable {
 
     val isPublic: Boolean
         get() = type == "public"
-
 
     val isRegistered: Boolean
         get() = registered != 0

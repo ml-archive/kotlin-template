@@ -14,5 +14,4 @@ interface GetSenderRegistrationLinkInteractor : Interactor {
         fun onLinkLoaded(link: Link)
         fun onLinkLoadingError(viewError: ViewError)
     }
-
 }

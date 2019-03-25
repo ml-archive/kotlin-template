@@ -19,11 +19,12 @@ import javax.inject.Inject
  */
 
 internal class SenderDetailPresenter @Inject constructor(
-        val getSenderRegistrationLinkInteractor: GetSenderRegistrationLinkInteractor,
-        val appStateManager: AppStateManager,
-        val getSenderDetailInteractor: GetSenderDetailInteractor,
-        val registerInteractor: RegisterInteractor,
-        val unregisterInteractor: UnRegisterInteractor) :
+    val getSenderRegistrationLinkInteractor: GetSenderRegistrationLinkInteractor,
+    val appStateManager: AppStateManager,
+    val getSenderDetailInteractor: GetSenderDetailInteractor,
+    val registerInteractor: RegisterInteractor,
+    val unregisterInteractor: UnRegisterInteractor
+) :
         SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
         GetSenderDetailInteractor.Output,
         RegisterInteractor.Output,
@@ -57,7 +58,6 @@ internal class SenderDetailPresenter @Inject constructor(
         view {
             showSender(sender)
             toggleLoading(false)
-
         }
     }
 
@@ -66,7 +66,6 @@ internal class SenderDetailPresenter @Inject constructor(
             showErrorDialog(error)
             toggleLoading(false)
         }
-
     }
 
     override fun onSuccess() {
@@ -84,10 +83,8 @@ internal class SenderDetailPresenter @Inject constructor(
     }
 
     override fun onLinkLoaded(link: Link) {
-
     }
 
     override fun onLinkLoadingError(viewError: ViewError) {
-
     }
 }
