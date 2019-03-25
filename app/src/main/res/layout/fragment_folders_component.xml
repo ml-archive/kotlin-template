@@ -95,7 +95,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:text="folders_noFoldersBtn"
+                        android:text="@string/nstack_folders_noFoldersBtn"
                         android:textSize="14dp"
                         android:textStyle="normal" />
 
