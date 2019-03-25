@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
-import androidx.core.os.bundleOf
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
@@ -14,7 +13,6 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentContract
 import dk.eboks.app.presentation.isRefreshing
-import dk.eboks.app.util.BundleKeys
 import io.mockk.mockk
 import io.mockk.verify
 import org.hamcrest.CoreMatchers.not
@@ -34,9 +32,8 @@ class MailListComponentFragmentTest {
     @Before
     fun setUp() {
         scenario = launchFragmentInContainer(
-            bundleOf(
-                BundleKeys.Arguments to MailListComponentFragment.Arguments()
-            )
+            fragmentArgs = MailListComponentFragment.Arguments().toBundle(),
+            themeResId = R.style.AppTheme
         )
         scenario.onFragment {
             it.presenter = presenter

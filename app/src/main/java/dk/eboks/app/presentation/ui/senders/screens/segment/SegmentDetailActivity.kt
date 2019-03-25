@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
@@ -15,7 +16,6 @@ import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComp
 import dk.eboks.app.senders.presentation.ui.screens.segment.SegmentDetailContract
 import dk.eboks.app.util.onClick
 import dk.eboks.app.util.updateCheckDrawable
-import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -93,14 +93,14 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
     }
 
     override fun toggleLoading(enabled: Boolean) {
-        senderDetailRegisterTB.visible = !enabled
-        senderDetailContainer.visible = !enabled
-        progressBar.visible = enabled
+        senderDetailRegisterTB.isVisible = !enabled
+        senderDetailContainer.isVisible = !enabled
+        progressBar.isVisible = enabled
     }
 
     private fun updateHeader(segment: Segment) {
-        senderDetailRegisterTB.visibility = View.VISIBLE
-        senderDetailBodyTv.visible = true
+        senderDetailRegisterTB.isVisible = true
+        senderDetailBodyTv.isVisible = true
         senderDetailTB.title = segment.name
         senderDetailNameTv.text = segment.name
 

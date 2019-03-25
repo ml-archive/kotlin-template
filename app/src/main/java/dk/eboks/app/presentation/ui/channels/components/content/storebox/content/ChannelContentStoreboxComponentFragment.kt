@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,10 +17,12 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.util.getChannel
 import dk.eboks.app.util.inflate
 import dk.eboks.app.util.putArg
-import androidx.core.view.isVisible
+import dk.eboks.app.util.toBundle
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_channel_storebox_row.view.*
@@ -28,10 +31,8 @@ import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
     ChannelContentStoreboxComponentContract.View {
-    @Inject
-    lateinit var formatter: EboksFormatter
-    @Inject
-    lateinit var presenter: ChannelContentStoreboxComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var presenter: ChannelContentStoreboxComponentContract.Presenter
 
     private var adapter = StoreboxAdapter()
 
@@ -52,9 +53,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         setup()
         setupTopbar()
 
-        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.let {
-            channel = it
-        }
+        channel = arguments?.getChannel()
 
         addCreditCardsBtn.setOnClickListener {
             val arguments = Bundle()
@@ -191,6 +190,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(channel: Channel) = ChannelOpeningComponentFragment().apply {
+            arguments = channel.toBundle()
         }
     }
 }

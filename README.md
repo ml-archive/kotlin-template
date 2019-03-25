@@ -57,7 +57,7 @@ Example:
 ## Modules
 This project uses multi-module approach, splitting by layer and feature.
 
-If you have any problem on compiling the project, run `gradlew clean` and `gradlew assemble`.
+If you have any problem on compiling the project, run `gradlew clean` and `gradlew assemble` and disable instant run on Android studio.
 
 Dependencies are kept in *buildSrc* module using *kotlin-dsl*, In order to check if there's any 
 dependency update run `gradlew dependencyUpdates` and then update [dependencies.kt](buildSrc/src/main/java/dk/eboks/buildsrc/dependencies.kt)

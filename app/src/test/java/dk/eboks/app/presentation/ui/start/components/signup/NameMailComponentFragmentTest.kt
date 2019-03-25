@@ -30,7 +30,8 @@ class NameMailComponentFragmentTest {
 
     @Before
     fun setUp() {
-        scenario = launchFragmentInContainer<NameMailComponentFragment>()
+        scenario =
+            launchFragmentInContainer<NameMailComponentFragment>(themeResId = R.style.AppTheme)
     }
 
     @After

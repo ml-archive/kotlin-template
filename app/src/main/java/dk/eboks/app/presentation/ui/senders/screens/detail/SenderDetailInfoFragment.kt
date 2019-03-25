@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.Address
@@ -13,7 +14,7 @@ import dk.eboks.app.domain.models.shared.Description
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.visible
+
 import kotlinx.android.synthetic.main.fragment_sender_detail_information.*
 import timber.log.Timber
 
@@ -44,14 +45,10 @@ class SenderDetailInfoFragment : BaseFragment() {
         super.setArguments(args)
 
         val sender = arguments?.getParcelable<Sender>(Sender::class.simpleName)
-        sender?.description?.let {
-            setDescription(it)
-        }
+        sender?.description?.let(::setDescription)
 
-        sender?.address?.let {
-            setSenderAddress(it)
-        }.guard {
-            senderInfoAdressLL.visible = false
+        sender?.address?.let(::setSenderAddress).guard {
+            senderInfoAdressLL.isVisible = false
         }
 
         setLink(sender?.address?.link)
@@ -61,18 +58,19 @@ class SenderDetailInfoFragment : BaseFragment() {
     private fun setSenderAddress(address: Address) {
 
         val city = StringBuilder()
-                .appendNotEmpty(address.zipCode, false)
-                .append(" ")
-                .appendNotEmpty(address.city, false)
+            .appendNotEmpty(address.zipCode, false)
+            .append(" ")
+            .appendNotEmpty(address.city, false)
 
         val s = StringBuilder()
-                .appendNotEmpty(address.name)
-                .appendNotEmpty(address.addressLine1)
-                .appendNotEmpty(address.addressLine2)
-                .appendNotEmpty(city.toString())
+            .appendNotEmpty(address.name)
+            .appendNotEmpty(address.addressLine1)
+            .appendNotEmpty(address.addressLine2)
+            .appendNotEmpty(city.toString())
 
         Timber.d("Address: $s")
-        val navString = "geo:0,0?q=${address.name},+${address.addressLine1},+${address.addressLine2},+${address.city},+${address.zipCode}"
+        val navString =
+            "geo:0,0?q=${address.name},+${address.addressLine1},+${address.addressLine2},+${address.city},+${address.zipCode}"
         senderInfoAddressTv.text = s.toString()
         senderInfoAdressLL.setOnClickListener {
             val gmmIntentUri = Uri.parse(navString)
@@ -136,7 +134,10 @@ class SenderDetailInfoFragment : BaseFragment() {
         }
     }
 
-    private fun StringBuilder.appendNotEmpty(string: String?, newLine: Boolean = true): StringBuilder {
+    private fun StringBuilder.appendNotEmpty(
+        string: String?,
+        newLine: Boolean = true
+    ): StringBuilder {
         if (!string.isNullOrBlank()) {
             if (newLine) this.appendln(string) else this.append(string)
         }

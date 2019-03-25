@@ -41,11 +41,7 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
     }
 
     override fun openStoreBoxContent(channel: Channel) {
-        val fragment = ChannelContentStoreboxComponentFragment().putArg(
-            Channel::class.java.simpleName,
-            channel
-        )
-        addFragmentOnTop(R.id.content, fragment, false)
+        addFragmentOnTop(R.id.content, ChannelContentStoreboxComponentFragment.newInstance(channel), false)
     }
 
     override fun openEkeyContent() {

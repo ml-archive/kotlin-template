@@ -226,6 +226,7 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+            returnDefaultValues = true
         }
     }
 }
@@ -297,10 +298,10 @@ dependencies {
     implementation Libs.AndroidX.ktx
     implementation Libs.AndroidX.Fragment.ktx
     implementation Libs.AndroidX.Fragment.fragment
+    implementation Libs.AndroidX.Fragment.test
 
     // Testing
     testImplementation Libs.junit
-    testImplementation Libs.Test.AndroidX.fragment
     testImplementation Libs.Test.AndroidX.junit
     testImplementation Libs.Test.AndroidX.ktx
     testImplementation Libs.Test.Roboletric.roboletric
