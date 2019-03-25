@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.mail.components.maillist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View

@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.core.os.bundleOf
 import dk.eboks.app.domain.models.channel.Channel
 
-interface FragmentArguments: Parcelable {
+interface FragmentArguments : Parcelable {
     fun toBundle() = bundleOf(BundleKeys.arguments to this)
 }
 

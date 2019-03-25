@@ -31,7 +31,10 @@ class MailListComponentFragmentTest {
 
     @Before
     fun setUp() {
-        scenario = launchFragmentInContainer(MailListComponentFragment.Arguments().toBundle())
+        scenario = launchFragmentInContainer(
+            fragmentArgs = MailListComponentFragment.Arguments().toBundle(),
+            themeResId = R.style.AppTheme
+        )
         scenario.onFragment {
             it.presenter = presenter
             it.formatter = formatter
