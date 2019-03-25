@@ -301,7 +301,7 @@ dependencies {
 
     // Testing
     testImplementation Libs.junit
-    testImplementation Libs.Test.AndroidX.fragment
+    debugImplementation Libs.Test.AndroidX.fragment
     testImplementation Libs.Test.AndroidX.junit
     testImplementation Libs.Test.AndroidX.ktx
     testImplementation Libs.Test.Roboletric.roboletric
