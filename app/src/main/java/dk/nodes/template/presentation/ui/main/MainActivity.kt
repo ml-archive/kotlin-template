@@ -2,11 +2,11 @@ package dk.nodes.template.presentation.ui.main
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseActivity
+import dk.nodes.template.util.observeNonNull
 import kotlinx.android.synthetic.main.activity_main.*
 import net.hockeyapp.android.UpdateManager
 
@@ -20,9 +20,9 @@ class MainActivity : BaseActivity() {
         // setupNstack()
         // setupHockey()
         viewModel = bindViewModel()
-        viewModel.viewState.observe(this, Observer(this::showLoading))
-        viewModel.viewState.observe(this, Observer(this::showPosts))
-        viewModel.viewState.observe(this, Observer(this::showErrorMessage))
+        viewModel.viewState.observeNonNull(this, this::showLoading)
+        viewModel.viewState.observeNonNull(this, this::showPosts)
+        viewModel.viewState.observeNonNull(this, this::showErrorMessage)
         viewModel.fetchPosts()
     }
 
@@ -44,7 +44,11 @@ class MainActivity : BaseActivity() {
         state.errorMessage?.let {
             if (it.consumed) return@let
 
-            Snackbar.make(postsTextView, it.consume() ?: Translation.error.unknownError, Snackbar.LENGTH_SHORT)
+            Snackbar.make(
+                postsTextView,
+                it.consume() ?: Translation.error.unknownError,
+                Snackbar.LENGTH_SHORT
+            )
         }
     }
 }
