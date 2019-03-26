@@ -1,7 +1,7 @@
 package dk.nodes.template.presentation.ui.main
 
 import android.os.Bundle
-import android.view.View
+import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Translation
@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showLoading(state: MainActivityViewState) {
-        postsProgressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+        postsProgressBar.isVisible = state.isLoading
     }
 
     private fun showErrorMessage(state: MainActivityViewState) {
