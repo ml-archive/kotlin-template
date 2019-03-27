@@ -7,7 +7,6 @@ import dk.nodes.template.App
 import dk.nodes.template.inititializers.AppInitializers
 import dk.nodes.template.inititializers.NStackInitializer
 import dk.nodes.template.inititializers.TimberInitializer
-import dk.nodes.template.inititializers.WorkManagerInitializer
 
 @Module
 class AppModule {
@@ -17,9 +16,8 @@ class AppModule {
     @Provides
     fun provideInitializers(
         nStackInitializer: NStackInitializer,
-        timberInitializer: TimberInitializer,
-        workManagerInitializer: WorkManagerInitializer
+        timberInitializer: TimberInitializer
     ): AppInitializers {
-        return AppInitializers(nStackInitializer, timberInitializer, workManagerInitializer)
+        return AppInitializers(nStackInitializer, timberInitializer)
     }
 }

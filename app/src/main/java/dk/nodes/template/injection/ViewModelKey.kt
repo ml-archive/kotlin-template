@@ -1,4 +1,4 @@
-package dk.nodes.template.injection.annotations
+package dk.nodes.template.injection
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

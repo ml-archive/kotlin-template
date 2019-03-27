@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
-import dk.nodes.template.injection.annotations.ViewModelKey
+import dk.nodes.template.injection.ViewModelKey
 
 @Module
 internal abstract class MainActivityBuilder {
