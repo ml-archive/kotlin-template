@@ -1,4 +1,4 @@
-package dk.nodes.template.injection
+package dk.nodes.template.injection.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

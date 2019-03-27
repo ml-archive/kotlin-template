@@ -112,7 +112,9 @@ dependencies {
         rx_java_version = "2.2.4",
         rx_kolin_version = "2.2.0",
         ktx_version = "1.0.1",
-        rx_lint_version = '1.7.0'
+        rx_lint_version = '1.7.0',
+        work_version = "1.0.0",
+        assisted_inject_version = "0.3.2"
 
     fileTree(dir: "libs", include: ["*.jar"])
     androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_core_version", {
@@ -131,10 +133,14 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    // Dagger
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    // Assisted Inject
+    implementation "com.squareup.inject:assisted-inject-annotations-dagger2:$assisted_inject_version"
+    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$assisted_inject_version"
 
     implementation "net.hockeyapp.android:HockeySDK:$hockey_sdk_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
@@ -153,6 +159,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
     implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rx_kolin_version"
+
+    // Work manager
+    implementation "android.arch.work:work-runtime-ktx:$work_version"
 
     // Testing
     testImplementation "junit:junit:$junit_version"
