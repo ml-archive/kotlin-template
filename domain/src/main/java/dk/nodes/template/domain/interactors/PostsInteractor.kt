@@ -1,9 +1,9 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.template.domain.models.Post
-import dk.nodes.template.domain.models.Result
-import dk.nodes.template.domain.repositories.PostRepository
-import dk.nodes.template.domain.repositories.RepositoryException
+import dk.nodes.template.models.Post
+import dk.nodes.template.models.Result
+import dk.nodes.template.repositories.PostRepository
+import dk.nodes.template.repositories.RepositoryException
 import javax.inject.Inject
 
 class PostsInteractor @Inject constructor(

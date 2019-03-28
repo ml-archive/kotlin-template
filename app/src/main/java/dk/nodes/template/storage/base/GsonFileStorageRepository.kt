@@ -2,7 +2,7 @@ package dk.nodes.template.storage.base
 
 import android.content.Context
 import com.google.gson.Gson
-import dk.nodes.template.domain.repositories.RepositoryException
+import dk.nodes.template.repositories.RepositoryException
 import timber.log.Timber
 import java.io.FileInputStream
 import java.io.FileOutputStream

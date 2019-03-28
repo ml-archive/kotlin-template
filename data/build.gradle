@@ -1,7 +1,6 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation project(':data')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-    implementation "com.google.dagger:dagger-android:${versions.dagger}"
+
 }

@@ -1,7 +1,7 @@
 package dk.nodes.template.network.rest
 
-import dk.nodes.template.domain.models.Photo
-import dk.nodes.template.domain.models.Post
+import dk.nodes.template.models.Photo
+import dk.nodes.template.models.Post
 import io.reactivex.Single
 import okio.BufferedSource
 import retrofit2.Call

@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.nodes.template.domain.repositories.PostRepository
+import dk.nodes.template.repositories.PostRepository
 import dk.nodes.template.network.rest.Api
 import dk.nodes.template.network.rest.RestPostRepository
 
@@ -13,7 +13,7 @@ import dk.nodes.template.network.rest.RestPostRepository
 class RestRepositoryModule {
     @Provides
     @AppScope
-    fun providePostRepository(api: Api, gson: Gson, context: Context): dk.nodes.template.domain.repositories.PostRepository {
+    fun providePostRepository(api: Api, gson: Gson, context: Context): PostRepository {
         return RestPostRepository(api)
     }
 }

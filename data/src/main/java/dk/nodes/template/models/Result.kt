@@ -1,4 +1,4 @@
-package dk.nodes.template.domain.models
+package dk.nodes.template.models
 
 /**
  * From: https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/data/Result.kt

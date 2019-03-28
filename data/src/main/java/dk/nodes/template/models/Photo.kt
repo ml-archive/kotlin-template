@@ -1,4 +1,4 @@
-package dk.nodes.template.domain.models
+package dk.nodes.template.models
 
 data class Photo(
     var albumId: Int,

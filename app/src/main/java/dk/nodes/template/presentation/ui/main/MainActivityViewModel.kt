@@ -3,8 +3,8 @@ package dk.nodes.template.presentation.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.nodes.template.domain.interactors.PostsInteractor
-import dk.nodes.template.domain.models.Result
 import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.models.Result
 import dk.nodes.template.presentation.base.BaseViewModel
 import dk.nodes.template.util.Event
 import kotlinx.coroutines.Dispatchers

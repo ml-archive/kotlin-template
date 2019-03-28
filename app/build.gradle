@@ -102,6 +102,7 @@ dependencies {
     })
     implementation project (':domain')
     implementation project (':presentation')
+    implementation project (':data')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinx_coroutines}"

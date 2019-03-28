@@ -1,3 +1,3 @@
-package dk.nodes.template.domain.repositories
+package dk.nodes.template.repositories
 
 class RepositoryException(code: Int, msg: String) : RuntimeException(msg)

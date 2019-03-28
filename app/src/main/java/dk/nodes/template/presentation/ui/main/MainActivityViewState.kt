@@ -1,6 +1,6 @@
 package dk.nodes.template.presentation.ui.main
 
-import dk.nodes.template.domain.models.Post
+import dk.nodes.template.models.Post
 import dk.nodes.template.util.Event
 
 data class MainActivityViewState(

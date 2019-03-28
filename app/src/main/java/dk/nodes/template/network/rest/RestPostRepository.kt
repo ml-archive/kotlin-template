@@ -1,22 +1,20 @@
 package dk.nodes.template.network.rest
 
-import dk.nodes.template.domain.models.Post
+import dk.nodes.template.models.Post
+import dk.nodes.template.repositories.PostRepository
+import dk.nodes.template.repositories.RepositoryException
 
-class RestPostRepository(private val api: Api) :
-    dk.nodes.template.domain.repositories.PostRepository {
-    @Throws(dk.nodes.template.domain.repositories.RepositoryException::class)
+class RestPostRepository(private val api: Api) : PostRepository {
+    @Throws(RepositoryException::class)
     override suspend fun getPosts(cached: Boolean): List<Post> {
         val response = api.getPosts().execute()
         if (response.isSuccessful) {
             return response.body()
-                ?: throw(dk.nodes.template.domain.repositories.RepositoryException(
+                ?: throw(RepositoryException(
                     response.code(),
                     response.message()
                 ))
         }
-        throw(dk.nodes.template.domain.repositories.RepositoryException(
-            response.code(),
-            response.message()
-        ))
+        throw(RepositoryException(response.code(), response.message()))
     }
 }
