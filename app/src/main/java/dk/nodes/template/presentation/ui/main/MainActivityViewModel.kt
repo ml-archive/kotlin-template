@@ -3,7 +3,6 @@ package dk.nodes.template.presentation.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.nodes.template.domain.interactors.PostsInteractor
-import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Result
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseViewModel
@@ -14,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-        private val postsInteractor: PostsInteractor
+    private val postsInteractor: PostsInteractor
 ) : BaseViewModel() {
 
     private val _viewState = MutableLiveData<MainActivityViewState>()
@@ -33,9 +32,5 @@ class MainActivityViewModel @Inject constructor(
                     errorMessage = Event(Translation.error.unknownError)
             )
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }
