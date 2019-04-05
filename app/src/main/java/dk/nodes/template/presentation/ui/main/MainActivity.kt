@@ -1,7 +1,6 @@
 package dk.nodes.template.presentation.ui.main
 
 import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.R
@@ -18,8 +17,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setupNstack()
-        //setupHockey()
+        // setupNstack()
+        // setupHockey()
         viewModel = bindViewModel()
         viewModel.viewState.observeNonNull(this) {
             showLoading(it)
