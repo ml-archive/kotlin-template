@@ -10,5 +10,5 @@ import dk.nodes.template.repositories.PostRepository
 abstract class RestRepositoryBinding {
     @Binds
     @AppScope
-    abstract fun providePostRepository(repository: RestPostRepository): PostRepository
+    abstract fun bindPostRepository(repository: RestPostRepository): PostRepository
 }

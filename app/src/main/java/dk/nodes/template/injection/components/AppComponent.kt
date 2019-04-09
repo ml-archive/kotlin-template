@@ -10,7 +10,7 @@ import dk.nodes.template.injection.modules.ExecutorModule
 import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.RestModule
 import dk.nodes.template.injection.modules.RestRepositoryBinding
-import dk.nodes.template.injection.modules.StorageModule
+import dk.nodes.template.injection.modules.StorageBindingModule
 import dk.nodes.template.injection.modules.ViewModelBuilder
 
 @Component(
@@ -22,7 +22,7 @@ import dk.nodes.template.injection.modules.ViewModelBuilder
         InteractorModule::class,
         RestModule::class,
         RestRepositoryBinding::class,
-        StorageModule::class
+        StorageBindingModule::class
     ]
 )
 @AppScope
