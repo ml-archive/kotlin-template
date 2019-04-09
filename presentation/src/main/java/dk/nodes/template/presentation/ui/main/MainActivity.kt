@@ -1,10 +1,8 @@
 package dk.nodes.template.presentation.ui.main
 
-import android.os.Build
 import android.os.Bundle
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
-
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.base.BaseActivity
 import dk.nodes.template.presentation.extensions.observeNonNull
@@ -37,13 +35,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showPosts(state: MainActivityViewState) {
-        postsTextView.text = state.posts.joinToString {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                it.title + System.lineSeparator()
-            } else {
-                it.title + "\n"
-            }
-        }
+        postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
     }
 
     private fun showLoading(state: MainActivityViewState) {

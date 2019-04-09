@@ -6,14 +6,14 @@ apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion sdks.compileSdkVersion
+    buildToolsVersion sdks.buildToolsVersion
     flavorDimensions "default"
 
     defaultConfig {
         applicationId "dk.nodes.template"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion sdks.minSdkVersion
+        targetSdkVersion sdks.targetSdkVersion
         multiDexEnabled true
         versionCode 2
         versionName "0.0.2"

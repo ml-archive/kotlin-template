@@ -25,9 +25,16 @@ buildscript {
     ]
 
     ext.keys = [
-            appId           : 'BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW',
-            apiKey          : 'yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke',
-            acceptHeader    : "da-DK"
+            appId       : 'BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW',
+            apiKey      : 'yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke',
+            acceptHeader: "da-DK"
+    ]
+
+    ext.sdks = [
+            compileSdkVersion: 28,
+            buildToolsVersion: '28.0.3',
+            minSdkVersion    : 19,
+            targetSdkVersion : 28
     ]
 
     repositories {
