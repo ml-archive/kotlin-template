@@ -11,7 +11,7 @@ interface AppInitializer {
     fun init(app: Application)
 }
 
-class AppInitializerImpl @Inject constructor(): AppInitializer {
+class AppInitializerImpl @Inject constructor() : AppInitializer {
     override fun init(app: Application) {
         NStack.translationClass = Translation::class.java
         NStack.init(app)
