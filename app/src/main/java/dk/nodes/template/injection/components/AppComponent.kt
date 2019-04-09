@@ -9,7 +9,7 @@ import dk.nodes.template.injection.modules.AppModule
 import dk.nodes.template.injection.modules.ExecutorModule
 import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.RestModule
-import dk.nodes.template.injection.modules.RestRepositoryModule
+import dk.nodes.template.injection.modules.RestRepositoryBinding
 import dk.nodes.template.injection.modules.StorageModule
 import dk.nodes.template.injection.modules.ViewModelBuilder
 
@@ -21,7 +21,7 @@ import dk.nodes.template.injection.modules.ViewModelBuilder
         ExecutorModule::class,
         InteractorModule::class,
         RestModule::class,
-        RestRepositoryModule::class,
+        RestRepositoryBinding::class,
         StorageModule::class
     ]
 )

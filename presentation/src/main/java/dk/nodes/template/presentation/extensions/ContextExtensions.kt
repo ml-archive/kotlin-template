@@ -1,4 +1,4 @@
-package dk.nodes.template.util
+package dk.nodes.template.presentation.extensions
 
 import android.app.Activity
 import android.content.Context

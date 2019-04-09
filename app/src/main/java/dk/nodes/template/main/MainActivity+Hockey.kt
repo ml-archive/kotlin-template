@@ -1,4 +1,4 @@
-package dk.nodes.template.presentation.ui.main
+package dk.nodes.template.main
 
 import dk.nodes.template.BuildConfig
 import net.hockeyapp.android.CrashManager

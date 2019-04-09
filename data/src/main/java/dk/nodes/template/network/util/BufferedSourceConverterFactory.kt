@@ -1,4 +1,4 @@
-package dk.nodes.template.network.rest.util
+package dk.nodes.template.network.util
 
 import okhttp3.ResponseBody
 import okio.BufferedSource

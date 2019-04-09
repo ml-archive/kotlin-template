@@ -10,7 +10,7 @@ class PostsInteractor @Inject constructor(
     private val postRepository: PostRepository
 ) : BaseAsyncInteractor<Result<List<Post>>> {
 
-    override suspend fun run(): Result<List<Post>> {
+    override suspend fun invoke(): Result<List<Post>> {
         return try {
             val posts = postRepository.getPosts(true)
             Result.Success(posts)

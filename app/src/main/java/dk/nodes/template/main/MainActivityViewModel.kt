@@ -1,4 +1,4 @@
-package dk.nodes.template.presentation.ui.main
+package dk.nodes.template.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +21,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun fetchPosts() = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
-        val result = withContext(Dispatchers.IO) { postsInteractor.run() }
+        val result = withContext(Dispatchers.IO) { postsInteractor() }
         when (result) {
             is Result.Success -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,

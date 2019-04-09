@@ -1,4 +1,4 @@
-package dk.nodes.template.presentation.ui.main
+package dk.nodes.template.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -20,9 +20,11 @@ class MainActivity : BaseActivity() {
         // setupNstack()
         // setupHockey()
         viewModel = bindViewModel()
-        viewModel.viewState.observeNonNull(this, this::showLoading)
-        viewModel.viewState.observeNonNull(this, this::showPosts)
-        viewModel.viewState.observeNonNull(this, this::showErrorMessage)
+        viewModel.viewState.observeNonNull(this) { state ->
+            showLoading(state)
+            showPosts(state)
+            showErrorMessage(state)
+        }
         viewModel.fetchPosts()
     }
 
