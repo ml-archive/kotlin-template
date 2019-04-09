@@ -1,10 +1,12 @@
-package dk.nodes.template.util
+package dk.nodes.template.presentation.extensions
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import dk.nodes.template.presentation.util.Event
+import dk.nodes.template.presentation.util.EventObserver
 
 // makes viewgroups iterable (you can for the each out of them!:)
 

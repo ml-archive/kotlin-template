@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.R
-import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.nstack.Translation
 import dk.nodes.template.presentation.base.BaseActivity
-import dk.nodes.template.util.observeNonNull
+import dk.nodes.template.presentation.extensions.observeNonNull
 import kotlinx.android.synthetic.main.activity_main.*
 import net.hockeyapp.android.UpdateManager
 

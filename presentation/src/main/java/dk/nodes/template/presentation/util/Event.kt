@@ -1,4 +1,4 @@
-package dk.nodes.template.util
+package dk.nodes.template.presentation.util
 
 import androidx.lifecycle.Observer
 

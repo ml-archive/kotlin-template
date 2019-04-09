@@ -1,4 +1,4 @@
-package dk.nodes.template.domain.models;
+package dk.nodes.template.nstack;
 
 /**
  * Created by nstack.io gradle translation plugin

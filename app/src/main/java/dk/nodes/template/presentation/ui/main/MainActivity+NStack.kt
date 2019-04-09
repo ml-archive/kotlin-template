@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.nstack.Translation
 import timber.log.Timber
 
 fun MainActivity.setupNstack() {
