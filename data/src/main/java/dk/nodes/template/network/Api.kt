@@ -11,5 +11,4 @@ interface Api {
 
     @GET("photos")
     fun getPhotos(): Call<List<Photo>>
-
 }
