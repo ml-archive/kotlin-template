@@ -1,4 +1,4 @@
-package dk.nodes.template.main
+package dk.nodes.template.presentation.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.template.nstack.Translation
+import dk.nodes.template.presentation.nstack.Translation
 import timber.log.Timber
 
 fun MainActivity.setupNstack() {

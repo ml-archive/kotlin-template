@@ -1,17 +1,16 @@
-package dk.nodes.template.injection.modules
+package dk.nodes.template.presentation.injection
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
-import dk.nodes.template.presentation.injection.DaggerViewModelFactory
-import dk.nodes.template.main.MainActivityBuilder
+import dk.nodes.template.presentation.ui.main.MainActivityBuilder
 
 @Module(
     includes = [
         MainActivityBuilder::class
     ]
 )
-internal abstract class ViewModelBuilder {
+abstract class ViewModelBuilder {
 
     @Binds
     internal abstract fun bindViewModelFactory(factory: DaggerViewModelFactory): ViewModelProvider.Factory

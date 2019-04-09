@@ -1,6 +1,6 @@
-package dk.nodes.template.main
+package dk.nodes.template.presentation.ui.main
 
-import dk.nodes.template.BuildConfig
+import dk.nodes.template.presentation.BuildConfig
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
 import net.hockeyapp.android.UpdateManager

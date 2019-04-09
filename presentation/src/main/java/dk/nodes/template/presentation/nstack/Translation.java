@@ -1,4 +1,4 @@
-package dk.nodes.template.nstack;
+package dk.nodes.template.presentation.nstack;
 
 /**
  * Created by nstack.io gradle translation plugin

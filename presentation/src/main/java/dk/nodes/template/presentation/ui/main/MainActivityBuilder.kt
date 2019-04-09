@@ -1,4 +1,4 @@
-package dk.nodes.template.main
+package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.ViewModel
 import dagger.Binds

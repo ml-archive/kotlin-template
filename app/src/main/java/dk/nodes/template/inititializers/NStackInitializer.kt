@@ -2,7 +2,7 @@ package dk.nodes.template.inititializers
 
 import android.app.Application
 import dk.nodes.nstack.kotlin.NStack
-import dk.nodes.template.nstack.Translation
+import dk.nodes.template.presentation.nstack.Translation
 import javax.inject.Inject
 
 class NStackInitializer @Inject constructor() : AppInitializer {
