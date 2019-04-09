@@ -3,7 +3,7 @@ package dk.nodes.template.presentation.extensions
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import dk.nodes.template.presentation.util.Event
+import dk.nodes.template.presentation.util.LiveEvent
 import dk.nodes.template.presentation.util.EventObserver
 
 inline fun <T> LiveData<T>.observe(
@@ -24,7 +24,7 @@ inline fun <T> LiveData<T>.observeNonNull(
     })
 }
 
-inline fun <E, T : Event<E>> LiveData<T>.observeEvent(
+inline fun <E, T : LiveEvent<E>> LiveData<T>.observeEvent(
     lifecycleOwner: LifecycleOwner,
     crossinline observer: (E) -> Unit
 ) {

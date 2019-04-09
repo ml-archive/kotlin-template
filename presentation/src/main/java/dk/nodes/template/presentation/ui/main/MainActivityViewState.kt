@@ -1,10 +1,10 @@
 package dk.nodes.template.presentation.ui.main
 
 import dk.nodes.template.models.Post
-import dk.nodes.template.presentation.util.Event
+import dk.nodes.template.presentation.util.LiveEvent
 
 data class MainActivityViewState(
     val posts: List<Post> = emptyList(),
-    val errorMessage: Event<String>? = null,
+    val errorMessage: LiveEvent<String>? = null,
     val isLoading: Boolean = false
 )
