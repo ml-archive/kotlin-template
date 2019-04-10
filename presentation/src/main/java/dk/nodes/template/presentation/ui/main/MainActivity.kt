@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.base.BaseActivity
+import dk.nodes.template.presentation.ui.base.BaseActivity
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.nstack.Translation
 import kotlinx.android.synthetic.main.activity_main.*

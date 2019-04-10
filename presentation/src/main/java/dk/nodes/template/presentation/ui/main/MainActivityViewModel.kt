@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.interactors.IResult
-import dk.nodes.template.presentation.base.BaseViewModel
+import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.util.LiveEvent
 import kotlinx.coroutines.Dispatchers
