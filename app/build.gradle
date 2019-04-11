@@ -10,6 +10,10 @@ android {
     buildToolsVersion sdks.buildToolsVersion
     flavorDimensions "default"
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "dk.nodes.template"
         minSdkVersion sdks.minSdkVersion

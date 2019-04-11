@@ -11,6 +11,11 @@ translation {
 }
 
 android {
+
+    dataBinding {
+        enabled = true
+    }
+
     compileSdkVersion sdks.compileSdkVersion
     defaultConfig {
         minSdkVersion sdks.minSdkVersion
@@ -57,4 +62,6 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.ktx}"
     implementation "net.hockeyapp.android:HockeySDK:${versions.hockey_sdk}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
+
+    kapt 'com.android.databinding:compiler:3.2.0-alpha10'
 }

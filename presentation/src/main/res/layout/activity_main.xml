@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:ignore="MissingPrefix">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewState"
+            type="dk.nodes.template.presentation.ui.main.MainActivityViewState" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="MissingPrefix">
 
-    <ProgressBar
-        android:id="@+id/postsProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/postsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:visible="@{viewState.isLoading}"/>
 
-    <TextView
-        android:id="@+id/postsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/postsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:posts="@{viewState.posts}"
+            />
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
