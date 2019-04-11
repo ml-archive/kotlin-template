@@ -24,8 +24,6 @@ class MainActivity : BaseActivity() {
         viewModel = bindViewModel()
         viewModel.viewState.observe(this, binding::setViewState)
         viewModel.viewState.observeNonNull(this, ::showErrorMessage)
-
-//        binding.lifecycleOwner = this
         // setupNstack()
         // setupHockey()
         viewModel.fetchPosts()
