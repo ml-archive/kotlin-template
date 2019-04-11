@@ -26,6 +26,9 @@ class MainActivity : BaseActivity() {
             showErrorMessage(state)
         }
         viewModel.fetchPosts()
+        fetchBt.setOnClickListener {
+            viewModel.fetchPosts()
+        }
     }
 
     override fun onDestroy() {
