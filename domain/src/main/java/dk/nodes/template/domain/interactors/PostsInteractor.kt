@@ -7,14 +7,14 @@ import javax.inject.Inject
 
 class PostsInteractor @Inject constructor(
     private val postRepository: PostRepository
-) : BaseAsyncInteractor<IResult<List<Post>>> {
+) : BaseAsyncInteractor<InteractorResult<List<Post>>> {
 
-    override suspend fun invoke(): IResult<List<Post>> {
+    override suspend fun invoke(): InteractorResult<List<Post>> {
         return try {
             val posts = postRepository.getPosts(true)
-            IResult.Success(posts)
+            InteractorResult.Success(posts)
         } catch (e: RepositoryException) {
-            IResult.Error(e)
+            InteractorResult.Error(e)
         }
     }
 }

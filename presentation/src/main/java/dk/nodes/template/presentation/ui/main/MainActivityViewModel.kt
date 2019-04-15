@@ -3,7 +3,7 @@ package dk.nodes.template.presentation.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dk.nodes.template.domain.interactors.PostsInteractor
-import dk.nodes.template.domain.interactors.IResult
+import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.util.LiveEvent
@@ -23,11 +23,11 @@ class MainActivityViewModel @Inject constructor(
         _viewState.value = MainActivityViewState(isLoading = true)
         val result = withContext(Dispatchers.IO) { postsInteractor() }
         when (result) {
-            is IResult.Success -> _viewState.value = _viewState.value?.copy(
+            is InteractorResult.Success -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
                 posts = result.data
             )
-            is IResult.Error -> _viewState.value = _viewState.value?.copy(
+            is InteractorResult.Error -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
                 errorMessage = LiveEvent(Translation.error.unknownError)
             )
