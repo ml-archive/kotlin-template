@@ -6,7 +6,7 @@ import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.nstack.Translation
-import dk.nodes.template.presentation.util.LiveEvent
+import dk.nodes.template.presentation.util.SingleEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -29,7 +29,7 @@ class MainActivityViewModel @Inject constructor(
             )
             is InteractorResult.Error -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
-                errorMessage = LiveEvent(Translation.error.unknownError)
+                errorMessage = SingleEvent(Translation.error.unknownError)
             )
         }
     }

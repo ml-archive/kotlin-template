@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
  *
  * [Read more about this.](https://medium.com/google-developers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150)
  */
-open class LiveEvent<out T>(private val content: T) {
+open class SingleEvent<out T>(private val content: T) {
 
     var consumed = false
         private set // Allow external read but not write
@@ -34,7 +34,7 @@ open class LiveEvent<out T>(private val content: T) {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as LiveEvent<*>
+        other as SingleEvent<*>
 
         if (content != other.content) return false
         if (consumed != other.consumed) return false
@@ -50,14 +50,14 @@ open class LiveEvent<out T>(private val content: T) {
 }
 
 /**
- * An [Observer] for [LiveEvent]s, simplifying the pattern of checking if the [LiveEvent]'s content has
+ * An [Observer] for [SingleEvent]s, simplifying the pattern of checking if the [SingleEvent]'s content has
  * already been consumed.
  *
- * [onEventUnconsumedContent] is *only* called if the [LiveEvent]'s contents has not been consumed.
+ * [onEventUnconsumedContent] is *only* called if the [SingleEvent]'s contents has not been consumed.
  */
 
-class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Observer<LiveEvent<T>> {
-    override fun onChanged(event: LiveEvent<T>?) {
+class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Observer<SingleEvent<T>> {
+    override fun onChanged(event: SingleEvent<T>?) {
         event?.consume()?.run(onEventUnconsumedContent)
     }
 }
