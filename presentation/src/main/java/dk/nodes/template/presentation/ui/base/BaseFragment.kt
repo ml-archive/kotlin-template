@@ -14,4 +14,9 @@ abstract class BaseFragment : DaggerFragment() {
         ViewModelProviders.of(this, viewModelFactory)
             .get(VM::class.java)
     }
+
+    protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> = lazy {
+        ViewModelProviders.of(requireActivity(), viewModelFactory)
+            .get(VM::class.java)
+    }
 }
