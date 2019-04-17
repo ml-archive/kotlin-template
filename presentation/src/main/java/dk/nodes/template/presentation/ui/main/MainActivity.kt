@@ -12,14 +12,13 @@ import net.hockeyapp.android.UpdateManager
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel by viewModel<MainActivityViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // setupNstack()
         // setupHockey()
-        viewModel = bindViewModel()
         viewModel.viewState.observeNonNull(this) { state ->
             showLoading(state)
             showPosts(state)
