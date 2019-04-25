@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
     private val postsInteractor: GetPostsInteractor,
-    private val savePostsInteractor: SavePostsInteractor
+    private val savePostInteractor: SavePostInteractor
 ) : BaseViewModel() {
 
     private val _viewState = MutableLiveData<MainActivityViewState>()
@@ -23,12 +23,12 @@ class MainActivityViewModel @Inject constructor(
     fun fetchPosts() = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
         val result = withContext(Dispatchers.IO) { postsInteractor() }
-        when (result) {
-            is InteractorResult.Success -> _viewState.value = _viewState.value?.copy(
+        _viewState.value = when (result) {
+            is InteractorResult.Success -> viewState.value?.copy(
                 isLoading = false,
                 posts = result.data
             )
-            is InteractorResult.Error -> _viewState.value = _viewState.value?.copy(
+            is InteractorResult.Error -> _viewState.value?.copy(
                 isLoading = false,
                 errorMessage = SingleEvent(Translation.error.unknownError)
             )
@@ -37,7 +37,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun savePost(post: Post) = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
-        val result = withContext(Dispatchers.IO) { savePostsInteractor(post) }
+        val result = withContext(Dispatchers.IO) { savePostInteractor(post) }
         _viewState.value = when (result) {
             is InteractorSuccess -> _viewState.value?.copy(
                 isLoading = false
