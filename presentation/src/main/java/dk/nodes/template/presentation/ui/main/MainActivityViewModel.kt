@@ -2,10 +2,11 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import dk.nodes.template.domain.interactors.PostsInteractor
+import dk.nodes.template.domain.extensions.asResult
 import dk.nodes.template.domain.interactors.InteractorResult
-import dk.nodes.template.presentation.ui.base.BaseViewModel
+import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.presentation.nstack.Translation
+import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun fetchPosts() = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
-        val result = withContext(Dispatchers.IO) { postsInteractor() }
+        val result = withContext(Dispatchers.IO) { postsInteractor.asResult()() }
         when (result) {
             is InteractorResult.Success -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
