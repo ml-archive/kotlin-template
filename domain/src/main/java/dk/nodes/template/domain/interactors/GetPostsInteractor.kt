@@ -6,7 +6,7 @@ import dk.nodes.template.repositories.PostRepository
 import dk.nodes.template.repositories.RepositoryException
 import javax.inject.Inject
 
-class PostsInteractor @Inject constructor(
+class GetPostsInteractor @Inject constructor(
     private val postRepository: PostRepository
 ) : BaseInteractor<List<Post>> {
 

@@ -11,6 +11,9 @@ import dk.nodes.template.domain.interactors.InteractorResult
  */
 interface BaseInputInteractor<I, R> {
 
+    val success get() = InteractorResult.Success(Unit)
+    val error get() = InteractorResult.Error(Exception("Unknown interactor error"))
+
     suspend operator fun invoke(input: I): InteractorResult<R>
 
     fun success(data: R): InteractorResult.Success<R> {

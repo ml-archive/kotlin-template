@@ -1,5 +1,8 @@
 package dk.nodes.template.domain.interactors
 
+typealias InteractorSuccess<T> = InteractorResult.Success<T>
+typealias InteractorError = InteractorResult.Error
+
 /**
  * From: https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/data/Result.kt
  */
