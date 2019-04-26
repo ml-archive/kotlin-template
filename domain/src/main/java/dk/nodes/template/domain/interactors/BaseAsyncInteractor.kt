@@ -1,5 +1,5 @@
 package dk.nodes.template.domain.interactors
 
-interface BaseAsyncInteractor<O> {
-    suspend operator fun invoke(): O
+interface BaseAsyncInteractor<I, O> {
+    suspend operator fun invoke(input: I): O
 }

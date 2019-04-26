@@ -22,8 +22,7 @@ class MainActivityViewModel @Inject constructor(
 
     fun fetchPosts() = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
-        val result = withContext(Dispatchers.IO) { postsInteractor.asResult()() }
-        when (result) {
+        when (val result = withContext(Dispatchers.IO) { postsInteractor.asResult() }) {
             is InteractorResult.Success -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
                 posts = result.data

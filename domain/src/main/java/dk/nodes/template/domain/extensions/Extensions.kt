@@ -7,17 +7,23 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
-fun <O: Any> BaseAsyncInteractor<O>.asResult(): ResultInteractor<O> {
-    return ResultInteractor(this)
+suspend fun <I, O : Any> BaseAsyncInteractor<I, O>.asResult(input: I): InteractorResult<O> {
+    return ResultInteractor(this)(input)
 }
 
+suspend fun <O : Any> BaseAsyncInteractor<Unit, O>.asResult(): InteractorResult<O> {
+    return ResultInteractor(this)(Unit)
+}
 
-class ResultInteractor<O : Any>(private val interactor: BaseAsyncInteractor<O>) :
-    BaseAsyncInteractor<InteractorResult<O>> {
+suspend operator fun <O> BaseAsyncInteractor<Unit, O>.invoke(): O {
+    return invoke(Unit)
+}
 
-    override suspend fun invoke(): InteractorResult<O> {
+private class ResultInteractor<I, O : Any>(private val interactor: BaseAsyncInteractor<I, O>) :
+    BaseAsyncInteractor<I, InteractorResult<O>> {
+    override suspend fun invoke(input: I): InteractorResult<O> {
         return try {
-            InteractorResult.Success(interactor())
+            InteractorResult.Success(interactor(input))
         } catch (e: Exception) {
             InteractorResult.Error(e)
         }
