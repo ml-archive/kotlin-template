@@ -16,7 +16,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         super.attachBaseContext(NStackBaseContext(newBase))
     }
 
-    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lazy {
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
         ViewModelProviders.of(this, viewModelFactory)
             .get(VM::class.java)
     }

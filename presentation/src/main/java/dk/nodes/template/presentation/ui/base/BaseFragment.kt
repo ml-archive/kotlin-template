@@ -10,12 +10,12 @@ import javax.inject.Inject
 abstract class BaseFragment : DaggerFragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lazy {
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
         ViewModelProviders.of(this, viewModelFactory)
             .get(VM::class.java)
     }
 
-    protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> = lazy {
+    protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
         ViewModelProviders.of(requireActivity(), viewModelFactory)
             .get(VM::class.java)
     }
