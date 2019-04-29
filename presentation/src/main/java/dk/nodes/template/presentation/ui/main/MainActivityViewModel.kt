@@ -44,12 +44,13 @@ class MainActivityViewModel @Inject constructor(
     fun fetchPosts() = scope.launch(Dispatchers.IO) { liveDataInteractor() }
 
     fun fetchPostsResult() = scope.launch {
+        _viewState.value = MainActivityViewState(isLoading = true)
         when (val result = withContext(Dispatchers.IO) { resultInteractor() }) {
             is Success -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
                 posts = result.data
             )
-            is Error -> _viewState.value = _viewState.value?.copy(
+            is Fail -> _viewState.value = _viewState.value?.copy(
                 isLoading = false,
                 errorMessage = SingleEvent(Translation.error.unknownError)
             )
