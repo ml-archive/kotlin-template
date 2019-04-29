@@ -10,8 +10,8 @@ class Loading<out T> : AsyncResult<T>(complete = false, shouldLoad = false), Inc
     override fun hashCode() = "Loading".hashCode()
 }
 
-data class Success<out T>(val value: T) : AsyncResult<T>(complete = true, shouldLoad = false)
+data class Success<out T>(val data: T) : AsyncResult<T>(complete = true, shouldLoad = false)
 
-data class Fail<out T>(val error: Throwable) : AsyncResult<T>(complete = true, shouldLoad = true)
+data class Error<out T>(val error: Throwable) : AsyncResult<T>(complete = true, shouldLoad = true)
 
 interface Incomplete

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import dk.nodes.template.domain.interactors.PostsInteractor
-import dk.nodes.template.presentation.extensions.Fail
+import dk.nodes.template.presentation.extensions.Error
 import dk.nodes.template.presentation.extensions.Loading
 import dk.nodes.template.presentation.extensions.Success
 import dk.nodes.template.presentation.extensions.Uninitialized
@@ -27,21 +27,13 @@ class MainActivityViewModel @Inject constructor(
     init {
         _viewState.addSource(Transformations.map(this.postsInteractor.liveData) {
             when (it) {
-                is Success -> {
-                    MainActivityViewState(posts = it.value)
-                }
-                is Loading -> {
-                    MainActivityViewState(isLoading = true)
-                }
-                is Fail -> {
-                    MainActivityViewState(
-                        isLoading = false,
-                        errorMessage = SingleEvent(Translation.error.unknownError)
-                    )
-                }
-                is Uninitialized -> {
-                    MainActivityViewState()
-                }
+                is Success -> MainActivityViewState(posts = it.data)
+
+                is Loading -> MainActivityViewState(isLoading = true)
+
+                is Error -> MainActivityViewState(errorMessage = SingleEvent(Translation.error.unknownError))
+
+                is Uninitialized -> MainActivityViewState()
             }
         }) {
             _viewState.postValue(it)

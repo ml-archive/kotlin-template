@@ -19,7 +19,7 @@ class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) 
             val result = interactor.invoke()
             mutableLiveData.postValue(Success(result))
         } catch (t: Throwable) {
-            mutableLiveData.postValue(Fail(t))
+            mutableLiveData.postValue(Error(t))
         }
     }
 }
