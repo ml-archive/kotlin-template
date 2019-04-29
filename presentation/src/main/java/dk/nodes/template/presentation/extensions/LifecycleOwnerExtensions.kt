@@ -1,10 +1,33 @@
-package dk.nodes.template.presentation.ui.base
+package dk.nodes.template.presentation.extensions
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import java.io.Serializable
+
+inline fun <reified VM : ViewModel> LifecycleOwner.viewModel(factory: ViewModelProvider.Factory): Lazy<VM> =
+    lifecycleAwareLazy(this) { getViewModel<VM>(factory) }
+
+inline fun <reified VM : ViewModel> LifecycleOwner.sharedViewModel(factory: ViewModelProvider.Factory): Lazy<VM> =
+    lifecycleAwareLazy(this) { getViewModel<VM>(factory) }
+
+inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
+    return when (this) {
+        is Fragment -> ViewModelProviders.of(this, factory).get(VM::class.java)
+        is FragmentActivity -> ViewModelProviders.of(this, factory).get(VM::class.java)
+        else -> throw IllegalAccessError("Invalid LifecycleOwner")
+    }
+}
+
+inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewModelProvider.Factory): VM {
+    return ViewModelProviders.of(requireActivity(), factory).get(VM::class.java)
+}
 
 private object UninitializedValue
 
@@ -12,7 +35,8 @@ private object UninitializedValue
  * This was copied from SynchronizedLazyImpl but modified to automatically initialize in ON_CREATE.
  */
 @Suppress("ClassName")
-class lifecycleAwareLazy<out T>(private val owner: LifecycleOwner, initializer: () -> T) : Lazy<T>, Serializable {
+class lifecycleAwareLazy<out T>(private val owner: LifecycleOwner, initializer: () -> T) : Lazy<T>,
+    Serializable {
     private var initializer: (() -> T)? = initializer
     @Volatile
     private var _value: Any? = UninitializedValue

@@ -2,27 +2,25 @@ package dk.nodes.template.presentation.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
-
+import dk.nodes.template.presentation.extensions.getSharedViewModel
+import dk.nodes.template.presentation.extensions.getViewModel
+import dk.nodes.template.presentation.extensions.sharedViewModel
+import dk.nodes.template.presentation.extensions.viewModel
 import javax.inject.Inject
 
 abstract class BaseFragment : DaggerFragment() {
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    protected inline fun <reified VM : ViewModel> getViewModel(): VM {
-        return ViewModelProviders.of(this, viewModelFactory).get(VM::class.java)
-    }
+    protected inline fun <reified VM : ViewModel> getViewModel(): VM =
+        getViewModel(viewModelFactory)
 
-    protected inline fun <reified VM : ViewModel> getSharedViewModel(): VM {
-        return ViewModelProviders.of(requireActivity(), viewModelFactory).get(VM::class.java)
-    }
+    protected inline fun <reified VM : ViewModel> getSharedViewModel(): VM =
+        getSharedViewModel(viewModelFactory)
 
-    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
-        getViewModel<VM>()
-    }
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> =
+        viewModel(viewModelFactory)
 
-    protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
-        getSharedViewModel<VM>()
-    }
+    protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> =
+        sharedViewModel(viewModelFactory)
 }
