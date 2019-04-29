@@ -1,17 +1,21 @@
 package dk.nodes.template.domain.interactors
 
-/**
- * From: https://github.com/nickbutcher/plaid/blob/master/core/src/main/java/io/plaidapp/core/data/Result.kt
- */
-sealed class InteractorResult<out T : Any> {
-
-    data class Success<out T : Any>(val data: T) : InteractorResult<T>()
-    data class Error(val exception: Exception) : InteractorResult<Nothing>()
+sealed class InteractorResult<out T> {
 
     override fun toString(): String {
         return when (this) {
             is Success<*> -> "Success[data=$data]"
-            is Error -> "Error[exception=$exception]"
+            is Fail -> "Fail[throwable=$throwable]"
+            is Loading -> "Loading"
+            Uninitialized -> "Uninitialized"
         }
     }
 }
+
+sealed class IncompleteResult<out T> : InteractorResult<T>()
+sealed class CompleteResult<out T> : InteractorResult<T>()
+
+data class Success<out T>(val data: T) : CompleteResult<T>()
+data class Fail(val throwable: Throwable) : CompleteResult<Nothing>()
+object Uninitialized : IncompleteResult<Nothing>()
+class Loading<out T> : IncompleteResult<T>()
