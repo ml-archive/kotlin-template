@@ -28,16 +28,11 @@ class MainActivityViewModel @Inject constructor(
         _viewState.addSource(Transformations.map(this.postsInteractor.liveData) {
             when (it) {
                 is Success -> MainActivityViewState(posts = it.data)
-
                 is Loading -> MainActivityViewState(isLoading = true)
-
                 is Error -> MainActivityViewState(errorMessage = SingleEvent(Translation.error.unknownError))
-
                 is Uninitialized -> MainActivityViewState()
             }
-        }) {
-            _viewState.postValue(it)
-        }
+        }, _viewState::postValue)
     }
 
     fun fetchPosts() = scope.launch(Dispatchers.IO) { postsInteractor() }
