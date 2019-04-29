@@ -23,6 +23,10 @@ android {
                 appId : keys.appId,
                 apiKey: keys.apiKey
         ]
+
+        packagingOptions {
+            pickFirst("META-INF/atomicfu.kotlin_module")
+        }
     }
 
     buildTypes {
