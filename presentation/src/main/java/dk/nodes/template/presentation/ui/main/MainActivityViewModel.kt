@@ -36,7 +36,6 @@ class MainActivityViewModel @Inject constructor(
                     errorMessage = SingleEvent(Translation.error.unknownError)
                 )
                 is Uninitialized -> MainActivityViewState()
-
             }
         }, _viewState::postValue)
     }
@@ -55,6 +54,5 @@ class MainActivityViewModel @Inject constructor(
                 errorMessage = SingleEvent(Translation.error.unknownError)
             )
         }
-
     }
 }
