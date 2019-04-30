@@ -14,7 +14,7 @@ import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 
-class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) {
+class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
 
     private val mutableLiveData = MutableLiveData<InteractorResult<T>>()
     val liveData: LiveData<InteractorResult<T>> = mutableLiveData
@@ -23,7 +23,7 @@ class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) 
         mutableLiveData.postValue(Uninitialized)
     }
 
-    suspend operator fun invoke() {
+    override suspend operator fun invoke() {
         mutableLiveData.postValue(Loading())
         try {
             val result = interactor.invoke()
@@ -45,10 +45,10 @@ class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     }
 }
 
-class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) {
+class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
     private val channel = Channel<InteractorResult<T>>()
     val receiveChannel: ReceiveChannel<InteractorResult<T>> = channel
-    suspend operator fun invoke() {
+    override suspend operator fun invoke() {
         channel.offer(Loading())
         try {
             val result = interactor.invoke()
@@ -59,10 +59,10 @@ class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) {
     }
 }
 
-class RxInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) {
+class RxInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
     private val subject = BehaviorSubject.createDefault<InteractorResult<T>>(Uninitialized)
     val flowable = subject.toFlowable(BackpressureStrategy.LATEST)!!
-    suspend operator fun invoke() {
+    override suspend operator fun invoke() {
         subject.onNext(Loading())
         try {
             val result = interactor.invoke()
