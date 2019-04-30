@@ -8,12 +8,17 @@ import dk.nodes.template.domain.interactors.Loading
 import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.interactors.Success
 import dk.nodes.template.domain.interactors.Uninitialized
+import dk.nodes.template.presentation.extensions.asChannel
 import dk.nodes.template.presentation.extensions.asLiveData
 import dk.nodes.template.presentation.extensions.asResult
+import dk.nodes.template.presentation.extensions.asRx
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,23 +29,62 @@ class MainActivityViewModel @Inject constructor(
 
     private val liveDataInteractor = postsInteractor.asLiveData()
     private val resultInteractor = postsInteractor.asResult()
+    private val channelInteractor = postsInteractor.asChannel()
+    private val rxInteractor = postsInteractor.asRx()
     private val _viewState = MediatorLiveData<MainActivityViewState>()
     val viewState: LiveData<MainActivityViewState> = _viewState
 
     init {
         _viewState.addSource(Transformations.map(this.liveDataInteractor.liveData) {
             when (it) {
-                is Success -> MainActivityViewState(posts = it.data)
-                is Loading -> MainActivityViewState(isLoading = true)
-                is Fail -> MainActivityViewState(
+                is Success -> _viewState.value?.copy(posts = it.data)
+                is Loading -> _viewState.value?.copy(isLoading = true)
+                is Fail -> _viewState.value?.copy(
                     errorMessage = SingleEvent(Translation.error.unknownError)
                 )
                 is Uninitialized -> MainActivityViewState()
             }
         }, _viewState::postValue)
+
+        scope.launch {
+            channelInteractor.receiveChannel.consumeEach {
+                _viewState.postValue(
+                    when (it) {
+                        is Success -> _viewState.value?.copy(posts = it.data)
+                        is Loading -> viewState.value?.copy(isLoading = true)
+                        is Fail -> viewState.value?.copy(
+                            errorMessage = SingleEvent(Translation.error.unknownError)
+                        )
+                        is Uninitialized -> MainActivityViewState()
+                    }
+                )
+            }
+        }
+
+        disposables += rxInteractor.flowable
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({
+                _viewState.postValue(
+                    when (it) {
+                        is Success -> _viewState.value?.copy(posts = it.data)
+                        is Loading -> viewState.value?.copy(isLoading = true)
+                        is Fail -> viewState.value?.copy(
+                            errorMessage = SingleEvent(Translation.error.unknownError)
+                        )
+                        is Uninitialized -> MainActivityViewState()
+                    }
+                )
+            }, {
+                _viewState.postValue(
+                    viewState.value?.copy(
+                        errorMessage = SingleEvent(Translation.error.unknownError)
+                    )
+                )
+            })
     }
 
-    fun fetchPosts() = scope.launch(Dispatchers.IO) { liveDataInteractor() }
+    fun fetchPosts() = scope.launch(Dispatchers.IO) { rxInteractor() }
 
     fun fetchPostsResult() = scope.launch {
         _viewState.value = MainActivityViewState(isLoading = true)
