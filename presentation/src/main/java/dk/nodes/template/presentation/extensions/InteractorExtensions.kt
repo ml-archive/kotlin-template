@@ -14,7 +14,7 @@ import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 
-class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
+class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) : BaseAsyncInteractor<Unit> {
 
     private val mutableLiveData = MutableLiveData<InteractorResult<T>>()
     val liveData: LiveData<InteractorResult<T>> = mutableLiveData
@@ -26,7 +26,7 @@ class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>):
     override suspend operator fun invoke() {
         mutableLiveData.postValue(Loading())
         try {
-            val result = interactor.invoke()
+            val result = interactor()
             mutableLiveData.postValue(Success(result))
         } catch (t: Throwable) {
             mutableLiveData.postValue(Fail(t))
@@ -34,8 +34,7 @@ class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>):
     }
 }
 
-class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    BaseAsyncInteractor<CompleteResult<T>> {
+class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) : BaseAsyncInteractor<CompleteResult<T>> {
     override suspend fun invoke(): CompleteResult<T> {
         return try {
             Success(interactor())
@@ -45,28 +44,26 @@ class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     }
 }
 
-class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
+class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) : BaseAsyncInteractor<Unit> {
     private val channel = Channel<InteractorResult<T>>()
     val receiveChannel: ReceiveChannel<InteractorResult<T>> = channel
     override suspend operator fun invoke() {
         channel.offer(Loading())
         try {
-            val result = interactor.invoke()
-            channel.offer(Success(result))
+            channel.offer(Success(interactor()))
         } catch (t: Throwable) {
             channel.offer(Fail(t))
         }
     }
 }
 
-class RxInteractor<T>(private val interactor: BaseAsyncInteractor<out T>): BaseAsyncInteractor<Unit> {
+class RxInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) : BaseAsyncInteractor<Unit> {
     private val subject = BehaviorSubject.createDefault<InteractorResult<T>>(Uninitialized)
     val flowable = subject.toFlowable(BackpressureStrategy.LATEST)!!
     override suspend operator fun invoke() {
         subject.onNext(Loading())
         try {
-            val result = interactor.invoke()
-            subject.onNext(Success(result))
+            subject.onNext(Success(interactor()))
         } catch (t: Throwable) {
             subject.onError(t)
         }
