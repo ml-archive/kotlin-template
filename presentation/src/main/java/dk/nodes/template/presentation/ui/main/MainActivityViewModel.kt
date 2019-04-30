@@ -37,10 +37,10 @@ class MainActivityViewModel @Inject constructor(
     init {
         _viewState.addSource(Transformations.map(this.liveDataInteractor.liveData) {
             when (it) {
-                is Success -> _viewState.value?.copy(posts = it.data)
+                is Success -> _viewState.value?.copy(posts = it.data, isLoading = false)
                 is Loading -> _viewState.value?.copy(isLoading = true)
                 is Fail -> _viewState.value?.copy(
-                    errorMessage = SingleEvent(Translation.error.unknownError)
+                    errorMessage = SingleEvent(Translation.error.unknownError), isLoading = false
                 )
                 is Uninitialized -> MainActivityViewState()
             }
@@ -50,10 +50,11 @@ class MainActivityViewModel @Inject constructor(
             channelInteractor.receiveChannel.consumeEach {
                 _viewState.postValue(
                     when (it) {
-                        is Success -> _viewState.value?.copy(posts = it.data)
+                        is Success -> _viewState.value?.copy(posts = it.data, isLoading = false)
                         is Loading -> viewState.value?.copy(isLoading = true)
                         is Fail -> viewState.value?.copy(
-                            errorMessage = SingleEvent(Translation.error.unknownError)
+                            errorMessage = SingleEvent(Translation.error.unknownError),
+                            isLoading = false
                         )
                         is Uninitialized -> MainActivityViewState()
                     }
@@ -67,10 +68,11 @@ class MainActivityViewModel @Inject constructor(
             .subscribe({
                 _viewState.postValue(
                     when (it) {
-                        is Success -> _viewState.value?.copy(posts = it.data)
+                        is Success -> _viewState.value?.copy(posts = it.data, isLoading = false)
                         is Loading -> viewState.value?.copy(isLoading = true)
                         is Fail -> viewState.value?.copy(
-                            errorMessage = SingleEvent(Translation.error.unknownError)
+                            errorMessage = SingleEvent(Translation.error.unknownError),
+                            isLoading = false
                         )
                         is Uninitialized -> MainActivityViewState()
                     }
@@ -78,7 +80,8 @@ class MainActivityViewModel @Inject constructor(
             }, {
                 _viewState.postValue(
                     viewState.value?.copy(
-                        errorMessage = SingleEvent(Translation.error.unknownError)
+                        errorMessage = SingleEvent(Translation.error.unknownError),
+                        isLoading = false
                     )
                 )
             })
