@@ -88,5 +88,3 @@ fun <T> BaseAsyncInteractor<T>.asChannel(): ChannelInteractor<T> {
 fun <T> BaseAsyncInteractor<T>.asRx(): RxInteractor<T> {
     return RxInteractor(this)
 }
-
-
