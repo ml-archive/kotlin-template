@@ -50,7 +50,7 @@ class MainActivityViewModel @Inject constructor(
                 .consumeEach(_viewState::postValue)
         }
 
-        disposables += rxInteractor.flowable
+        disposables += rxInteractor.observe()
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .map(this::mapResult)

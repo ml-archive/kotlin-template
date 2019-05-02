@@ -63,8 +63,9 @@ class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
 
 class RxInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     BaseAsyncInteractor<Unit> {
+
+    fun observe() = subject.toFlowable(BackpressureStrategy.LATEST)!!
     private val subject = BehaviorSubject.createDefault<InteractorResult<T>>(Uninitialized)
-    val flowable = subject.toFlowable(BackpressureStrategy.LATEST)!!
     override suspend operator fun invoke() {
         subject.onNext(Loading())
         try {
