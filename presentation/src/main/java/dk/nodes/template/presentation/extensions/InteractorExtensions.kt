@@ -17,12 +17,10 @@ import kotlinx.coroutines.channels.ReceiveChannel
 class LiveDataInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     BaseAsyncInteractor<Unit> {
 
-    private val mutableLiveData = MutableLiveData<InteractorResult<T>>()
-    val liveData: LiveData<InteractorResult<T>> = mutableLiveData
-
-    init {
-        mutableLiveData.postValue(Uninitialized)
+    private val mutableLiveData = MutableLiveData<InteractorResult<T>>().apply {
+        postValue(Uninitialized)
     }
+    val liveData: LiveData<InteractorResult<T>> = mutableLiveData
 
     override suspend operator fun invoke() {
         mutableLiveData.postValue(Loading())
@@ -48,8 +46,11 @@ class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
 
 class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     BaseAsyncInteractor<Unit> {
-    private val channel = Channel<InteractorResult<T>>()
+    private val channel = Channel<InteractorResult<T>>().apply {
+        offer(Uninitialized)
+    }
     val receiveChannel: ReceiveChannel<InteractorResult<T>> = channel
+
     override suspend operator fun invoke() {
         channel.offer(Loading())
         try {
