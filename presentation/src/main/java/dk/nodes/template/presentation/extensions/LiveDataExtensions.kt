@@ -2,9 +2,10 @@ package dk.nodes.template.presentation.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.EventObserver
+import dk.nodes.template.presentation.util.SingleEvent
 
 inline fun <T> LiveData<T>.observe(
     lifecycleOwner: LifecycleOwner,
@@ -31,4 +32,16 @@ inline fun <E, T : SingleEvent<E>> LiveData<T>.observeEvent(
     this.observe(lifecycleOwner, EventObserver {
         observer(it)
     })
+}
+
+fun <T> LiveData<T>.distinctUntilChanged(): LiveData<T> {
+    val mutableLiveData: MediatorLiveData<T> = MediatorLiveData()
+    var latestValue: T? = null
+    mutableLiveData.addSource(this) {
+        if (latestValue != it) {
+            mutableLiveData.value = it
+            latestValue = it
+        }
+    }
+    return mutableLiveData
 }
