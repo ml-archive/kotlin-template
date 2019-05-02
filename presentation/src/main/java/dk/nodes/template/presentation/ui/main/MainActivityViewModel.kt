@@ -70,7 +70,7 @@ class MainActivityViewModel @Inject constructor(
 //         liveDataInteractor()
 
         /** Uncomment below to test ResultInteractor */
-//        _viewState.postValue(MainActivityViewState(isLoading = true))
+//        _viewState.postValue(mapResult(Loading()))
 //        _viewState.postValue(mapResult(resultInteractor()))
     }
 
