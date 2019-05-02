@@ -53,10 +53,8 @@ class MainActivityViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .map(this::mapResult)
-            .subscribe(_viewState::postValue) {
-                Timber.e(it)
-                _viewState.postValue(mapResult(Fail(it)))
-            }
+            .onErrorReturn { mapResult(Fail(it)) }
+            .subscribe(_viewState::postValue, Timber::e)
     }
 
     fun fetchPosts() = scope.launch(Dispatchers.IO) {
