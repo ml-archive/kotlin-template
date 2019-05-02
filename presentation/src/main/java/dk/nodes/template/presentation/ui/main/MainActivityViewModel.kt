@@ -45,7 +45,7 @@ class MainActivityViewModel @Inject constructor(
         )
 
         scope.launch {
-            channelInteractor.receiveChannel
+            channelInteractor.receive()
                 .map(Dispatchers.IO) { mapResult(it) }
                 .consumeEach(_viewState::postValue)
         }

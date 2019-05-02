@@ -49,7 +49,7 @@ class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     private val channel = Channel<InteractorResult<T>>().apply {
         offer(Uninitialized)
     }
-    val receiveChannel: ReceiveChannel<InteractorResult<T>> = channel
+    fun receive(): ReceiveChannel<InteractorResult<T>> = channel
 
     override suspend operator fun invoke() {
         channel.offer(Loading())
