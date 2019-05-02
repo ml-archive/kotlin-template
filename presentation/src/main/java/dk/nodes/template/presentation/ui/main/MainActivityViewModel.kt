@@ -57,19 +57,19 @@ class MainActivityViewModel @Inject constructor(
             .subscribe(_viewState::postValue, Timber::e)
     }
 
-    fun fetchPosts() = scope.launch(Dispatchers.IO) {
+    fun fetchPosts() {
         /** Uncomment below to test RxInteractor */
-//         rxInteractor()
-
+//        scope.launchInteractor(rxInteractor)
         /** Uncomment below to test ChannelInteractor */
-//         channelInteractor()
-
+//        scope.launchInteractor(channelInteractor)
         /** Uncomment below to test LiveDataInteractor */
-//         liveDataInteractor()
+//        scope.launchInteractor(liveDataInteractor)
 
         /** Uncomment below to test ResultInteractor */
-//        _viewState.postValue(mapResult(Loading()))
-//        _viewState.postValue(mapResult(resultInteractor()))
+//        scope.launch {
+//            _viewState.postValue(mapResult(Loading()))
+//            _viewState.postValue(mapResult(runInteractor(resultInteractor)))
+//        }
     }
 
     private fun mapResult(result: InteractorResult<List<Post>>): MainActivityViewState {
