@@ -55,12 +55,7 @@ class MainActivityViewModel @Inject constructor(
             .map(this::mapResult)
             .subscribe(_viewState::postValue) {
                 Timber.e(it)
-                _viewState.postValue(
-                    viewState.value?.copy(
-                        errorMessage = SingleEvent(Translation.error.unknownError),
-                        isLoading = false
-                    )
-                )
+                _viewState.postValue(mapResult(Fail(it)))
             }
     }
 
