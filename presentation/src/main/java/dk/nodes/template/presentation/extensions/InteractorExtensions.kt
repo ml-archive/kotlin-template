@@ -11,6 +11,8 @@ import dk.nodes.template.domain.interactors.Success
 import dk.nodes.template.domain.interactors.Uninitialized
 import io.reactivex.BackpressureStrategy
 import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 
@@ -44,12 +46,14 @@ class ResultInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     }
 }
 
+@ExperimentalCoroutinesApi
 class ChannelInteractor<T>(private val interactor: BaseAsyncInteractor<out T>) :
     BaseAsyncInteractor<Unit> {
-    private val channel = Channel<InteractorResult<T>>().apply {
+    private val channel = BroadcastChannel<InteractorResult<T>>(Channel.CONFLATED).apply {
         offer(Uninitialized)
     }
-    fun receive(): ReceiveChannel<InteractorResult<T>> = channel
+
+    fun receive(): ReceiveChannel<InteractorResult<T>> = channel.openSubscription()
 
     override suspend operator fun invoke() {
         channel.offer(Loading())

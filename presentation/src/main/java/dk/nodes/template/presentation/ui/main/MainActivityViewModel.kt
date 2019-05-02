@@ -23,7 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.channels.map
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -65,12 +64,19 @@ class MainActivityViewModel @Inject constructor(
             }
     }
 
-    fun fetchPosts() = scope.launch(Dispatchers.IO) { rxInteractor() }
+    fun fetchPosts() = scope.launch(Dispatchers.IO) {
+        /** Uncomment below to test RxInteractor */
+//         rxInteractor()
 
-    fun fetchPostsResult() = scope.launch {
-        _viewState.value = MainActivityViewState(isLoading = true)
-        val result = withContext(Dispatchers.IO) { resultInteractor() }
-        _viewState.value = mapResult(result)
+        /** Uncomment below to test ChannelInteractor */
+//         channelInteractor()
+
+        /** Uncomment below to test LiveDataInteractor */
+//         liveDataInteractor()
+
+        /** Uncomment below to test ResultInteractor */
+//        _viewState.postValue(MainActivityViewState(isLoading = true))
+//        _viewState.postValue(mapResult(resultInteractor()))
     }
 
     private fun mapResult(result: InteractorResult<List<Post>>): MainActivityViewState {
