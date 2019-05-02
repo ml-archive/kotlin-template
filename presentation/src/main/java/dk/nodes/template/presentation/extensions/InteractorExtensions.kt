@@ -27,13 +27,13 @@ interface LiveDataInteractor<T> : BaseAsyncInteractor<Unit> {
 }
 
 interface ResultInteractor<T> : BaseAsyncInteractor<CompleteResult<T>>
+
 @ExperimentalCoroutinesApi
 interface ChannelInteractor<T> : BaseAsyncInteractor<Unit> {
     fun receive(): ReceiveChannel<InteractorResult<T>>
 }
 
 interface RxInteractor<T> : BaseAsyncInteractor<Unit> {
-
     fun observe(): Flowable<InteractorResult<T>>
 }
 
