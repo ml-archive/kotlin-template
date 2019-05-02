@@ -21,6 +21,7 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -44,9 +45,9 @@ class MainActivityViewModel @Inject constructor(
         )
 
         scope.launch {
-            channelInteractor.receiveChannel.consumeEach {
-                _viewState.postValue(mapResult(it))
-            }
+            channelInteractor.receiveChannel
+                .map(Dispatchers.IO) { mapResult(it) }
+                .consumeEach(_viewState::postValue)
         }
 
         disposables += rxInteractor.flowable
