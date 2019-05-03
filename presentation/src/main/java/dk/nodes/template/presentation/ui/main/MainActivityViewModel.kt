@@ -2,6 +2,8 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.map
 import dk.nodes.template.domain.interactors.Fail
 import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
@@ -14,7 +16,6 @@ import dk.nodes.template.presentation.extensions.asFlow
 import dk.nodes.template.presentation.extensions.asLiveData
 import dk.nodes.template.presentation.extensions.asResult
 import dk.nodes.template.presentation.extensions.asRx
-import dk.nodes.template.presentation.extensions.distinctUntilChanged
 import dk.nodes.template.presentation.extensions.runInteractor
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseViewModel
@@ -40,7 +41,7 @@ class MainActivityViewModel @Inject constructor(
     init {
         /** Uncomment below to test LiveDataInteractor */
 //        _viewState.addSource(
-//            Transformations.map(this.liveDataInteractor.liveData, this::mapResult),
+//            this.liveDataInteractor.liveData.map(::mapResult),
 //            _viewState::postValue
 //        )
 //

@@ -149,7 +149,7 @@ dependencies {
 
     // The following section is only used to force the latest version to resolve conflicts
     implementation 'androidx.arch.core:core-common:2.0.1'
-    implementation 'androidx.arch.core:core-runtime:2.1.0-alpha01'
+    implementation 'androidx.arch.core:core-runtime:2.1.0-alpha02'
     implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common:${versions.lifecycle}"
