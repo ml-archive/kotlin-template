@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerAppCompatActivity
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import dk.nodes.template.presentation.extensions.getViewModel
-import dk.nodes.template.presentation.extensions.viewModel
+import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -20,6 +20,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)
 
-    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> =
-        viewModel(viewModelFactory)
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> {
+        return lifecycleAwareLazy(this) { getViewModel<VM>(viewModelFactory) }
+    }
 }

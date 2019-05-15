@@ -23,12 +23,6 @@ inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewMod
     return ViewModelProviders.of(requireActivity(), factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> LifecycleOwner.viewModel(factory: ViewModelProvider.Factory): Lazy<VM> =
-    lifecycleAwareLazy(this) { getViewModel<VM>(factory) }
-
-inline fun <reified VM : ViewModel> Fragment.sharedViewModel(factory: ViewModelProvider.Factory): Lazy<VM> =
-    lifecycleAwareLazy(this) { getSharedViewModel<VM>(factory) }
-
 private object UninitializedValue
 
 /**

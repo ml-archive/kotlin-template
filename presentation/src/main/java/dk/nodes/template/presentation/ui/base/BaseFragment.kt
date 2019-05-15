@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
 import dk.nodes.template.presentation.extensions.getSharedViewModel
 import dk.nodes.template.presentation.extensions.getViewModel
-import dk.nodes.template.presentation.extensions.sharedViewModel
-import dk.nodes.template.presentation.extensions.viewModel
+import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import javax.inject.Inject
 
 abstract class BaseFragment : DaggerFragment() {
@@ -18,9 +17,12 @@ abstract class BaseFragment : DaggerFragment() {
     protected inline fun <reified VM : ViewModel> getSharedViewModel(): VM =
         getSharedViewModel(viewModelFactory)
 
-    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> =
-        viewModel(viewModelFactory)
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> = lifecycleAwareLazy(this) {
+        getViewModel<VM>()
+    }
 
     protected inline fun <reified VM : ViewModel> sharedViewModel(): Lazy<VM> =
-        sharedViewModel(viewModelFactory)
+        lifecycleAwareLazy(this) {
+            getSharedViewModel<VM>()
+        }
 }
