@@ -3,9 +3,10 @@ package dk.nodes.template.presentation.ui.base
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerAppCompatActivity
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
+import dk.nodes.template.presentation.extensions.getViewModel
+import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import javax.inject.Inject
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
@@ -16,8 +17,10 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         super.attachBaseContext(NStackBaseContext(newBase))
     }
 
-    protected inline fun <reified VM : ViewModel> bindViewModel(): VM {
-        return ViewModelProviders.of(this, viewModelFactory)
-            .get(VM::class.java)
+    protected inline fun <reified VM : ViewModel> getViewModel(): VM =
+        getViewModel(viewModelFactory)
+
+    protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> {
+        return lifecycleAwareLazy(this) { getViewModel<VM>(viewModelFactory) }
     }
 }
