@@ -7,7 +7,7 @@ buildscript {
             coroutines         : '1.2.1',
             constraint_layout  : '2.0.0-alpha4',
             dagger             : "2.22.1",
-            lifecycle          : "2.0.0",
+            lifecycle          : "2.1.0-alpha04",
             hockey_sdk         : "5.1.1",
             timber             : "4.7.1",
             junit              : '4.12',

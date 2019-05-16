@@ -2,9 +2,10 @@ package dk.nodes.template.presentation.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.EventObserver
+import dk.nodes.template.presentation.util.SingleEvent
 
 inline fun <T> LiveData<T>.observe(
     lifecycleOwner: LifecycleOwner,
