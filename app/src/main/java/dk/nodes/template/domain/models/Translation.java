@@ -21,13 +21,11 @@ public class Translation {
 		public static String previous = "Forrige";
 		public static String skip = "Spring over";
 	}
-	public final static class versionControl {
-		public static String updateHeader = "Ny version er ude";
-		public static String forceHeader = "Ny version er ude, du skal opdatere!";
-		public static String negativeBtn = "Annuller";
-		public static String positiveBtn = "Opdater";
-		public static String newInVersionHeader = "Nyt i denne version";
-		public static String okBtn = "Ok";
+	public final static class error {
+		public static String authenticationError = "Login er udl\u00F8bet, login venligst ind igen.";
+		public static String connectionError = "Ingen eller d\u00E5rlig forbindelse, pr\u00F8v igen.";
+		public static String errorTitle = "Fejl";
+		public static String unknownError = "Ukendt fejl, pr\u00F8v igen.";
 	}
 	public final static class rateReminder {
 		public static String title = "__title";
@@ -36,10 +34,12 @@ public class Translation {
 		public static String laterBtn = "__laterBtn";
 		public static String noBtn = "__noBtn";
 	}
-	public final static class error {
-		public static String authenticationError = "Login er udl\u00F8bet, login venligst ind igen.";
-		public static String connectionError = "Ingen eller d\u00E5rlig forbindelse, pr\u00F8v igen.";
-		public static String errorTitle = "Fejl";
-		public static String unknownError = "Ukendt fejl, pr\u00F8v igen.";
+	public final static class versionControl {
+		public static String updateHeader = "Ny version er ude";
+		public static String forceHeader = "Ny version er ude, du skal opdatere!";
+		public static String negativeBtn = "Annuller";
+		public static String positiveBtn = "Opdater";
+		public static String newInVersionHeader = "Nyt i denne version";
+		public static String okBtn = "Ok";
 	}
 }
