@@ -1,7 +1,6 @@
 package dk.nodes.template.presentation.ui.base
 
 import androidx.lifecycle.ViewModel
-import io.reactivex.disposables.CompositeDisposable
 import java.io.Closeable
 import java.util.concurrent.ConcurrentHashMap
 
@@ -20,7 +19,6 @@ open class BaseViewModel : ViewModel() {
     @Suppress("UNCHECKED_CAST")
     internal fun <T> getTag(key: String) = tagMap[key] as? T
 
-    protected val disposables = CompositeDisposable()
     override fun onCleared() {
         super.onCleared()
         tagMap.forEach { entry ->
