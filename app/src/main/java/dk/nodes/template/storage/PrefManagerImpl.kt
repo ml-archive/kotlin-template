@@ -5,8 +5,9 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import androidx.core.content.edit
 import dk.nodes.template.domain.managers.PrefManager
+import javax.inject.Inject
 
-class PrefManagerImpl(context: Context) : PrefManager {
+class PrefManagerImpl @Inject constructor(context: Context) : PrefManager {
     private var sharedPrefs: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 

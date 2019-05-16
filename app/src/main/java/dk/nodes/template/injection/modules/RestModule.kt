@@ -7,10 +7,10 @@ import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.network.rest.Api
-import dk.nodes.template.network.rest.util.BufferedSourceConverterFactory
-import dk.nodes.template.network.rest.util.DateDeserializer
-import dk.nodes.template.network.rest.util.ItemTypeAdapterFactory
+import dk.nodes.template.network.Api
+import dk.nodes.template.network.util.BufferedSourceConverterFactory
+import dk.nodes.template.network.util.DateDeserializer
+import dk.nodes.template.network.util.ItemTypeAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit

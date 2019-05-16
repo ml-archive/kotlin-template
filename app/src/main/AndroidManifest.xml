@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dk.nodes.template">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:node="replace" />
 
     <application
-        android:allowBackup="true"
         android:name="dk.nodes.template.App"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -19,14 +21,16 @@
         <meta-data
             android:name="dk.nodes.nstack.appId"
             android:value="${appId}"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
         <meta-data
             android:name="dk.nodes.nstack.apiKey"
             android:value="${apiKey}"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
 
         <!-- hockey id included from build.gradle manifest placeholder -->
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
 
         <activity android:name="dk.nodes.template.presentation.ui.main.MainActivity">
             <intent-filter>
@@ -34,6 +38,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.main.SampleActivity" />
     </application>
 </manifest>

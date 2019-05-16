@@ -9,9 +9,9 @@ import dk.nodes.template.injection.modules.AppModule
 import dk.nodes.template.injection.modules.ExecutorModule
 import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.RestModule
-import dk.nodes.template.injection.modules.RestRepositoryModule
-import dk.nodes.template.injection.modules.StorageModule
-import dk.nodes.template.injection.modules.ViewModelBuilder
+import dk.nodes.template.injection.modules.RestRepositoryBinding
+import dk.nodes.template.injection.modules.StorageBindingModule
+import dk.nodes.template.presentation.injection.ViewModelBuilder
 
 @Component(
     modules = [
@@ -21,12 +21,12 @@ import dk.nodes.template.injection.modules.ViewModelBuilder
         ExecutorModule::class,
         InteractorModule::class,
         RestModule::class,
-        RestRepositoryModule::class,
-        StorageModule::class
+        RestRepositoryBinding::class,
+        StorageBindingModule::class
     ]
 )
 @AppScope
 interface AppComponent : AndroidInjector<App> {
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<App>()
+    @Component.Factory
+    abstract class Factory : AndroidInjector.Factory<App>
 }

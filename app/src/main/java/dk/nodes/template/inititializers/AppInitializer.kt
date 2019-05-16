@@ -1,16 +1,22 @@
 package dk.nodes.template.inititializers
 
 import android.app.Application
+import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.template.BuildConfig
+import dk.nodes.template.presentation.nstack.Translation
+import timber.log.Timber
+import javax.inject.Inject
 
 interface AppInitializer {
     fun init(app: Application)
 }
 
-class AppInitializers(vararg params: AppInitializer) : AppInitializer {
-    private val initializers = params.asList()
+class AppInitializerImpl @Inject constructor() : AppInitializer {
     override fun init(app: Application) {
-        initializers.forEach {
-            it.init(app)
+        NStack.translationClass = Translation::class.java
+        NStack.init(app)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
         }
     }
 }
