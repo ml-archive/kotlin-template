@@ -2,8 +2,6 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.distinctUntilChanged
-import androidx.lifecycle.map
 import dk.nodes.template.domain.interactors.Fail
 import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
@@ -19,10 +17,8 @@ import dk.nodes.template.presentation.extensions.asRx
 import dk.nodes.template.presentation.extensions.runInteractor
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseViewModel
+import dk.nodes.template.presentation.ui.base.scope
 import dk.nodes.template.presentation.util.SingleEvent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,12 +32,12 @@ class MainActivityViewModel @Inject constructor(
     private val rxInteractor = postsInteractor.asRx()
     private val flowInteractor = postsInteractor.asFlow()
     private val _viewState = MediatorLiveData<MainActivityViewState>()
-    val viewState: LiveData<MainActivityViewState> = _viewState.distinctUntilChanged()
+    val viewState: LiveData<MainActivityViewState> = _viewState
 
     init {
         /** Uncomment below to test LiveDataInteractor */
 //        _viewState.addSource(
-//            this.liveDataInteractor.liveData.map(::mapResult),
+//            Transformations.map(this.liveDataInteractor.liveData, ::mapResult),
 //            _viewState::postValue
 //        )
 //
@@ -70,19 +66,19 @@ class MainActivityViewModel @Inject constructor(
 //        scope.launchInteractor(liveDataInteractor)
 
         /** Uncomment below to test ResultInteractor */
-//        scope.launch {
-//            _viewState.postValue(mapResult(Loading()))
-//            _viewState.postValue(mapResult(runInteractor(resultInteractor)))
-//        }
+        scope.launch {
+            _viewState.postValue(mapResult(Loading()))
+            _viewState.postValue(mapResult(runInteractor(resultInteractor)))
+        }
 
         /** Uncomment below to test FlowInteractor */
-        scope.launch(Dispatchers.IO) {
-            runInteractor(flowInteractor)
-                .map { mapResult(it) }
-                .collect { state ->
-                    _viewState.postValue(state)
-                }
-        }
+//        scope.launch(Dispatchers.IO) {
+//            runInteractor(flowInteractor)
+//                .map { mapResult(it) }
+//                .collect { state ->
+//                    _viewState.postValue(state)
+//                }
+//        }
     }
 
     private fun mapResult(result: InteractorResult<List<Post>>): MainActivityViewState {

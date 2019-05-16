@@ -1,4 +1,4 @@
-package dk.nodes.template.presentation.base
+package dk.nodes.template.presentation.ui.base
 
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
