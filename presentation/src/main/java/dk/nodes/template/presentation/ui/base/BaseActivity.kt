@@ -21,6 +21,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         getViewModel(viewModelFactory)
 
     protected inline fun <reified VM : ViewModel> viewModel(): Lazy<VM> {
-        return lifecycleAwareLazy(this) { getViewModel<VM>(viewModelFactory) }
+        return lifecycleAwareLazy(this) { getViewModel<VM>() }
     }
 }
