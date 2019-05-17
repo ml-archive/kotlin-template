@@ -1,12 +1,14 @@
 package dk.nodes.template.presentation.ui.main
 
 import android.os.Bundle
-import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.ui.base.BaseActivity
+import dk.nodes.template.presentation.databinding.ActivityMainBinding
+import dk.nodes.template.presentation.extensions.observe
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.nstack.Translation
+import dk.nodes.template.presentation.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import net.hockeyapp.android.UpdateManager
 
@@ -16,15 +18,14 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding =
+            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+        viewModel = bindViewModel()
+        viewModel.viewState.observe(this, binding::setViewState)
+        viewModel.viewState.observeNonNull(this, ::showErrorMessage)
         // setupNstack()
         // setupHockey()
-        viewModel = bindViewModel()
-        viewModel.viewState.observeNonNull(this) { state ->
-            showLoading(state)
-            showPosts(state)
-            showErrorMessage(state)
-        }
         viewModel.fetchPosts()
     }
 
@@ -32,14 +33,6 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         // If we checked for hockey updates, unregister
         UpdateManager.unregister()
-    }
-
-    private fun showPosts(state: MainActivityViewState) {
-        postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
-    }
-
-    private fun showLoading(state: MainActivityViewState) {
-        postsProgressBar.isVisible = state.isLoading
     }
 
     private fun showErrorMessage(state: MainActivityViewState) {
