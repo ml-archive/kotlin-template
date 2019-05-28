@@ -20,11 +20,8 @@ import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.ui.base.scope
 import dk.nodes.template.presentation.util.SingleEvent
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MainActivityViewModel @Inject constructor(
-    postsInteractor: PostsInteractor
-) : BaseViewModel() {
+class MainActivityViewModel(postsInteractor: PostsInteractor) : BaseViewModel() {
 
     private val liveDataInteractor = postsInteractor.asLiveData()
     private val resultInteractor = postsInteractor.asResult()

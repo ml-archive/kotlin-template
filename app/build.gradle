@@ -112,10 +112,12 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}"
     implementation 'androidx.multidex:multidex:2.0.1'
 
-    implementation "com.google.dagger:dagger-android:${versions.dagger}"
-    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
-    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
-    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+    implementation "org.koin:koin-core:${versions.koin}"
+
+    implementation "org.koin:koin-android-scope:${versions.koin}"
+    implementation "org.koin:koin-android-viewmodel:${versions.koin}"
+    implementation "org.koin:koin-android-ext:${versions.koin}"
+
 
     implementation "net.hockeyapp.android:HockeySDK:${versions.hockey_sdk}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
