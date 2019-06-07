@@ -5,22 +5,23 @@ buildscript {
     ext.versions = [
             kotlin             : '1.3.31',
             coroutines         : '1.2.1',
-            constraint_layout  : '2.0.0-alpha4',
+            constraint_layout  : '2.0.0-beta1',
             lifecycle          : "2.1.0-alpha04",
-            hockey_sdk         : "5.1.1",
+            hockey_sdk         : "5.2.0",
             timber             : "4.7.1",
             junit              : '4.12',
-            espresso_core      : '3.1.1',
-            mockito            : '2.27.0',
+            espresso           : '3.2.0',
+            mockito            : '2.28.2',
             nodes_nstack_kotlin: '2.3.0',
             nodes_arch         : '2.3.3',
-            retrofit           : "2.5.0",
+            retrofit           : "2.6.0",
             okhttp             : "3.12.1",
             rx_android         : '2.1.1',
-            rx_java            : "2.2.8",
+            rx_java            : "2.2.9",
             rx_kolin           : "2.3.0",
             ktx                : "1.0.2",
             rx_lint            : '1.7.0',
+            material           : '1.1.0-alpha07',
             koin               : '2.0.0'
     ]
 
@@ -71,7 +72,7 @@ subprojects {
     spotless {
         kotlin {
             target "**/*.kt"
-            ktlint('0.31.0')
+            ktlint('0.33.0')
         }
     }
 }
