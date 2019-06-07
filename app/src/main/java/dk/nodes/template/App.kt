@@ -22,11 +22,11 @@ class App : Application() {
         startKoin {
             androidContext(this@App)
             modules(
-                viewModelModule,
-                appModule,
-                restModule,
-                restRepositoryModule,
-                storageModule,
+                viewModelModule +
+                appModule +
+                restModule +
+                restRepositoryModule +
+                storageModule +
                 interactorModule
             )
         }
