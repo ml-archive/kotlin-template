@@ -7,7 +7,7 @@
 3. Rebuild to generate Dagger classes
 
 ## 🔗 Useful links
-* [Trello board]()
+* [Jira board]()
 
 ## 🌲 Branches
 * `master` - Latest version on Google Play.
