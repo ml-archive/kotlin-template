@@ -144,19 +144,6 @@ private fun showErrorMessage(state: MainActivityViewState) {
 }
 ```
 
-
-## Live Templates
-The Kotlin template comes supported with a its own set of live templates which can be found at
-
-https://github.com/nodes-android/androidstudio-livetemplates
-
-It should make generating the boilerplate for activities and fragments easy.
-
-## Nodes Architecture Library
-The Template uses components from our Architecture library so be sure to read up on how that is used as well
-
-https://github.com/nodes-android/nodes-architecture-android
-
 ## Injection
 
 This project is using Dagger for injection and scoping. Dagger is an annotation based dependency injection, which computes the dependency graph at compile time and verifies that everything is correctly injected at runtime.
@@ -214,6 +201,18 @@ class RestCityRepository @Inject constructor(
 ## Testing
 
 Please see our extensive guide for unit testing: https://github.com/nodes-android/guidelines/blob/master/unittesting.md
+
+## Live Templates
+The Kotlin template comes supported with a its own set of live templates which can be found at
+
+https://github.com/nodes-android/androidstudio-livetemplates
+
+It should make generating the boilerplate for activities and fragments easy.
+
+## Nodes Architecture Library
+The Template uses components from our Architecture library so be sure to read up on how that is used as well
+
+https://github.com/nodes-android/nodes-architecture-android
 
 ## Inspired from the following sources:
 - [Clean Architecture by Uncle Bob](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
