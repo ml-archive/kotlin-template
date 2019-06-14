@@ -3,6 +3,15 @@ Our newest template for client projects use [Google's ViewModels](https://develo
 
 We believe this is a much needed "standardization" of the current Android development practices that will help onboarding of new developers, but also handover to clients and general collaboration.
 
+## Flow of control
+Example: 
+1. View subscribes to ViewModel's LiveData instance(s).
+2. User clicks a button that loads a list of posts in a view.
+3. OnClickListener executes a Interactor/UseCase asynchronously in the business logic layer.
+4. The Interactor runs in the background accessing a post repository which fetches a list of posts
+5. ViewModel gets result from the Interactor and updates local view state, which triggers a LiveData update
+6. View is updated since it's observing the LiveData instance from our ViewModel.
+
 ## Modules
 We try enforce clean architecture via modularization. Our projects are split in the following modules:
 
@@ -10,13 +19,131 @@ We try enforce clean architecture via modularization. Our projects are split in 
 Main entry point with shared Application logic
 
 ### Data
-Contains models, repositories and network logic.
+Contains data class models, repositories and network logic. Retrofit2/OkHttp3 is used for network logic.
+
+```kotlin
+class RestPostRepository @Inject constructor(private val api: Api) : PostRepository {
+    @Throws(RepositoryException::class)
+    override suspend fun getPosts(cached: Boolean): List<Post> {
+        val response = api.getPosts().execute()
+        if (response.isSuccessful) {
+            return response.body()
+                ?: throw(RepositoryException(
+                    response.code(),
+                    response.message()
+                ))
+        }
+        throw(RepositoryException(response.code(), response.message()))
+    }
+}
+```
 
 ### Domain
 General shared business logic with interactors, extensions, managers, various utility code.
 
+An interactor usually returns a result via a suspend method. You can model the Result class as you like:
+
+```kotlin
+sealed class Result<V> {
+    sealed class Success<V> : Result<V>() {
+        data class StillFetching(val data: V) : Success<V>()
+        data class Cached(val data: V) : Success<V>()
+        data class FreshData(val data: V) : Success<V>()
+        object NoData() : Success<V>()
+    }
+
+    // Error states
+}
+```
+Or the more simple version:
+```kotlin
+sealed class Result {
+    data class Success(val data: SomeData) : Result()
+    data class Error(val e: Exception): Result()
+}
+```
+
+Interactors are the link to the outer layers of the domain layer, i.e. contacting the API or fetching/saving various state.
+
+```kotlin
+class FetchPostsInteractor @Inject constructor(
+    private val postRepository: PostRepository
+) : BaseAsyncInteractor<List<Post>> {
+
+    override suspend fun invoke(): List<Post> {
+        return try {
+            Result.Success(
+                postRepository.getPosts(true)
+            )
+        } catch(e: Exception) {
+            Result.Error(e)
+        }
+    }
+}
+```
+
 ### Presentation
-Unsurprisingly holds the UI with matching view models. This is usually the module branched out from if needed.
+Unsurprisingly holds the UI with matching ViewModels. This is usually the module branched out from if needed.
+
+```kotlin
+// Some random ViewModel
+fun loadPosts() = scope.launchOnUI {
+    // Using coroutines to await interactor
+    val result = asyncOnIO { fetchPostsInteractor.run() }.await()
+
+    when(result) {
+        is FetchPostsInteractor.Success -> {
+            // Update our LiveData viewState
+            _viewState.value = _viewState.value?.copy(
+                posts = result.data
+                isLoading = false
+            )
+        }
+        else -> {
+            // Update our LiveData viewState
+            _viewState.value = _viewState.value?.copy(
+                errorMessage = Event<String>(Translation.error.postsListFailed)
+                posts = emptyList()
+                isLoading = false
+            )
+        }
+    }
+}
+```
+
+Views are the consumers of the ViewModel's exposed LiveData. We want the view to be as dumb and small as possible, so only put UI code here
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    // ...
+    viewModel.viewState.observeNonNull(this) { state ->
+        showLoading(state)
+        showPosts(state)
+        showErrorMessage(state)
+    }
+    viewModel.loadPosts()
+}
+
+private fun showPosts(state: MainActivityViewState) {
+    postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
+}
+
+private fun showLoading(state: MainActivityViewState) {
+    postsProgressBar.isVisible = state.isLoading
+}
+
+private fun showErrorMessage(state: MainActivityViewState) {
+    state.errorMessage?.let {
+        if (it.consumed) return@let
+        Snackbar.make(
+            postsTextView,
+            it.consume() ?: Translation.error.unknownError,
+            Snackbar.LENGTH_SHORT
+        )
+    }
+}
+```
+
 
 ## Live Templates
 The Kotlin template comes supported with a its own set of live templates which can be found at
@@ -30,54 +157,63 @@ The Template uses components from our Architecture library so be sure to read up
 
 https://github.com/nodes-android/nodes-architecture-android
 
+## Injection
+
+This project is using Dagger for injection and scoping. Dagger is an annotation based dependency injection, which computes the dependency graph at compile time and verifies that everything is correctly injected at runtime.
+
+Dagger works by defining `@Component`s that hold the scope and lifetime of objects it creates. Each `@Component` can depend on other `@Component`s by being a `@Subcomponent`. 
+
+### Modules
+
+In Dagger Modules are the way to specify _how_ objects are created, where components are the once who decides the lifetime of those objects.
+
+There are different approaches to do this, given this class:
+```kotlin
+class RestCityRepository @Inject constructor(
+        private val api: Provider<Api>,
+        private val gson: Gson
+) : CityRepository {
+    // ... 
+}
+```
+
+1) Full declaration in module via `@Provides`
+
+```kotlin
+@Provides
+fun provideCityRepository(val api: Provider<Api>, val gson: Gson): CityRepository {
+    return RestCityRepository(api, gson)
+}
+```
+
+2) `@Bind`s and defining dependencies at implementation site
+
+```kotlin
+@Binds
+abstract fun bindCityRepository(cityRepository: RestCityRepository): CityRepository
+```
+
+By method 2 we avoid having to mirror constructor dependencies and only have to define what implementation of the `CityRepository` we want to inject where needed.
 
 
-__Below information might be slightly out of date__
-## Layers
-This is a 4 layer onion architecture. Dependencies are only allowed to point inwards, 
-meaning that the inner layer most not reference code in the outer layers directly. 
-From inside out it consists of:
+### Scoping
 
-### Entities
-Models/POJOs implemented as data objects in kotlin.
+We define scopes via the components _or_ via scope annotations. In Careem we have two modes - component scope and @AppScope, which is similar to a singleton.
 
-### Business Logic / Use Cases
-Consist of interactors and repositories (the interfaces). The interactors encapsulates the business logic
- and perform operations on the entities. Interactors are scheduled to run in the
- background and return information to the outer layer through callbacks implemented in the outer layers.
- 
-### Interface Adapters
-ViewModel (as part of the MVVM pattern) are implemented in this layer. ViewModel holds information
-from the inner layers (business logic and entities) to the user interface etc. In other words they adapt
-the data for output to the outermost layer (Framework and Drivers)
+If we wanted RestCityRepository to be a singleton, all we had to do was mark it as @AppScope;
+```kotlin
+@AppScope
+class RestCityRepository @Inject constructor(
+        private val api: Provider<Api>,
+        private val gson: Gson
+) : CityRepository {
+    // ... 
+}
+```
 
-### Frameworks and Drivers
-This is the outmost layer consisting of things such as the User interface (for android Activities, fragments etc), database libraries, retrofit,
-okhttp etc. This also contain specific implementations of the Repository interfaces the business logic layer needs to access data.
+## Testing
 
-## Flow of control
-Example: 
-1. View subscribes to ViewModel's LiveData instance(s).
-2. User clicks a button that loads a list of posts in a view.
-3. OnClickListener executes a Interactor/UseCase asynchronously in the business logic layer.
-4. The Interactor runs in the background accessing a post repository which fetches a list of posts
-5. ViewModel gets result from the Interactor and updates local view state, which triggers a LiveData update
-6. View is updated since it's observing the LiveData instance from our ViewModel.
-
-## Patterns in use:
-- MVVM
-- Repository
-- Interactor (implemented with a pluggable executor)
-- Dependency Injection (and thus factory)
-- Inward dependency rule (all dependencies must point inwards)
-
-## Stuff
-- Coroutines and LiveData as callback/async/threading handlers
-- kotlin data classes as entities
-- Retrofit2/OkHttp3
-- Android kotlin extensions (views are automatically made into properties on the activity)
-- Uses nstack-kotlin
-- Mockito and junit for testing
+Please see our extensive guide for unit testing: https://github.com/nodes-android/guidelines/blob/master/unittesting.md
 
 ## Inspired from the following sources:
 - [Clean Architecture by Uncle Bob](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
