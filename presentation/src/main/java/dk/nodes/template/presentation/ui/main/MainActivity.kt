@@ -9,6 +9,7 @@ import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import net.hockeyapp.android.UpdateManager
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
 
