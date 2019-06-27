@@ -121,9 +121,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
     implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
-    implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
+    implementation("com.squareup.retrofit2:converter-moshi:${versions.retrofit}") {
         exclude module: "retrofit:${versions.retrofit}"
     }
+    implementation "com.squareup.moshi:moshi-adapters:$versions.moshi"
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
 
     implementation "dk.nodes.nstack:nstack-kotlin:${versions.nodes_nstack_kotlin}"
