@@ -108,7 +108,7 @@ private class FlowInteractorImpl<T>(private val interactor: BaseAsyncInteractor<
     FlowInteractor<T> {
     override suspend fun invoke(): Flow<InteractorResult<T>> {
         return flow {
-            emit(Loading())
+            emit(Loading<T>())
             try {
                 emit(Success(interactor()))
             } catch (t: Throwable) {

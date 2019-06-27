@@ -3,26 +3,27 @@
 buildscript {
 
     ext.versions = [
-            kotlin             : '1.3.31',
-            coroutines         : '1.2.1',
-            constraint_layout  : '2.0.0-beta1',
-            dagger             : "2.23.1",
-            lifecycle          : "2.1.0-alpha04",
+            kotlin             : '1.3.40',
+            coroutines         : '1.2.2',
+            constraint_layout  : '2.0.0-beta2',
+            dagger             : "2.23.2",
+            lifecycle          : "2.0.0",
             hockey_sdk         : "5.2.0",
             timber             : "4.7.1",
             junit              : '4.12',
             espresso           : '3.2.0',
             mockito            : '2.28.2',
             nodes_nstack_kotlin: '2.3.0',
-            nodes_arch         : '2.3.3',
+            nodes_arch         : '2.3.5',
             retrofit           : "2.6.0",
-            okhttp             : "3.12.1",
+            okhttp             : "3.12.3",
             rx_android         : '2.1.1',
-            rx_java            : "2.2.9",
-            rx_kolin           : "2.3.0",
+            rx_java            : "2.2.10",
+            rx_kotlin          : "2.3.0",
             ktx                : "1.0.2",
             rx_lint            : '1.7.0',
-            material           : '1.1.0-alpha07'
+            material           : '1.1.0-alpha07',
+            archCore : '2.0.1'
     ]
 
     ext.keys = [
@@ -34,7 +35,7 @@ buildscript {
     ext.sdks = [
             compileSdkVersion: 28,
             buildToolsVersion: '28.0.3',
-            minSdkVersion    : 19,
+            minSdkVersion    : 21,
             targetSdkVersion : 28
     ]
 
@@ -53,7 +54,7 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.23.0"
+    id "com.diffplug.gradle.spotless" version "3.23.1"
     id 'com.github.ben-manes.versions' version "0.21.0"
 }
 
