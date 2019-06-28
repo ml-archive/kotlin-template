@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // setupNstack()
+        setupNStack()
         // setupHockey()
         viewModel.viewState.observeNonNull(this) { state ->
             showLoading(state)
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity() {
 
             Snackbar.make(
                 postsTextView,
-                it.consume() ?: Translation.error.unknownError,
+                it.consume() ?: Translation.error.errorRandom,
                 Snackbar.LENGTH_SHORT
             )
         }

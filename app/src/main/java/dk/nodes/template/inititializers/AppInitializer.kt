@@ -17,6 +17,7 @@ class AppInitializerImpl @Inject constructor() : AppInitializer {
         NStack.init(app)
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
+            NStack.debugMode = true
         }
     }
 }

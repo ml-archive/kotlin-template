@@ -15,8 +15,8 @@ android {
         minSdkVersion sdks.minSdkVersion
         targetSdkVersion sdks.targetSdkVersion
         multiDexEnabled true
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 1
+        versionName "0.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
@@ -28,6 +28,24 @@ android {
             pickFirst("META-INF/atomicfu.kotlin_module")
         }
     }
+
+    // Uncomment the following if you include signingConfigs
+    /*
+    signingConfigs {
+        staging {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+        production {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
+    */
 
     buildTypes {
         debug {
@@ -67,24 +85,6 @@ android {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
-
-    // Uncomment the following if you include signingConfigs
-    /*
-    signingConfigs {
-        staging {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-        production {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-    }
-    */
 }
 
 repositories {

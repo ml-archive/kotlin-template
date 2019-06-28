@@ -13,7 +13,7 @@ buildscript {
             junit              : '4.12',
             espresso           : '3.2.0',
             mockito            : '2.28.2',
-            nodes_nstack_kotlin: '2.3.0',
+            nodes_nstack_kotlin: '3.0.2-LOCAL',
             nodes_arch         : '2.3.5',
             retrofit           : "2.6.0",
             okhttp             : "3.12.3",
@@ -27,8 +27,8 @@ buildscript {
     ]
 
     ext.keys = [
-            appId       : 'BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW',
-            apiKey      : 'yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke',
+            appId       : 'bOdrNuZd4syxuAz6gyCb3xwBCjA8U4h4IcQI',
+            apiKey      : 'X0ENl5QpKI51tS9CzKSt1PGwfZeq2gBMTU58',
             acceptHeader: "da-DK"
     ]
 
@@ -43,11 +43,12 @@ buildscript {
         mavenCentral()
         google()
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "dk.nodes.nstack:translation:2.3.0"
+        classpath "dk.nodes.nstack:translation:3.0.0-LOCAL"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
         classpath "dk.nodes.ci:bitrise:1.0"
     }

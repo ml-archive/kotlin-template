@@ -88,9 +88,9 @@ class MainActivityViewModel @Inject constructor(
             is Loading -> viewState.value?.copy(isLoading = true)
                 ?: MainActivityViewState(isLoading = true)
             is Fail -> viewState.value?.copy(
-                errorMessage = SingleEvent(Translation.error.unknownError),
+                errorMessage = SingleEvent(Translation.error.errorRandom),
                 isLoading = false
-            ) ?: MainActivityViewState(errorMessage = SingleEvent(Translation.error.unknownError))
+            ) ?: MainActivityViewState(errorMessage = SingleEvent(Translation.error.errorRandom))
             is Uninitialized -> MainActivityViewState()
         }
     }
