@@ -9,20 +9,22 @@ import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.template.presentation.nstack.Translation
 import timber.log.Timber
 
-fun MainActivity.setupNstack() {
+fun MainActivity.setupNStack() {
     NStack.onAppUpdateListener = { appUpdate ->
-        when (appUpdate.state) {
-            AppUpdateState.NONE -> {
-            }
+        when (appUpdate.update.state) {
+            AppUpdateState.NONE -> {}
             AppUpdateState.UPDATE -> {
-                showUpdateDialog(appUpdate)
+                showUpdateDialog(appUpdate.update)
             }
             AppUpdateState.FORCE -> {
-                showForceDialog(appUpdate)
+                showForceDialog(appUpdate.update)
             }
             AppUpdateState.CHANGELOG -> {
-                showChangelogDialog(appUpdate)
+                showChangelogDialog(appUpdate.update)
             }
+        }
+        appUpdate.message?.let { message ->
+            showMessageDialog(message = message.message)
         }
     }
     NStack.appOpen { success ->
@@ -30,11 +32,20 @@ fun MainActivity.setupNstack() {
     }
 }
 
+fun MainActivity.showMessageDialog(message: String) {
+    AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton(Translation.defaultSection.ok) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+}
+
 fun MainActivity.showUpdateDialog(appUpdate: AppUpdate) {
     AlertDialog.Builder(this)
-            .setTitle(appUpdate.title)
-            .setMessage(appUpdate.message)
-            .setPositiveButton(Translation.defaultSection.ok) { dialog, _ ->
+            .setTitle(appUpdate.update?.translate?.title ?: return)
+            .setMessage(appUpdate.update?.translate?.message ?: return)
+            .setPositiveButton(appUpdate.update?.translate?.positiveButton) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -42,9 +53,9 @@ fun MainActivity.showUpdateDialog(appUpdate: AppUpdate) {
 
 fun MainActivity.showChangelogDialog(appUpdate: AppUpdate) {
     AlertDialog.Builder(this)
-            .setTitle(appUpdate.title)
-            .setMessage(appUpdate.message)
-            .setNegativeButton(appUpdate.negativeBtn) { dialog, _ ->
+            .setTitle(appUpdate.update?.translate?.title ?: return)
+            .setMessage(appUpdate.update?.translate?.message ?: return)
+            .setNegativeButton(appUpdate.update?.translate?.negativeButton ?: return) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -70,10 +81,10 @@ fun MainActivity.startPlayStore() {
 
 fun MainActivity.showForceDialog(appUpdate: AppUpdate) {
     val dialog = AlertDialog.Builder(this)
-            .setTitle(appUpdate.title)
-            .setMessage(appUpdate.message)
+            .setTitle(appUpdate.update?.translate?.title ?: return)
+            .setMessage(appUpdate.update?.translate?.message ?: return)
             .setCancelable(false)
-            .setPositiveButton(Translation.defaultSection.ok, null)
+            .setPositiveButton(appUpdate.update?.translate?.positiveButton, null)
             .create()
 
     dialog.setOnShowListener {
