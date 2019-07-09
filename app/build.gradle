@@ -32,8 +32,14 @@ android {
     // Uncomment the following if you include signingConfigs
     /*
     signingConfigs {
+        develop {
+            keyAlias 'androiddevelopkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
         staging {
-            keyAlias 'androiddebugkey'
+            keyAlias 'androidstagingkey'
             keyPassword 'android'
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -60,6 +66,18 @@ android {
     }
 
     productFlavors {
+        develop {
+            dimension "default"
+            applicationIdSuffix ".develop"
+            //signingConfig signingConfigs.develop
+            deploy = "debug"
+            hockeyAppId = ""
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "KotlinTemplateDevelop"
+            ]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
