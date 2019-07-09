@@ -33,21 +33,21 @@ android {
     /*
     signingConfigs {
         develop {
-            keyAlias 'androiddevelopkey'
+            keyAlias 'android-develop'
             keyPassword 'android'
-            storeFile file('debug.keystore')
+            storeFile file('./keystore/develop.keystore')
             storePassword 'android'
         }
         staging {
-            keyAlias 'androidstagingkey'
+            keyAlias 'android-staging'
             keyPassword 'android'
-            storeFile file('debug.keystore')
+            storeFile file('./keystore/staging.keystore')
             storePassword 'android'
         }
         production {
-            keyAlias 'androiddebugkey'
+            keyAlias 'android-production'
             keyPassword 'android'
-            storeFile file('debug.keystore')
+            storeFile file('./keystore/production.keystore')
             storePassword 'android'
         }
     }
