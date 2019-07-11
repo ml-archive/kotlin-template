@@ -11,12 +11,14 @@ import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.RestModule
 import dk.nodes.template.injection.modules.RestRepositoryBinding
 import dk.nodes.template.injection.modules.StorageBindingModule
+import dk.nodes.template.presentation.injection.PresentationModule
 import dk.nodes.template.presentation.injection.ViewModelBuilder
 
 @Component(
     modules = [
         AndroidSupportInjectionModule::class,
         ViewModelBuilder::class,
+        PresentationModule::class,
         AppModule::class,
         ExecutorModule::class,
         InteractorModule::class,
