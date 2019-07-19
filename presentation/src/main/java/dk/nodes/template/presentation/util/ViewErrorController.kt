@@ -7,12 +7,10 @@ import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.domain.extensions.guard
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.repositories.RepositoryException
+import javax.inject.Inject
 
 
-class ViewErrorController(val context: Context) {
-
-
-
+class ViewErrorController @Inject constructor(val context: Context) {
 
     fun showErrorDialog(error: ViewError, cancelable: Boolean = true, dismissAction: (() -> Unit)? = null) {
         val builder = AlertDialog.Builder(context)

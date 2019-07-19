@@ -49,7 +49,7 @@ class SampleFragment : BaseFragment() {
     }
 
     private fun showErrorMessage(state: SampleViewState) {
-        defaultErrorHandler.showErrorSnackbar(requireView(), state.viewError?.consume() ?: return) {
+        defaultErrorController.get().showErrorSnackbar(requireView(), state.viewError?.consume() ?: return) {
             viewModel.fetchPosts()
         }
     }

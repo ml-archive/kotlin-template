@@ -19,9 +19,7 @@ abstract class BaseFragment : DaggerFragment() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    val defaultErrorHandler: ViewErrorController by lazy {
-        ViewErrorController(context = requireContext())
-    }
+    @Inject lateinit var defaultErrorController: dagger.Lazy<ViewErrorController>
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)
