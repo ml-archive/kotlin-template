@@ -16,8 +16,13 @@ android {
         targetSdkVersion sdks.targetSdkVersion
         multiDexEnabled true
         versionCode 1
-        versionName "0.0.1"
+        versionName "2.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
 
         manifestPlaceholders = [
                 appId : keys.appId,
