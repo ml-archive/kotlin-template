@@ -13,9 +13,15 @@ class RestPostRepository @Inject constructor(private val api: Api) : PostReposit
             return response.body()
                 ?: throw(RepositoryException(
                     response.code(),
+                    response.errorBody()?.string(),
                     response.message()
                 ))
+        } else {
+            throw(RepositoryException(
+                    response.code(),
+                    response.errorBody()?.string(),
+                    response.message()
+            ))
         }
-        throw(RepositoryException(response.code(), response.message()))
     }
 }

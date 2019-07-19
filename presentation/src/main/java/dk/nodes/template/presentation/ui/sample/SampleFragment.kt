@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
@@ -24,6 +23,15 @@ class SampleFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_sample, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.viewState.observeNonNull(this) { state ->
+            showLoading(state)
+            showPosts(state)
+            showErrorMessage(state)
+        }
+    }
+
     private fun showPosts(state: SampleViewState) {
         postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
     }
@@ -33,17 +41,8 @@ class SampleFragment : BaseFragment() {
     }
 
     private fun showErrorMessage(state: SampleViewState) {
-        state.errorMessage?.consume()?.let {
-            Snackbar.make(postsTextView, it, Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.viewState.observeNonNull(this) { state ->
-            showLoading(state)
-            showPosts(state)
-            showErrorMessage(state)
+        defaultErrorController.get().showErrorSnackbar(requireView(), state.viewError?.consume() ?: return) {
+            viewModel.fetchPosts()
         }
     }
 }

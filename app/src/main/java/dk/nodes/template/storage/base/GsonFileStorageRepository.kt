@@ -28,6 +28,7 @@ abstract class GsonFileStorageRepository<T>(
             e.printStackTrace()
             throw(RepositoryException(
                 -1,
+                null,
                 "file could not be written to internal storage"
             ))
         }
@@ -56,6 +57,7 @@ abstract class GsonFileStorageRepository<T>(
             Timber.e("Catching file not found")
             throw(RepositoryException(
                 -1,
+                null,
                 "File $filename could not be read from internal storage"
             ))
         }
