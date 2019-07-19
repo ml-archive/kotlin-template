@@ -9,6 +9,7 @@ import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
 import dk.nodes.template.domain.interactors.Success
 import dk.nodes.template.domain.interactors.Uninitialized
+import dk.nodes.template.repositories.RepositoryException
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
@@ -84,8 +85,8 @@ private class ResultInteractorImpl<T>(private val interactor: BaseAsyncInteracto
     override suspend fun invoke(): CompleteResult<T> {
         return try {
             Success(interactor())
-        } catch (t: Throwable) {
-            Fail(t)
+        } catch (e: Exception) {
+            Fail(e)
         }
     }
 }
@@ -151,4 +152,18 @@ suspend fun <T> runInteractor(
     coroutineContext: CoroutineContext = Dispatchers.IO
 ): T {
     return withContext(coroutineContext) { interactor() }
+}
+
+fun <T, R> InteractorResult<T>.ifSuccess(block: (T) -> R): InteractorResult<T> {
+    if (this is Success) {
+        block(this.data)
+    }
+    return this
+}
+
+fun <T, R> InteractorResult<T>.ifError(block: (throwable: Throwable) -> R): InteractorResult<T> {
+    if (this is Fail) {
+        block(this.throwable)
+    }
+    return this
 }

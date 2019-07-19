@@ -1,28 +1,27 @@
 package dk.nodes.template.presentation.ui.base
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import androidx.navigation.NavController
+import dk.nodes.template.presentation.ui.splash.SplashViewState
+import dk.nodes.template.presentation.util.SingleEvent
+import kotlinx.coroutines.*
 import java.io.Closeable
 import java.util.concurrent.ConcurrentHashMap
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel<T> : ViewModel() {
 
-    private val tagMap = ConcurrentHashMap<String, Any>()
+    abstract val initState: T
+    var viewState = MediatorLiveData<T>()
+        protected set
 
-    internal fun <T : Any> setTag(key: String, t: T): T {
-        return getTag<T>(key)
-            ?: {
-                tagMap[key] = t
-                t
-            }.invoke()
-    }
+     var state
+        get() = viewState.value
+                ?: initState    // We want the state to always be non null. Initialize the state in initState our ViewModel
+        set(value) = viewState.setValue(value)  // Sets the value asynchronously
 
-    @Suppress("UNCHECKED_CAST")
-    internal fun <T> getTag(key: String) = tagMap[key] as? T
+    var stateAsync
+        get() = viewState.value ?: initState
+        set(value) = viewState.postValue(value)
 
-    override fun onCleared() {
-        super.onCleared()
-        tagMap.forEach { entry ->
-            (entry.value as? Closeable)?.close()
-        }
-    }
+
 }
