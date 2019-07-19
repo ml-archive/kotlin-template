@@ -19,6 +19,10 @@ public class Translation {
 	}
 	public final static class error {
 		public static String errorRandom = "Helt tilf\u00E6ldig fejl";
+		public static String errorTitle = "Fejl";
+		public static String authenticationError = "Login er udl\u00F8bet, login venligst ind igen.";
+		public static String connectionError = "\tIngen eller d\u00E5rlig forbindelse, pr\u00F8v igen.";
+		public static String unknownError = "Ukendt fejl, pr\u00F8v igen.";
 	}
 	public final static class test {
 		public static String title = "NStack Demo";

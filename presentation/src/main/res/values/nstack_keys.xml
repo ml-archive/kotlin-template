@@ -9,6 +9,10 @@
   <string name='nstack_default_off' formatted='false'>{default_off}</string>
   <string name='nstack_default_ok' formatted='false'>{default_ok}</string>
   <string name='nstack_error_errorRandom' formatted='false'>{error_errorRandom}</string>
+  <string name='nstack_error_errorTitle' formatted='false'>{error_errorTitle}</string>
+  <string name='nstack_error_authenticationError' formatted='false'>{error_authenticationError}</string>
+  <string name='nstack_error_connectionError' formatted='false'>{error_connectionError}</string>
+  <string name='nstack_error_unknownError' formatted='false'>{error_unknownError}</string>
   <string name='nstack_test_title' formatted='false'>{test_title}</string>
   <string name='nstack_test_message' formatted='false'>{test_message}</string>
 </resources>
