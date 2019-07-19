@@ -3,13 +3,8 @@ package dk.nodes.template.presentation.injection
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
-import dk.nodes.template.presentation.ui.main.MainActivityBuilder
 
-@Module(
-    includes = [
-        MainActivityBuilder::class
-    ]
-)
+@Module
 abstract class ViewModelBuilder {
 
     @Binds

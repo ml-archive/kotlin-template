@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import dk.nodes.template.presentation.injection.ViewModelKey
+import dk.nodes.template.presentation.ui.sample.SampleBuilder
 
 @Module
 internal abstract class MainActivityBuilder {
@@ -15,6 +16,10 @@ internal abstract class MainActivityBuilder {
     @ViewModelKey(MainActivityViewModel::class)
     abstract fun bindMainActivityViewMode(viewModel: MainActivityViewModel): ViewModel
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+        modules = [
+            SampleBuilder::class
+        ]
+    )
     internal abstract fun mainActivity(): MainActivity
 }

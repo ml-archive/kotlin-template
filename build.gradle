@@ -24,7 +24,8 @@ buildscript {
             ktx                : "1.0.2",
             rx_lint            : '1.7.0',
             material           : '1.1.0-alpha07',
-            archCore           : '2.0.1'
+            archCore           : '2.0.1',
+            navigation         : '2.0.0'
     ]
 
     ext.keys = [
