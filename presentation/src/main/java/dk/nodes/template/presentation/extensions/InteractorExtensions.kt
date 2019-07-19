@@ -9,7 +9,6 @@ import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
 import dk.nodes.template.domain.interactors.Success
 import dk.nodes.template.domain.interactors.Uninitialized
-import dk.nodes.template.repositories.RepositoryException
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject

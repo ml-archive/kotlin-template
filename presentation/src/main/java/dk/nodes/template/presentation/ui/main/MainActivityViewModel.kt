@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-        private val nStackPresenter: NStackPresenter
+    private val nStackPresenter: NStackPresenter
 ) : BaseViewModel<MainActivityViewState>() {
     override val initState: MainActivityViewState = MainActivityViewState()
 

@@ -4,11 +4,9 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
-import dk.nodes.template.domain.extensions.guard
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.repositories.RepositoryException
 import javax.inject.Inject
-
 
 class ViewErrorController @Inject constructor(val context: Context) {
 
@@ -32,9 +30,9 @@ class ViewErrorController @Inject constructor(val context: Context) {
     }
 
     fun showErrorSnackbar(view: View, error: ViewError, showAction: Boolean = false, dismissAction: (() -> Unit)? = null) {
-        val showLength = if(showAction) Snackbar.LENGTH_INDEFINITE else Snackbar.LENGTH_LONG
+        val showLength = if (showAction) Snackbar.LENGTH_INDEFINITE else Snackbar.LENGTH_LONG
         val snackbar = Snackbar.make(view, error.message ?: Translation.error.errorRandom, showLength)
-        if(showAction) {
+        if (showAction) {
             snackbar.setAction(Translation.defaultSection.ok) {
                 isShowingError = false
                 dismissAction?.invoke()
@@ -50,9 +48,9 @@ class ViewErrorController @Inject constructor(val context: Context) {
         var isShowingError = false
 
         fun mapThrowable(throwable: Throwable): ViewError {
-            return when(throwable) {
+            return when (throwable) {
                 is RepositoryException -> {
-                    when(throwable.code) {
+                    when (throwable.code) {
                         401, 403 -> {
                             ViewError(
                                     title = Translation.error.errorTitle,

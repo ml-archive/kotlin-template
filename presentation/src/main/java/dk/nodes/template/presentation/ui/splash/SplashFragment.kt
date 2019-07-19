@@ -18,7 +18,6 @@ class SplashFragment : BaseFragment() {
 
     private val viewModel by viewModel<SplashViewModel>()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
@@ -40,13 +39,12 @@ class SplashFragment : BaseFragment() {
             }
             // We handle the rest in MainActivity
             else -> {
-
             }
         }
     }
 
     private fun handleNavigation(state: SplashViewState) {
-        if(state.doneLoading && state.nstackUpdateAvailable?.peek()?.update?.state != AppUpdateState.FORCE) {
+        if (state.doneLoading && state.nstackUpdateAvailable?.peek()?.update?.state != AppUpdateState.FORCE) {
             showApp()
         }
     }
@@ -91,5 +89,4 @@ class SplashFragment : BaseFragment() {
 
         dialog.show()
     }
-
 }

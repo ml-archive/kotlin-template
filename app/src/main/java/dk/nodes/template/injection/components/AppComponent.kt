@@ -3,7 +3,6 @@ package dk.nodes.template.injection.components
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
 import dk.nodes.template.injection.modules.AppModule
 import dk.nodes.template.injection.modules.ExecutorModule

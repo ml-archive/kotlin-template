@@ -19,7 +19,7 @@ class NStackPresenter @Inject constructor() {
     }
 
     fun whenChangelog(callback: (AppUpdate) -> Unit): NStackPresenter {
-        if(appUpdate?.update?.state == AppUpdateState.CHANGELOG) {
+        if (appUpdate?.update?.state == AppUpdateState.CHANGELOG) {
             callback.invoke(appUpdate?.update ?: return this)
         }
         return this
@@ -29,5 +29,4 @@ class NStackPresenter @Inject constructor() {
         appUpdate?.rateReminder?.let(callback)
         return this
     }
-
 }

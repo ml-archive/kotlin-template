@@ -6,8 +6,6 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import dk.nodes.template.presentation.injection.ViewModelKey
-import dk.nodes.template.presentation.ui.main.MainActivity
-import dk.nodes.template.presentation.ui.sample.SampleBuilder
 
 @Module
 abstract class SplashBuilder {
@@ -22,5 +20,4 @@ abstract class SplashBuilder {
 
     @ContributesAndroidInjector
     abstract fun splashFragment(): SplashFragment
-
 }
