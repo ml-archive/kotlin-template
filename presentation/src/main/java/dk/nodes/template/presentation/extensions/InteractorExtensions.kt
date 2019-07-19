@@ -154,14 +154,14 @@ suspend fun <T> runInteractor(
     return withContext(coroutineContext) { interactor() }
 }
 
-fun <T, R> InteractorResult<T>.ifSuccess(block: (T) -> R): InteractorResult<T> {
+fun <T, R> InteractorResult<T>.isSuccess(block: (T) -> R): InteractorResult<T> {
     if (this is Success) {
         block(this.data)
     }
     return this
 }
 
-fun <T, R> InteractorResult<T>.ifError(block: (throwable: Throwable) -> R): InteractorResult<T> {
+fun <T, R> InteractorResult<T>.isError(block: (throwable: Throwable) -> R): InteractorResult<T> {
     if (this is Fail) {
         block(this.throwable)
     }
