@@ -7,33 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.nstack.kotlin.models.Message
-import dk.nodes.nstack.kotlin.models.RateReminder
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
-import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.ui.main.*
-import dk.nodes.template.presentation.ui.sample.SampleViewModel
 
 class SplashFragment : BaseFragment() {
 
     private val viewModel by viewModel<SplashViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.viewState.observeNonNull(this) { state ->
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_splash, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.viewState.observeNonNull(viewLifecycleOwner) { state ->
             handleNStack(state)
             handleNavigation(state)
         }
         viewModel.initAppState()
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
     private fun handleNStack(state: SplashViewState) {

@@ -5,18 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
-import dk.nodes.template.presentation.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_sample.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.channels.produce
-import kotlin.coroutines.CoroutineContext
 
 class SampleFragment : BaseFragment() {
 
