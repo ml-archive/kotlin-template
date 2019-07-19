@@ -2,6 +2,7 @@ package dk.nodes.template.presentation.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import dk.nodes.template.presentation.util.EventObserver
 import dk.nodes.template.presentation.util.SingleEvent

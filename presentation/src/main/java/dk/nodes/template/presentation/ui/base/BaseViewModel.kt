@@ -17,11 +17,14 @@ abstract class BaseViewModel<T> : ViewModel() {
      var state
         get() = viewState.value
                 ?: initState    // We want the state to always be non null. Initialize the state in initState our ViewModel
-        set(value) = viewState.setValue(value)  // Sets the value asynchronously
+        set(value) = viewState.setValue(value)
 
     var stateAsync
         get() = viewState.value ?: initState
-        set(value) = viewState.postValue(value)
+        set(value) = viewState.postValue(value) // Sets the value asynchronously
 
+    fun <T> addStateSource(source: LiveData<T>, onChanged: (T) -> Unit) {
+        viewState.addSource(source, onChanged)
+    }
 
 }
