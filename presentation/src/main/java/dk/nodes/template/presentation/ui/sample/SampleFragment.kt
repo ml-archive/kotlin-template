@@ -9,7 +9,14 @@ import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
+import dk.nodes.template.presentation.ui.base.BaseViewModel
 import kotlinx.android.synthetic.main.fragment_sample.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.produce
+import kotlin.coroutines.CoroutineContext
 
 class SampleFragment : BaseFragment() {
 
@@ -24,6 +31,15 @@ class SampleFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_sample, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.viewState.observeNonNull(this) { state ->
+            showLoading(state)
+            showPosts(state)
+            showErrorMessage(state)
+        }
+    }
+
     private fun showPosts(state: SampleViewState) {
         postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
     }
@@ -33,17 +49,8 @@ class SampleFragment : BaseFragment() {
     }
 
     private fun showErrorMessage(state: SampleViewState) {
-        state.errorMessage?.consume()?.let {
-            Snackbar.make(postsTextView, it, Snackbar.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.viewState.observeNonNull(this) { state ->
-            showLoading(state)
-            showPosts(state)
-            showErrorMessage(state)
+        defaultErrorHandler.showErrorSnackbar(requireView(), state.viewError?.consume() ?: return) {
+            viewModel.fetchPosts()
         }
     }
 }
