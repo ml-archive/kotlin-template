@@ -132,7 +132,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
 
     implementation "dk.nodes.nstack:nstack-kotlin:${versions.nodes_nstack_kotlin}"
-    implementation "dk.nodes.arch:base:${versions.nodes_arch}"
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
 
