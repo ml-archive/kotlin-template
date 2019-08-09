@@ -1,13 +1,11 @@
 package dk.nodes.template.presentation.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.core.view.isVisible
-import com.google.android.material.snackbar.Snackbar
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
-import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.presentation.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import net.hockeyapp.android.UpdateManager
 
 class MainActivity : BaseActivity() {
@@ -17,14 +15,16 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // setupNstack()
-        // setupHockey()
         viewModel.viewState.observeNonNull(this) { state ->
-            showLoading(state)
-            showPosts(state)
-            showErrorMessage(state)
+            handleNStack(state)
         }
-        viewModel.fetchPosts()
+        viewModel.checkNStack()
+    }
+
+    private fun handleNStack(viewState: MainActivityViewState) {
+        viewState.nstackMessage?.let { showMessageDialog(it) }
+        viewState.nstackRateReminder?.let { showRateReminderDialog(it) }
+        viewState.nstackUpdate?.let { showChangelogDialog(it) }
     }
 
     override fun onDestroy() {
@@ -33,23 +33,10 @@ class MainActivity : BaseActivity() {
         UpdateManager.unregister()
     }
 
-    private fun showPosts(state: MainActivityViewState) {
-        postsTextView.text = state.posts.joinToString { it.title + System.lineSeparator() }
-    }
-
-    private fun showLoading(state: MainActivityViewState) {
-        postsProgressBar.isVisible = state.isLoading
-    }
-
-    private fun showErrorMessage(state: MainActivityViewState) {
-        state.errorMessage?.let {
-            if (it.consumed) return@let
-
-            Snackbar.make(
-                postsTextView,
-                it.consume() ?: Translation.error.unknownError,
-                Snackbar.LENGTH_SHORT
-            )
-        }
+    companion object {
+        fun createIntent(context: Context) = Intent(context, MainActivity::class.java)
+                .apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
     }
 }

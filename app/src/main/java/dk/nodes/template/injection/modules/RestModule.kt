@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.network.Api
@@ -19,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 class RestModule {
@@ -33,7 +33,7 @@ class RestModule {
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         return GsonBuilder()
             .registerTypeAdapterFactory(typeFactory)
@@ -49,13 +49,13 @@ class RestModule {
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideGsonConverter(gson: Gson): Converter.Factory {
         return GsonConverterFactory.create(gson)
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideHttpClient(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
             .connectTimeout(45, TimeUnit.SECONDS)
@@ -73,7 +73,7 @@ class RestModule {
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideRetrofit(
         client: OkHttpClient,
         converter: Converter.Factory,
@@ -89,7 +89,7 @@ class RestModule {
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideApi(retrofit: Retrofit): Api {
         return retrofit.create<Api>(Api::class.java)
     }

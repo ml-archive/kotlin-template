@@ -27,16 +27,28 @@
             android:value="${apiKey}"
             tools:replace="android:value" />
 
+        <meta-data
+            android:name="dk.nodes.nstack.env"
+            android:value="staging"
+            tools:replace="android:value" />
+
+
+
         <!-- hockey id included from build.gradle manifest placeholder -->
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.nodes.template.presentation.ui.main.MainActivity">
+        <activity android:name="dk.nodes.template.presentation.ui.splash.SplashActivity"
+            android:theme="@style/NoToolbarAppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="dk.nodes.template.presentation.ui.main.MainActivity" android:exported="false">
         </activity>
     </application>
 </manifest>

@@ -1,28 +1,23 @@
 package dk.nodes.template.presentation.ui.base
 
-import androidx.lifecycle.ViewModel
-import java.io.Closeable
-import java.util.concurrent.ConcurrentHashMap
+import androidx.lifecycle.*
 
-open class BaseViewModel : ViewModel() {
+abstract class BaseViewModel<T> : ViewModel() {
 
-    private val tagMap = ConcurrentHashMap<String, Any>()
+    protected abstract val initState: T
+    protected var _viewState = MediatorLiveData<T>()
+    val viewState: LiveData<T> = _viewState
 
-    internal fun <T : Any> setTag(key: String, t: T): T {
-        return getTag<T>(key)
-            ?: {
-                tagMap[key] = t
-                t
-            }.invoke()
-    }
+    protected var state
+        get() = _viewState.value
+                ?: initState // We want the state to always be non null. Initialize the state in initState our ViewModel
+        set(value) = _viewState.setValue(value)
 
-    @Suppress("UNCHECKED_CAST")
-    internal fun <T> getTag(key: String) = tagMap[key] as? T
+    protected var stateAsync
+        get() = _viewState.value ?: initState
+        set(value) = _viewState.postValue(value) // Sets the value asynchronously
 
-    override fun onCleared() {
-        super.onCleared()
-        tagMap.forEach { entry ->
-            (entry.value as? Closeable)?.close()
-        }
+    protected fun <T> addStateSource(source: LiveData<T>, onChanged: (T) -> Unit) {
+        _viewState.addSource(source, onChanged)
     }
 }

@@ -15,9 +15,14 @@ android {
         minSdkVersion sdks.minSdkVersion
         targetSdkVersion sdks.targetSdkVersion
         multiDexEnabled true
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 1
+        versionName "2.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
 
         manifestPlaceholders = [
                 appId : keys.appId,
@@ -28,6 +33,24 @@ android {
             pickFirst("META-INF/atomicfu.kotlin_module")
         }
     }
+
+    // Uncomment the following if you include signingConfigs
+    /*
+    signingConfigs {
+        staging {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+        production {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
+    */
 
     buildTypes {
         debug {
@@ -67,24 +90,6 @@ android {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
-
-    // Uncomment the following if you include signingConfigs
-    /*
-    signingConfigs {
-        staging {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-        production {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-    }
-    */
 }
 
 repositories {
@@ -133,7 +138,7 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxandroid:${versions.rx_android}"
     implementation "io.reactivex.rxjava2:rxjava:${versions.rx_java}"
-    implementation "io.reactivex.rxjava2:rxkotlin:${versions.rx_kolin}"
+    implementation "io.reactivex.rxjava2:rxkotlin:${versions.rx_kotlin}"
 
     // Testing
     testImplementation "junit:junit:${versions.junit}"
@@ -148,8 +153,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${versions.espresso}"
 
     // The following section is only used to force the latest version to resolve conflicts
-    implementation 'androidx.arch.core:core-common:2.0.1'
-    implementation 'androidx.arch.core:core-runtime:2.1.0-alpha02'
+    implementation "androidx.arch.core:core-common:$versions.archCore"
+    implementation "androidx.arch.core:core-runtime:$versions.archCore"
     implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common:${versions.lifecycle}"

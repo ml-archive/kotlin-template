@@ -111,8 +111,8 @@ private class ResultInteractorImpl<T>(private val interactor: BaseAsyncInteracto
     override suspend fun invoke(): CompleteResult<T> {
         return try {
             Success(interactor())
-        } catch (t: Throwable) {
-            Fail(t)
+        } catch (e: Exception) {
+            Fail(e)
         }
     }
 }
@@ -180,3 +180,16 @@ suspend fun <T> runInteractor(
     return withContext(coroutineContext) { interactor() }
 }
 
+fun <T, R> InteractorResult<T>.isSuccess(block: (T) -> R): InteractorResult<T> {
+    if (this is Success) {
+        block(this.data)
+    }
+    return this
+}
+
+fun <T, R> InteractorResult<T>.isError(block: (throwable: Throwable) -> R): InteractorResult<T> {
+    if (this is Fail) {
+        block(this.throwable)
+    }
+    return this
+}
