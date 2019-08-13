@@ -3,6 +3,8 @@ package dk.nodes.template.presentation.ui.main
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.Message
 import dk.nodes.nstack.kotlin.models.RateReminder
+import dk.nodes.template.presentation.ui.base.BaseAction
+import dk.nodes.template.presentation.ui.base.BaseState
 import dk.nodes.template.presentation.util.SingleEvent
 
 data class MainActivityViewState(
@@ -11,4 +13,12 @@ data class MainActivityViewState(
     val nstackMessage: Message? = null,
     val nstackRateReminder: RateReminder? = null,
     val nstackUpdate: AppUpdate? = null
-)
+) : BaseState
+
+
+
+sealed class MainActivityAction : BaseAction {
+    object RefreshAction: MainActivityAction()
+    object CheckNstackAction: MainActivityAction()
+    object NextButtonClicked: MainActivityAction()
+}
