@@ -16,7 +16,7 @@ class SampleFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.fetchPosts()
+        viewModel.dispatch(Action.LoadPosts)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,7 +42,7 @@ class SampleFragment : BaseFragment() {
 
     private fun showErrorMessage(state: SampleViewState) {
         defaultErrorController.get().showErrorSnackbar(requireView(), state.viewError?.consume() ?: return) {
-            viewModel.fetchPosts()
+            viewModel.dispatch(Action.LoadPosts)
         }
     }
 }

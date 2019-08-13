@@ -13,6 +13,7 @@ import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.ui.main.*
+import kotlinx.coroutines.channels.Channel
 
 class SplashFragment : BaseFragment() {
 
@@ -28,7 +29,7 @@ class SplashFragment : BaseFragment() {
             handleNStack(state)
             handleNavigation(state)
         }
-        viewModel.initAppState()
+        viewModel.dispatch(SplashAction.InitApp)
     }
 
     private fun handleNStack(state: SplashViewState) {

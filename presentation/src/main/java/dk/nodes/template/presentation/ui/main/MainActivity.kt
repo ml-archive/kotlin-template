@@ -18,10 +18,10 @@ class MainActivity : BaseActivity() {
         viewModel.viewState.observeNonNull(this) { state ->
             handleNStack(state)
         }
-        viewModel.checkNStack()
+        viewModel.dispatch(MainAction.CheckNstackAction)
     }
 
-    private fun handleNStack(viewState: MainActivityViewState) {
+    private fun handleNStack(viewState: MainViewState) {
         viewState.nstackMessage?.let { showMessageDialog(it) }
         viewState.nstackRateReminder?.let { showRateReminderDialog(it) }
         viewState.nstackUpdate?.let { showChangelogDialog(it) }
