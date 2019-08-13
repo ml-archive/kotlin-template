@@ -4,12 +4,12 @@ import androidx.lifecycle.viewModelScope
 import dk.nodes.template.domain.interactors.*
 import dk.nodes.template.models.Post
 import dk.nodes.template.presentation.extensions.asResult
+import dk.nodes.template.presentation.extensions.runInteractor
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ViewErrorController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SampleViewModel @Inject constructor(
@@ -22,7 +22,7 @@ class SampleViewModel @Inject constructor(
 
     fun fetchPosts() = viewModelScope.launch(Dispatchers.Main) {
         state = mapResult(Loading())
-        val result = withContext(Dispatchers.IO) { resultInteractor.invoke() }
+        val result = runInteractor(resultInteractor)
         state = mapResult(result)
     }
 

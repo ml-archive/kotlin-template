@@ -1,10 +1,11 @@
 package dk.nodes.template.presentation.extensions
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import dk.nodes.template.domain.interactors.BaseAsyncInteractor
 import dk.nodes.template.domain.interactors.CompleteResult
 import dk.nodes.template.domain.interactors.Fail
+import dk.nodes.template.domain.interactors.Interactor
 import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
 import dk.nodes.template.domain.interactors.Success
@@ -12,6 +13,7 @@ import dk.nodes.template.domain.interactors.Uninitialized
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,34 +26,77 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-interface LiveDataInteractor<T> : BaseAsyncInteractor<Unit> {
-    val liveData: LiveData<InteractorResult<T>>
-}
-
-interface ResultInteractor<T> : BaseAsyncInteractor<CompleteResult<T>>
-
-@ExperimentalCoroutinesApi
-interface ChannelInteractor<T> : BaseAsyncInteractor<Unit> {
-    fun receive(): ReceiveChannel<InteractorResult<T>>
-}
-
-interface RxInteractor<T> : BaseAsyncInteractor<Unit> {
-    fun observe(): Flowable<InteractorResult<T>>
-}
-
-interface FlowInteractor<T> : BaseAsyncInteractor<Flow<InteractorResult<T>>>
-
-private class LiveDataInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    LiveDataInteractor<T> {
-    private val mutableLiveData = MutableLiveData<InteractorResult<T>>().apply {
-        postValue(Uninitialized)
+abstract class LiveDataInteractor2<I, T> {
+    private val mediatorLiveData = MediatorLiveData<T>()
+    abstract fun createLiveData(input: I): LiveData<T>
+    private var previousSource: LiveData<T>? = null
+    fun invoke(input: I) {
+        previousSource?.let(mediatorLiveData::removeSource)
+        val source = createLiveData(input)
+        mediatorLiveData.addSource(source, mediatorLiveData::setValue)
+        previousSource = source
     }
 
+    val liveData: LiveData<T> = mediatorLiveData
+}
+
+abstract class FlowableInteractor<I : Any, T> {
+    private val subject: Subject<I> = BehaviorSubject.create()
+    val flowable = subject.switchMap {
+        createObservable(it).toObservable()
+    }.toFlowable(BackpressureStrategy.LATEST)!!
+
+    operator fun invoke(input: I) = subject.onNext(input)
+
+    protected abstract fun createObservable(input: I): Flowable<T>
+}
+
+private class RxInteractorImpl<I, O>(private val interactor: Interactor<I, out O>) :
+    RxInteractor<I, O> {
+    override suspend fun invoke(input: I) {
+        subject.onNext(Loading())
+        try {
+            subject.onNext(Success(interactor(input)))
+        } catch (t: Throwable) {
+            subject.onError(t)
+        }
+    }
+
+    override fun observe() = subject.toFlowable(BackpressureStrategy.LATEST)!!
+    private val subject = BehaviorSubject.createDefault<InteractorResult<O>>(Uninitialized)
+}
+
+fun <I, O> Interactor<I, O>.asRx(): RxInteractor<I, O> {
+    return RxInteractorImpl(this)
+}
+
+interface RxInteractor<I, O> : Interactor<I, Unit> {
+    fun observe(): Flowable<InteractorResult<O>>
+}
+
+interface LiveDataInteractor<I, O> : Interactor<I, Unit> {
+    val liveData: LiveData<InteractorResult<O>>
+}
+
+interface ResultInteractor<I, O> : Interactor<I, CompleteResult<O>>
+
+@ExperimentalCoroutinesApi
+interface ChannelInteractor<I, O> : Interactor<I, Unit> {
+    fun receive(): ReceiveChannel<InteractorResult<O>>
+}
+
+interface FlowInteractor<I, O> : Interactor<I, Flow<InteractorResult<O>>>
+
+private class LiveDataInteractorImpl<I, O>(private val interactor: Interactor<I, out O>) :
+    LiveDataInteractor<I, O> {
+
+    private val mutableLiveData = MutableLiveData<InteractorResult<O>>(Uninitialized)
+
     override val liveData = mutableLiveData
-    override suspend operator fun invoke() {
+    override suspend operator fun invoke(input: I) {
         mutableLiveData.postValue(Loading())
         try {
-            val result = interactor()
+            val result = interactor(input)
             mutableLiveData.postValue(Success(result))
         } catch (t: Throwable) {
             mutableLiveData.postValue(Fail(t))
@@ -60,57 +105,43 @@ private class LiveDataInteractorImpl<T>(private val interactor: BaseAsyncInterac
 }
 
 @ExperimentalCoroutinesApi
-private class ChannelInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    ChannelInteractor<T> {
+private class ChannelInteractorImpl<I, O>(private val interactor: Interactor<I, out O>) :
+    ChannelInteractor<I, O> {
 
-    private val channel = BroadcastChannel<InteractorResult<T>>(Channel.CONFLATED).apply {
+    private val channel = BroadcastChannel<InteractorResult<O>>(Channel.CONFLATED).apply {
         offer(Uninitialized)
     }
 
     override fun receive() = channel.openSubscription()
 
-    override suspend operator fun invoke() {
+    override suspend operator fun invoke(input: I) {
         channel.offer(Loading())
         try {
-            channel.offer(Success(interactor()))
+            channel.offer(Success(interactor(input)))
         } catch (t: Throwable) {
             channel.offer(Fail(t))
         }
     }
 }
 
-private class ResultInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    ResultInteractor<T> {
-    override suspend fun invoke(): CompleteResult<T> {
+private class ResultInteractorImpl<I, O>(private val interactor: Interactor<I, out O>) :
+    ResultInteractor<I, O> {
+    override suspend fun invoke(input: I): CompleteResult<O> {
         return try {
-            Success(interactor())
-        } catch (e: Exception) {
-            Fail(e)
-        }
-    }
-}
-
-private class RxInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    RxInteractor<T> {
-    override fun observe() = subject.toFlowable(BackpressureStrategy.LATEST)!!
-    private val subject = BehaviorSubject.createDefault<InteractorResult<T>>(Uninitialized)
-    override suspend operator fun invoke() {
-        subject.onNext(Loading())
-        try {
-            subject.onNext(Success(interactor()))
+            Success(interactor(input))
         } catch (t: Throwable) {
-            subject.onError(t)
+            Fail(t)
         }
     }
 }
 
-private class FlowInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    FlowInteractor<T> {
-    override suspend fun invoke(): Flow<InteractorResult<T>> {
+private class FlowInteractorImpl<I, O>(private val interactor: Interactor<I, out O>) :
+    FlowInteractor<I, O> {
+    override suspend fun invoke(input: I): Flow<InteractorResult<O>> {
         return flow {
-            emit(Loading<T>())
+            emit(Loading<O>())
             try {
-                emit(Success(interactor()))
+                emit(Success(interactor(input)))
             } catch (t: Throwable) {
                 emit(Fail(t))
             }
@@ -118,39 +149,51 @@ private class FlowInteractorImpl<T>(private val interactor: BaseAsyncInteractor<
     }
 }
 
-fun <T> BaseAsyncInteractor<T>.asResult(): ResultInteractor<T> {
+fun <I, O> Interactor<I, O>.asResult(): ResultInteractor<I, O> {
     return ResultInteractorImpl(this)
 }
 
-fun <T> BaseAsyncInteractor<T>.asLiveData(): LiveDataInteractor<T> {
+fun <I, O> Interactor<I, O>.asLiveData(): LiveDataInteractor<I, O> {
     return LiveDataInteractorImpl(this)
 }
 
 @ExperimentalCoroutinesApi
-fun <T> BaseAsyncInteractor<T>.asChannel(): ChannelInteractor<T> {
+fun <I, O> Interactor<I, O>.asChannel(): ChannelInteractor<I, O> {
     return ChannelInteractorImpl(this)
 }
 
-fun <T> BaseAsyncInteractor<T>.asRx(): RxInteractor<T> {
-    return RxInteractorImpl(this)
-}
-
-fun <T> BaseAsyncInteractor<T>.asFlow(): FlowInteractor<T> {
+fun <I, O> Interactor<I, O>.asFlow(): FlowInteractor<I, O> {
     return FlowInteractorImpl(this)
 }
 
-fun CoroutineScope.launchInteractor(
-    interactor: BaseAsyncInteractor<Unit>,
+fun <I> CoroutineScope.launchInteractor(
+    interactor: Interactor<I, Unit>,
+    input: I,
     coroutineContext: CoroutineContext = Dispatchers.IO
 ) {
-    launch(coroutineContext) { interactor() }
+    launch(coroutineContext) { interactor(input) }
 }
 
-suspend fun <T> runInteractor(
-    interactor: BaseAsyncInteractor<T>,
+fun CoroutineScope.launchInteractor(
+    interactor: Interactor<Unit, Unit>,
+    coroutineContext: CoroutineContext = Dispatchers.IO
+) {
+    launchInteractor(interactor, Unit, coroutineContext)
+}
+
+suspend fun <I, T> runInteractor(
+    interactor: Interactor<I, T>,
+    input: I,
     coroutineContext: CoroutineContext = Dispatchers.IO
 ): T {
-    return withContext(coroutineContext) { interactor() }
+    return withContext(coroutineContext) { interactor(input) }
+}
+
+suspend fun <O> runInteractor(
+    interactor: Interactor<Unit, O>,
+    coroutineContext: CoroutineContext = Dispatchers.IO
+): O {
+    return withContext(coroutineContext) { interactor(Unit) }
 }
 
 fun <T, R> InteractorResult<T>.isSuccess(block: (T) -> R): InteractorResult<T> {

@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class PostsInteractor @Inject constructor(
     private val postRepository: PostRepository
-) : BaseAsyncInteractor<List<Post>> {
+) : Interactor<Unit, List<Post>> {
 
-    override suspend fun invoke(): List<Post> {
+    override suspend fun invoke(input: Unit): List<Post> {
         return postRepository.getPosts(true)
     }
 }
