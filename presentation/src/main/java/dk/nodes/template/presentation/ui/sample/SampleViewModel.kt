@@ -36,7 +36,7 @@ class SampleViewModel @Inject constructor(
 
     override fun emitAction(action: Action): Flow<Change> {
         return when (action) {
-            is Action.LoadPosts -> bindLoadPostsAction().flowOn(Dispatchers.IO)
+            is Action.LoadPosts -> bindLoadPostsAction()
         }
     }
 
@@ -45,7 +45,7 @@ class SampleViewModel @Inject constructor(
         resultInteractor()
                 .isError { emit(Change.PostsLoadingError(it)) }
                 .isSuccess { emit(Change.PostsLoaded(it)) }
-    }
+    }.flowOn(Dispatchers.IO)
 
 
 }

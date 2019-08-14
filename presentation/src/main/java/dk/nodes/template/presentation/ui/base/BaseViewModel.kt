@@ -52,10 +52,8 @@ abstract class BaseViewModel<A : BaseAction, C : BaseChange, S : BaseState> : Vi
     /**
      * Dispatches an action. This is the only way to trigger a viewState change.
      */
-    fun dispatch(action: A) {
-        viewModelScope.launch {
-            actions.send(action)
-        }
+    fun dispatch(action: A) = viewModelScope.launch {
+        actions.send(action)
     }
 
 
@@ -65,5 +63,10 @@ abstract class BaseViewModel<A : BaseAction, C : BaseChange, S : BaseState> : Vi
         }
     }.flattenConcat()
 
+
+    override fun onCleared() {
+        super.onCleared()
+        actions.close()
+    }
 
 }
