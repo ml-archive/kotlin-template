@@ -13,20 +13,20 @@ class NStackPresenter @Inject constructor() {
         this.appUpdate = appUpdate
     }
 
-    fun whenMessage(callback: (Message) -> Unit): NStackPresenter {
-        appUpdate?.message?.let(callback)
+    suspend fun whenMessage(callback: suspend (Message) -> Unit): NStackPresenter {
+        appUpdate?.message?.let { callback(it) }
         return this
     }
 
-    fun whenChangelog(callback: (AppUpdate) -> Unit): NStackPresenter {
+    suspend fun whenChangelog(callback:  suspend (AppUpdate) -> Unit): NStackPresenter {
         if (appUpdate?.update?.state == AppUpdateState.CHANGELOG) {
             callback.invoke(appUpdate?.update ?: return this)
         }
         return this
     }
 
-    fun whenRateReminder(callback: (RateReminder) -> Unit): NStackPresenter {
-        appUpdate?.rateReminder?.let(callback)
+    suspend fun whenRateReminder(callback: suspend (RateReminder) -> Unit): NStackPresenter {
+        appUpdate?.rateReminder?.let { callback(it) }
         return this
     }
 }

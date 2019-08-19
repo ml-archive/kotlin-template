@@ -1,40 +1,51 @@
 package dk.nodes.template.presentation.ui.sample
 
-import androidx.lifecycle.viewModelScope
-import dk.nodes.template.domain.interactors.*
-import dk.nodes.template.models.Post
+import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.presentation.extensions.asResult
+import dk.nodes.template.presentation.extensions.isError
+import dk.nodes.template.presentation.extensions.isSuccess
 import dk.nodes.template.presentation.ui.base.BaseViewModel
+import dk.nodes.template.presentation.ui.base.Reducer
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ViewErrorController
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class SampleViewModel @Inject constructor(
-    postsInteractor: PostsInteractor
-) : BaseViewModel<SampleViewState>() {
+        postsInteractor: PostsInteractor
+) : BaseViewModel<Action, Change, SampleViewState>() {
 
     override val initState: SampleViewState = SampleViewState()
 
     private val resultInteractor = postsInteractor.asResult()
 
-    fun fetchPosts() = viewModelScope.launch(Dispatchers.Main) {
-        state = mapResult(Loading())
-        val result = withContext(Dispatchers.IO) { resultInteractor.invoke() }
-        state = mapResult(result)
-    }
 
-    private fun mapResult(result: InteractorResult<List<Post>>): SampleViewState {
-        return when (result) {
-            is Success -> state.copy(posts = result.data, isLoading = false)
-            is Loading -> state.copy(isLoading = true)
-            is Fail -> state.copy(
-                viewError = SingleEvent(ViewErrorController.mapThrowable(result.throwable)),
-                isLoading = false
+    override val reducer: Reducer<SampleViewState, Change> = { state, change ->
+        when (change) {
+            is Change.PostsLoading -> state.copy(isLoading = true)
+            is Change.PostsLoadingError -> state.copy(
+                    isLoading = false,
+                    viewError = SingleEvent(ViewErrorController.mapThrowable(change.throwable))
             )
-            else -> SampleViewState()
+            is Change.PostsLoaded -> state.copy(posts = change.posts, isLoading = false)
         }
     }
+
+    override fun emitAction(action: Action): Flow<Change> {
+        return when (action) {
+            is Action.LoadPosts -> bindLoadPostsAction()
+        }
+    }
+
+    private fun bindLoadPostsAction(): Flow<Change> = flow {
+        emit(Change.PostsLoading)
+        resultInteractor()
+                .isError { emit(Change.PostsLoadingError(it)) }
+                .isSuccess { emit(Change.PostsLoaded(it)) }
+    }.flowOn(Dispatchers.IO)
+
+
 }

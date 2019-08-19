@@ -48,7 +48,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-rc02'
+        classpath 'com.android.tools.build:gradle:3.5.0-rc03'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "dk.nodes.nstack:translation:${versions.nstack_plugin}"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
