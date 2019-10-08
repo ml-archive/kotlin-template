@@ -1,5 +1,8 @@
 # Kotlin Template
 
+[Short project description]
+
+## Day-to-day work
 
 1. All new work resigns in `feature/*` branches. If some new interfaces were introduced, remember to cover them with unit-tests.
 2. After your work on the feature branch is complete, open the PR and ask someone who is working on this project (or worked previously) to review it.
