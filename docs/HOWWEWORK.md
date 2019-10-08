@@ -50,8 +50,8 @@ ext.sdks = [
     ]
 
 ext.versions = [
-         kotlin             : '1.3.41',
-         coroutines         : '1.3.0-M2',
+         kotlin             : '[Latest Kotlin version]',
+         coroutines         : '[Latest Kotlin coroutines version]',
          ...
       ]
 ```
