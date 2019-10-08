@@ -43,10 +43,10 @@ Due to the modular architecture approach top-level `build.gradle` should provide
 ```groovy
 
 ext.sdks = [
-          compileSdkVersion: 28,
-          buildToolsVersion: '28.0.3',
+          compileSdkVersion: [latest SDK version],
+          buildToolsVersion: [latest Build Tools version]
           minSdkVersion    : 21,
-          targetSdkVersion : 28
+          targetSdkVersion : [latest SDK version]
     ]
 
 ext.versions = [
