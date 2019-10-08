@@ -1,6 +1,7 @@
 package dk.nodes.template.presentation.extensions
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import dk.nodes.template.domain.interactors.BaseAsyncInteractor
 import dk.nodes.template.domain.interactors.CompleteResult
@@ -12,6 +13,7 @@ import dk.nodes.template.domain.interactors.Uninitialized
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,6 +59,31 @@ private class LiveDataInteractorImpl<T>(private val interactor: BaseAsyncInterac
             mutableLiveData.postValue(Fail(t))
         }
     }
+}
+
+abstract class LiveDataInteractor2<I, T> {
+    private val mediatorLiveData = MediatorLiveData<T>()
+    abstract fun createLiveData(input: I): LiveData<T>
+    private var previousSource: LiveData<T>? = null
+    fun invoke(input: I) {
+        previousSource?.let(mediatorLiveData::removeSource)
+        val source = createLiveData(input)
+        mediatorLiveData.addSource(source, mediatorLiveData::setValue)
+        previousSource = source
+    }
+
+    val liveData: LiveData<T> = mediatorLiveData
+}
+
+abstract class FlowableInteractor<I : Any, T> {
+    private val subject: Subject<I> = BehaviorSubject.create()
+    val flowable = subject.switchMap {
+        createObservable(it).toObservable()
+    }.toFlowable(BackpressureStrategy.LATEST)!!
+
+    operator fun invoke(input: I) = subject.onNext(input)
+
+    protected abstract fun createObservable(input: I): Flowable<T>
 }
 
 @ExperimentalCoroutinesApi
