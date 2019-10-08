@@ -1,10 +1,6 @@
-# Firstport - Property Management
-FirstPort is a UK facility management company, primarily operating with private facilities
-This document describes how we work with Android for the FirstPort project.
+# Kotlin Template
 
 
-
-## Day-to-day work
 1. All new work resigns in `feature/*` branches. If some new interfaces were introduced, remember to cover them with unit-tests.
 2. After your work on the feature branch is complete, open the PR and ask someone who is working on this project (or worked previously) to review it.
 3. When PR is opened, Bitrise will automatically run all the code quality checks and unit-tests and will generate a report.
@@ -12,17 +8,18 @@ This document describes how we work with Android for the FirstPort project.
 
 > Pro-tip: When opening pull-requests and/or creating branches remember to reference the JIRA issue/ticket
 
+## Enterprise level projects
 
-## Code quaulity
-FirstPort project also contains `lintrules` module with custom linting rules to maintain code quaulity. Moreover, each module uses `detect` and `klint` gradle plugins to maintain code style and cleanliness. Every pull request made, will launch these checks to make sure develop/master branches are always "clean" and release-ready. You can also run these checks manually using `gradle` commands like so:
+### Code quaulity
+Enterprise level projects also contain `lintrules` module with custom linting rules to maintain code quaulity. Moreover, each module uses `detect` and `klint` gradle plugins to maintain code style and cleanliness. Every pull request made, will launch these checks to make sure develop/master branches are always "clean" and release-ready. You can also run these checks manually using `gradle` commands like so:
 ```
 ./gradlew detekt
 ./gradlew lint
 ./gradlew ktlintCheck
 ```
 
-## Unit-test coverage
-FirstPort project is required to have **80% code-coverage** with the most important piece being application's **business logic** (100% coverage) Presentation/UI layers. Android uses `JaCoCo` gradle plugin to generate coverage reports for all the modules and ties them all together. If there are some files you wish to exclude from coverage-report (Dagger files for example) you can update `jacoco.gradle` to with additional files like so:
+### Unit-test coverage
+Enterprise level project are required to have **80% code-coverage** with the most important piece being application's **business logic** (100% coverage) and Presentation/UI layers. Android uses `JaCoCo` gradle plugin to generate coverage reports for all the modules and ties them all together. If there are some files you wish to exclude from coverage-report (Dagger files for example) you can update `jacoco.gradle` to with additional files like so:
 ```groovy
 def toExclude = ['**/R.class',
                  '**/R$*.class',
@@ -55,11 +52,9 @@ ext.versions = [
          ...
       ]
 ```
-// TBA When it comes to flavours, FirstPort currently have two application variants, that are defined in the `app` build.gradle. Thats also the place where all flavour-dependent variables should be specified
+When it comes to flavours, projects usually have two application variants, that are defined in the `app` build.gradle. Thats also the place where all flavour-dependent variables should be specified
   - `stating` - points to test environment, builds are debuggable
   - `production` - points to production environment, signed with the the release keystore
-
-// TBA **FirstPort** uses Bitrise for internal `apk` distribution and **PlayStore internal track** for client distribution. Bitrise has two workflows, one for each of the "tracks".
 
 
 
@@ -81,7 +76,7 @@ Example:
 
 
 ### Modules
-FirstPort android project follows multi-modular approach to support clean architecture principles
+Android project follows multi-modular approach to support clean architecture principles
 
 #### App
 Main entry point with shared Application logic
@@ -320,10 +315,6 @@ class RestCityRepository @Inject constructor(
 
 ## Integrations
 List of important 3d party APIs and SDKs that are used in this project
-
-### Salesforce
-FirstPort - Property Management applications uses **Salesforce SDK** as a login provider.
-Current Salesforce usage is limited to authentication only. Check [Salesforce Docs](https://developer.salesforce.com/docs/atlas.en-us.service_sdk_android.meta/service_sdk_android/android_authentication_mobilesdk.htm) to see its implementation
 
 
 ## Live Templates
