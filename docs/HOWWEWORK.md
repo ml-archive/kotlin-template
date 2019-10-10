@@ -6,15 +6,15 @@
 
 1. All new work resigns in `feature/*` branches. If some new interfaces were introduced, remember to cover them with unit-tests.
 2. After your work on the feature branch is complete, open the PR and ask someone who is working on this project (or worked previously) to review it.
-3. When PR is opened, Bitrise will automatically run all the code quality checks and unit-tests and will generate a report.
-4. When PR is reviewed, merged and all the checks have passed, remember to make a new builds.
+3. For enterprise projects: When PR is opened, Bitrise will automatically run all the code quality checks and unit-tests and will generate a report.
+4. When PR is reviewed, merged, and all the checks have passed, remember to make new builds.
 
 > Pro-tip: When opening pull-requests and/or creating branches remember to reference the JIRA issue/ticket
 
 ## Enterprise level projects
 
-### Code quaulity
-Enterprise level projects also contain `lintrules` module with custom linting rules to maintain code quaulity. Moreover, each module uses `detect` and `klint` gradle plugins to maintain code style and cleanliness. Every pull request made, will launch these checks to make sure develop/master branches are always "clean" and release-ready. You can also run these checks manually using `gradle` commands like so:
+### Code quality
+Enterprise-level projects also contain `lintrules` module with custom linting rules to maintain code quality. Moreover, each module uses `detect` and `klint` Gradle plugins to maintain code style and cleanliness. Every pull request made, will launch these checks to make sure develop/master branches are always "clean" and release-ready. You can also run these checks manually using `gradle` commands like so:
 ```
 ./gradlew detekt
 ./gradlew lint
@@ -22,7 +22,7 @@ Enterprise level projects also contain `lintrules` module with custom linting ru
 ```
 
 ### Unit-test coverage
-Enterprise level project are required to have **80% code-coverage** with the most important piece being application's **business logic** (100% coverage) and Presentation/UI layers. Android uses `JaCoCo` gradle plugin to generate coverage reports for all the modules and ties them all together. If there are some files you wish to exclude from coverage-report (Dagger files for example) you can update `jacoco.gradle` to with additional files like so:
+Enterprise level projects  are required to have **80% code-coverage** with the most important piece being application's **business logic** (100% coverage) and Presentation/UI layers. Android projects use `JaCoCo` gradle plugin to generate coverage information for all the modules and ties it all together into one coverage report. If there are some files you wish to exclude from coverage-report (Dagger files for example) you can update `jacoco.gradle` to with additional files like so:
 ```groovy
 def toExclude = ['**/R.class',
                  '**/R$*.class',
@@ -34,12 +34,12 @@ When it comes to writing unit-test itself please refer to our extensive guide fo
 
 ## Android Project
 
-Android project is based on our newest template for client projects that uses [Google's ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel) with a lightweight ViewState approach, similar to MVI and  follows multi-modular approach to support clean architecture principles.
+Android project is based on our newest template for client projects that uses [Google's ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel) with a lightweight ViewState approach, similar to MVI and follows multi-modular approach to support clean architecture principles.
 
 
 
 ### Build Configuration
-Due to the modular architecture approach top-level `build.gradle` should provides all dependencies versions, android API level,  and API keys that could be shared across different modules using extensions.
+Due to the modular architecture approach, top-level `build.gradle` should provide all dependencies versions, android API level,  and API keys that could be shared across different modules using extensions.
 ```groovy
 
 ext.sdks = [
@@ -55,9 +55,9 @@ ext.versions = [
          ...
       ]
 ```
-When it comes to flavours, projects usually have two application variants, that are defined in the `app` build.gradle. Thats also the place where all flavour-dependent variables should be specified
+When it comes to flavors, projects usually have two application variants, that are defined in the `app` build.gradle. That's also the place where all flavor-dependent variables should be specified
   - `stating` - points to test environment, builds are debuggable
-  - `production` - points to production environment, signed with the the release keystore
+  - `production` - points to a production environment, signed with the release Keystore
 
 
 
@@ -70,22 +70,22 @@ When it comes to flavours, projects usually have two application variants, that 
 
 Example:
 1. View subscribes to ViewModel's LiveData instance(s).
-2. User clicks a button that loads a list of posts in a view.
-3. OnClickListener executes a Interactor/UseCase asynchronously in the business logic layer.
+2. The user clicks a button that loads a list of posts in a view.
+3. OnClickListener executes an Interactor/UseCase asynchronously in the business logic layer.
 4. The Interactor runs in the background accessing a post repository which fetches a list of posts
-5. ViewModel gets result from the Interactor and updates local view state, which triggers a LiveData update
-6. View is updated since it's observing the LiveData instance from our ViewModel.
+5. ViewModel gets the result from the Interactor and updates local view state, which triggers a LiveData update
+6. The view is updated since it's observing the LiveData instance from our ViewModel.
 
 
 
 ### Modules
-Android project follows multi-modular approach to support clean architecture principles
+Android project follows the multi-modular approach to support clean architecture principles
 
 #### App
 Main entry point with shared Application logic
 
 #### Data
-Contains data class models, repositories and network logic. Retrofit2/OkHttp3 is used for network logic.
+Data module Contains data class models, repositories, and network logic. Retrofit2/OkHttp3 is used for network logic.
 
 ```kotlin
 class RestPostRepository @Inject constructor(private val api: Api) : PostRepository {
@@ -105,7 +105,7 @@ class RestPostRepository @Inject constructor(private val api: Api) : PostReposit
 ```
 
 #### Domain
-General shared business logic with interactors, extensions, managers, various utility code.
+Here lies general, shared business logic with interactors, extensions, managers, various utility code.
 
 An interactor usually returns a result via a suspend method. You can model the Result class as you like:
 
@@ -129,7 +129,7 @@ sealed class Result {
 }
 ```
 
-Interactors are the link to the outer layers of the domain layer, i.e. contacting the API or fetching/saving various state.
+Interactors are the link to the outer layers of the domain layer, i.e., contacting the API or fetching/saving various states.
 
 ```kotlin
 class FetchPostsInteractor @Inject constructor(
@@ -143,7 +143,7 @@ class FetchPostsInteractor @Inject constructor(
 ```
 
 #### Presentation
-Unsurprisingly holds the UI with matching ViewModels. This is usually the module branched out from if needed. Presentation layer provides various extension functions for your interactors so you could use different approaches when updating your `viewState`.
+Unsurprisingly holds the UI with matching ViewModels. This is usually the module branched out from if needed. The presentation layer provides various extension functions for your interactors so you could use different approaches when updating your `viewState`.
 
 ##### Result Interactor
 `ResultInteractor` will handle exception handling and produce a `CompleteResult`
@@ -207,7 +207,7 @@ private val cd = CompositeDisposable()
 
 
 #### Error Handling
-`ViewErrorController` is used to handle exceptions received from the intractors in the `ViewModel` and present the human-readable error message in the ui layer (i.e `Fragment`/`Activity`).
+`ViewErrorController` is used to handle exceptions received from the interactors in the `ViewModel` and present the human-readable error message in the UI layer (i.e. `Fragment`/`Activity`).
 When using it in `ViewModel`, `ViewErrorController` can be used to map throwable to a `ViewError` instance. You can also tweak `ViewErrorController` implementation to provide your own exception handling and etc.
 ```kotlin
 private fun mapResult(result: InteractorResult<List<Post>>): SampleViewState {
@@ -228,7 +228,7 @@ private fun showErrorMessage(state: SampleViewState) {
    }
 ```
 
-Views are the consumers of the ViewModel's exposed LiveData. We want the view to be as dumb and small as possible, so only put UI code here
+Views are the consumers of the ViewModel's exposed LiveData. We want the view to be as dumb and small as possible, so only put UI code here.
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -263,13 +263,13 @@ private fun showErrorMessage(state: MainActivityViewState) {
 
 ## Injection
 
-This project is using Dagger for injection and scoping. Dagger is an annotation based dependency injection, which computes the dependency graph at compile time and verifies that everything is correctly injected at runtime.
+This project is using Dagger for injection and scoping. Dagger is an annotation-based dependency injection, which computes the dependency graph at compile-time and verifies that everything is correctly injected at runtime.
 
 Dagger works by defining `@Component`s that hold the scope and lifetime of objects it creates. Each `@Component` can depend on other `@Component`s by being a `@Subcomponent`.
 
 ### Modules
 
-In Dagger Modules are the way to specify _how_ objects are created, where components are the once who decides the lifetime of those objects.
+In Dagger, Modules are the way to specify _how_ objects are created, and components are the ones that decide the lifetime of those objects.
 
 There are different approaches to do this, given this class:
 ```kotlin
@@ -290,19 +290,19 @@ fun provideCityRepository(val api: Provider<Api>, val gson: Gson): CityRepositor
 }
 ```
 
-2) `@Bind`s and defining dependencies at implementation site
+2) `@Bind`s and defining dependencies at the implementation site
 
 ```kotlin
 @Binds
 abstract fun bindCityRepository(cityRepository: RestCityRepository): CityRepository
 ```
 
-By method 2 we avoid having to mirror constructor dependencies and only have to define what implementation of the `CityRepository` we want to inject where needed.
+By method 2, we avoid having to mirror constructor dependencies and only have to define what implementation of the `CityRepository` we want to inject where needed.
 
 
 ### Scoping
 
-We define scopes via the components _or_ via scope annotations. In Careem we have two modes - component scope and @AppScope, which is similar to a singleton.
+We define scopes via the components _or_ via scope annotations. In Careem, we have two modes - component scope and @AppScope, which is similar to a singleton.
 
 If we wanted RestCityRepository to be a singleton, all we had to do was mark it as @AppScope;
 ```kotlin
@@ -321,7 +321,7 @@ List of important 3d party APIs and SDKs that are used in this project
 
 
 ## Live Templates
-The Kotlin template comes supported with a its own set of live templates which can be found at
+The Kotlin template comes supported with its own set of live templates which can be found at
 
 https://github.com/nodes-android/androidstudio-livetemplates
 
