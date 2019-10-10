@@ -329,10 +329,7 @@ https://github.com/nodes-android/androidstudio-livetemplates
 
 It should make generating the boilerplate for activities and fragments easy.
 
-## Nodes Architecture Library
-The Template uses components from our Architecture library so be sure to read up on how that is used as well
 
-https://github.com/nodes-android/nodes-architecture-android
 
 ## Inspired from the following sources:
 - [Clean Architecture by Uncle Bob](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
