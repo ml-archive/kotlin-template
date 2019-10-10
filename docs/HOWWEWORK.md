@@ -145,6 +145,8 @@ class FetchPostsInteractor @Inject constructor(
 #### Presentation
 Unsurprisingly holds the UI with matching ViewModels. This is usually the module branched out from if needed. The presentation layer provides various extension functions for your interactors so you could use different approaches when updating your `viewState`.
 
+> [Combining State Sources using `MediatorLiveData`](./MEDIATORLIVEDATA.md)
+
 ##### Result Interactor
 `ResultInteractor` will handle exception handling and produce a `CompleteResult`
 ```kotlin
