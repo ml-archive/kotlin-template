@@ -338,8 +338,100 @@ TODO
 ### Firebase Push Notifications
 Check out our guide about [how to setup Firebase Push Notifications](TODO)
 
-### OkHttp3
+### OkHttp
+`OkHttp` is HTTP client used for all Android projects. It is a part of `Retrofit2` configuration and used to modify and act upon outgoing requests. Default configuration can be found in [RestModule](https://github.com/nodes-android/kotlin-template/blob/feature/redux/app/src/main/java/dk/nodes/template/injection/modules/RestModule.kt).
 
+#### Interceptors
+##### Default Configuration
+
+Template `OkHttp` client configuration contains NStack Interceptor and Logging Interceptor.
+- NStack Interceptor provides device meta information when interacting with REST APIs, that is then collected by NStack SDK.
+- Logging Interceptor prints out all requests and responses to the LogCat. It is important that this output should not appear in the release builds because of the sensitive data that could be revealed (emails, passwords, access tokens and etc)
+
+```kotlin
+        ...
+        .writeTimeout(60, TimeUnit.SECONDS)
+        // Nstack Interceptor
+        .addInterceptor(NMetaInterceptor(BuildConfig.BUILD_TYPE))
+
+      // Logging Interceptor
+       if (BuildConfig.DEBUG) {
+           val logging = okhttp3.logging.HttpLoggingInterceptor()
+           logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+           clientBuilder.addInterceptor(logging)
+       }
+
+
+
+```
+
+#### Access Token Interceptors
+A very common use-case would to provide a access token with every request in order for an REST API to identify the authenticated user. This is also can be achieved using interceptor:
+
+```kotlin
+class AuthTokenInterceptor(private val tokenRepository: AuthTokenRepository) : Interceptor {
+
+    /**
+     * Actual method where the interception takes place
+     * @param chain current chain of requests
+     */
+    override fun intercept(chain: Interceptor.Chain): Response {
+        // Init the builder with current request
+        val request = chain.request().newBuilder()
+        tokenRepository.get()?.let { token ->   
+          // Set new header with the authentication token
+          // Header name and token type may vary
+          request.header("Authorization", "Bearer $it")
+        }
+        // Proceed with the request
+        return chain.proceed(request.build())
+    }
+}
+
+```
+
+#### Authorization Interceptor
+`OkHttp` also provides an interface that can help you to handle the situation when your access token is expired: [`Authenticator`](https://square.github.io/okhttp/4.x/okhttp/okhttp3/-authenticator/). `Authenticator` automatically detects 401 response code and lets you to act upon it by refreshing the token and firing the request again (provided you have a mechanizm that allows to refresh token, here it's called `TokenRefresher`)
+
+```kotlin
+class AppAuthenticator(private val tokenRefresher: TokenRefresher) : Authenticator  {
+
+
+    /**
+     * Method where the authentication takes place
+     * @param route of the request
+     * @param response received from the API
+     * @return modified request
+     */
+    override fun authenticate(route: Route?, response: Response): Request? {
+
+        // We are interested in 401
+        if (response.code() == 401) {
+
+            // Refresh token
+            val refreshedToken = tokenRefresher.refreshToken()
+
+            // Return the old request with refreshed token
+            return response.request().newBuilder()
+                .header("Authorization", "Bearer: $refreshedToken")
+                .build()
+        } else {
+            return null
+        }
+
+    }
+}
+```
+`AppAuthenticator` can then be added to the `okhttp` client configuration along with the interceptors:
+
+```       
+ val clientBuilder = OkHttpClient.Builder()
+           ...
+           .addInterceptor(AccessTokenInterceptor())
+           // Add our authenticator
+           .authenticator(AppAuthenticator())
+  return clientBuilder.build()
+```
 
 ## Live Templates
 The Kotlin template comes supported with its own set of live templates which can be found at
