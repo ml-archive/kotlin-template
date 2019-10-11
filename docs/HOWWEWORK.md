@@ -319,7 +319,26 @@ class RestCityRepository @Inject constructor(
 
 
 ## Integrations
-List of important 3d party APIs and SDKs that are used in this project
+List of important 3d party APIs and SDKs that are used in the template
+
+### Firebase
+Google Firebase is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Every Android project in Nodes is using Firebase for analytics (unless other service is specified), crash-reporting, push-notifications and internal app distribution
+
+#### Firebase Analytics
+Gradle dependency will provide minimal analytics insight into the app usage. Custom event tracking implementation will vary depending on the project and client's needs.
+
+Generally you'd want to create a manager that will wrap up all the tracking logic [(here is an example)](https://github.com/nodes-projects/avon-on-android/blob/develop/app/src/main/java/com/avon/avonon/domain/managers/analytics/FirebaseAnalyticsManager.kt), inject it into the `ViewModel` and track events there.
+
+#### Firebase Crashalytics
+Firebase Crashalytics is our primary crash-reporting service. Most of the functionality will be provided by gradle dependencies. Remember to save R8/ProGuard mapping file to be able to deobfuscate crahses that happened in release versions of the app.
+
+### Firebase distribution
+TODO
+
+### Firebase Push Notifications
+Check out our guide about [how to setup Firebase Push Notifications](TODO)
+
+### OkHttp3
 
 
 ## Live Templates
