@@ -5,17 +5,20 @@ import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppOpenResult
 import dk.nodes.template.presentation.nstack.NStackPresenter
 import dk.nodes.template.presentation.ui.base.BaseViewModel
-import dk.nodes.template.presentation.ui.main.*
 import dk.nodes.template.presentation.util.SingleEvent
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class SplashViewModel@Inject constructor(
+class SplashViewModel @Inject constructor(
     private val nStackPresenter: NStackPresenter
 ) : BaseViewModel<SplashViewState>() {
 
-    override val initState: SplashViewState = SplashViewState(doneLoading = false, nstackUpdateAvailable = null)
+    override val initState: SplashViewState =
+        SplashViewState(doneLoading = false, nstackUpdateAvailable = null)
 
     fun initAppState() = viewModelScope.launch {
         Timber.d("initAppState() - start")
@@ -33,7 +36,10 @@ class SplashViewModel@Inject constructor(
         state = when (appOpenResult) {
             is AppOpenResult.Success -> {
                 nStackPresenter.saveAppState(appOpenResult.appUpdateResponse.data)
-                state.copy(doneLoading = true, nstackUpdateAvailable = SingleEvent(appOpenResult.appUpdateResponse.data))
+                state.copy(
+                    doneLoading = true,
+                    nstackUpdateAvailable = SingleEvent(appOpenResult.appUpdateResponse.data)
+                )
             }
             else -> state.copy(doneLoading = true)
         }
