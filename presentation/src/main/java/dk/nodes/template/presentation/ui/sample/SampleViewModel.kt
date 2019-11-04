@@ -1,34 +1,46 @@
 package dk.nodes.template.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
-import dk.nodes.template.domain.interactors.*
-import dk.nodes.template.models.Post
-import dk.nodes.template.presentation.extensions.asResult
+import dk.nodes.template.domain.interactors.Fail
+import dk.nodes.template.domain.interactors.InteractorResult
+import dk.nodes.template.domain.interactors.Loading
+import dk.nodes.template.domain.interactors.PostFlowInteractor
+import dk.nodes.template.domain.interactors.Success
+import dk.nodes.template.domain.interactors.asResult
+import dk.nodes.template.domain.interactors.runInteractor
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ViewErrorController
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SampleViewModel @Inject constructor(
-    postsInteractor: PostsInteractor
+    private val postsInteractor: PostFlowInteractor
 ) : BaseViewModel<SampleViewState>() {
 
     override val initState: SampleViewState = SampleViewState()
 
-    private val resultInteractor = postsInteractor.asResult()
-
-    fun fetchPosts() = viewModelScope.launch(Dispatchers.Main) {
-        state = mapResult(Loading())
-        val result = withContext(Dispatchers.IO) { resultInteractor.invoke() }
-        state = mapResult(result)
+    init {
+        viewModelScope.launch {
+            postsInteractor.flow().collect {
+                state = state.copy(posts = it)
+            }
+        }
     }
 
-    private fun mapResult(result: InteractorResult<List<Post>>): SampleViewState {
+    fun fetchPosts() {
+        viewModelScope.launch(Dispatchers.Main) {
+            state = mapResult(Loading())
+            val result = runInteractor(postsInteractor.asResult())
+            state = mapResult(result)
+        }
+    }
+
+    private fun mapResult(result: InteractorResult<Unit>): SampleViewState {
         return when (result) {
-            is Success -> state.copy(posts = result.data, isLoading = false)
+            is Success -> state.copy(isLoading = false)
             is Loading -> state.copy(isLoading = true)
             is Fail -> state.copy(
                 viewError = SingleEvent(ViewErrorController.mapThrowable(result.throwable)),
