@@ -15,7 +15,7 @@ buildscript {
             mockito            : '3.1.0',
             nodes_nstack_kotlin: '3.2.0',
             nstack_plugin      : '3.0.3',
-            nodes_arch         : '2.3.5',
+            nodes_arch         : '3.0.0-alpha01',
             retrofit           : "2.6.2",
             okhttp             : "3.12.3",
             rx_android         : '2.1.1',
