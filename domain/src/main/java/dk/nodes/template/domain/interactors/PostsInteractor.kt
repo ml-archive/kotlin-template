@@ -9,6 +9,6 @@ class PostsInteractor @Inject constructor(
 ) : NoInputInteractor<List<Post>> {
 
     override suspend fun invoke(input: Unit): List<Post> {
-        return postRepository.getPosts(true)
+        return postRepository.getPosts()
     }
 }

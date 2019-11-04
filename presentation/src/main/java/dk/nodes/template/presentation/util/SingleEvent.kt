@@ -49,6 +49,10 @@ open class SingleEvent<out T>(private val content: T) {
     }
 }
 
+fun <T> SingleEvent<T>?.consume(function: (T) -> Unit) {
+    this?.consume()?.let(function)
+}
+
 /**
  * An [Observer] for [SingleEvent]s, simplifying the pattern of checking if the [SingleEvent]'s content has
  * already been consumed.

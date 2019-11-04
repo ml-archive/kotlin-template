@@ -13,8 +13,8 @@ import java.io.Serializable
 
 inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
     return when (this) {
-        is Fragment -> ViewModelProviders.of(this, factory).get(VM::class.java)
-        is FragmentActivity -> ViewModelProviders.of(this, factory).get(VM::class.java)
+        is Fragment -> ViewModelProvider(this, factory).get(VM::class.java)
+        is FragmentActivity -> ViewModelProvider(this, factory).get(VM::class.java)
         else -> throw IllegalAccessError("Invalid LifecycleOwner")
     }
 }

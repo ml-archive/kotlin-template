@@ -20,8 +20,7 @@ class RestPostRepository @Inject constructor(private val api: Api) : PostReposit
         return postsChannel.asFlow()
     }
 
-    @Throws(RepositoryException::class)
-    override suspend fun getPosts(cached: Boolean): List<Post> {
+    override suspend fun getPosts(): List<Post> {
         val response = api.getPosts()
         if (response.isSuccessful) {
             return response.body()?.also { postsChannel.send(it) }
