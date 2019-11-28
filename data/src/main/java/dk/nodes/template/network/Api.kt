@@ -1,7 +1,7 @@
 package dk.nodes.template.network
 
-import dk.nodes.template.models.Photo
-import dk.nodes.template.models.Post
+import dk.nodes.template.domain.entities.Photo
+import dk.nodes.template.domain.entities.Post
 import retrofit2.Response
 import retrofit2.http.GET
 
