@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
+import dk.nodes.nstack.kotlin.models.state
+import dk.nodes.nstack.kotlin.models.update
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.ui.main.*
+import dk.nodes.template.presentation.util.consume
 
 class SplashFragment : BaseFragment() {
 
@@ -32,19 +35,20 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun handleNStack(state: SplashViewState) {
-        val appUpdate = state.nstackUpdateAvailable?.consume() ?: return
-        when (appUpdate.update.state) {
-            AppUpdateState.FORCE -> {
-                showForceDialog(appUpdate.update)
-            }
-            // We handle the rest in MainActivity
-            else -> {
+        state.nstackUpdateAvailable.consume { appUpdate ->
+            when (appUpdate.state) {
+                AppUpdateState.FORCE -> {
+                    showForceDialog(appUpdate)
+                }
+                // We handle the rest in MainActivity
+                else -> {
+                }
             }
         }
     }
 
     private fun handleNavigation(state: SplashViewState) {
-        if (state.doneLoading && state.nstackUpdateAvailable?.peek()?.update?.state != AppUpdateState.FORCE) {
+        if (state.doneLoading && state.nstackUpdateAvailable?.peek()?.state != AppUpdateState.FORCE) {
             showApp()
         }
     }

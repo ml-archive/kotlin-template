@@ -32,29 +32,25 @@ dependencies {
     implementation project(':domain')
     implementation project(':data')
     implementation "com.google.android.material:material:$versions.material"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation "androidx.arch.core:core-common:$versions.archCore"
     implementation "androidx.arch.core:core-runtime:$versions.archCore"
     implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-common:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
-    kapt "androidx.lifecycle:lifecycle-compiler:${versions.lifecycle}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"
     implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
     kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
-    implementation "dk.nodes.nstack:nstack-kotlin:$versions.nodes_nstack_kotlin"
+    implementation "dk.nodes.nstack:nstack-kotlin:$versions.nstack"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
     testImplementation 'junit:junit:4.12'
-    implementation "io.reactivex.rxjava2:rxandroid:${versions.rx_android}"
-    implementation "io.reactivex.rxjava2:rxjava:${versions.rx_java}"
-    implementation "io.reactivex.rxjava2:rxkotlin:${versions.rx_kotlin}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
     implementation "net.hockeyapp.android:HockeySDK:${versions.hockey_sdk}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"

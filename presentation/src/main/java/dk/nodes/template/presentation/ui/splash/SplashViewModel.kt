@@ -2,7 +2,7 @@ package dk.nodes.template.presentation.ui.splash
 
 import androidx.lifecycle.viewModelScope
 import dk.nodes.nstack.kotlin.NStack
-import dk.nodes.nstack.kotlin.models.AppOpenResult
+import dk.nodes.nstack.kotlin.models.Result
 import dk.nodes.template.presentation.nstack.NStackPresenter
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
@@ -20,28 +20,30 @@ class SplashViewModel @Inject constructor(
     override val initState: SplashViewState =
         SplashViewState(doneLoading = false, nstackUpdateAvailable = null)
 
-    fun initAppState() = viewModelScope.launch {
-        Timber.d("initAppState() - start")
-        val deferredAppOpen = async(Dispatchers.IO) { NStack.appOpen() }
-        // Other API calls that might be needed
-        // ...
-        // Splash should be shown for min. x milliseconds
-        val deferredMinDelay = async(Dispatchers.IO) { delay(2000) }
+    fun initAppState() {
+        viewModelScope.launch {
+            Timber.d("initAppState() - start")
+            val deferredAppOpen = async(Dispatchers.IO) { NStack.appOpen() }
+            // Other API calls that might be needed
+            // ...
+            // Splash should be shown for min. x milliseconds
+            val deferredMinDelay = async(Dispatchers.IO) { delay(2000) }
 
-        // Parallel execution, wait on both to finish
-        val appOpenResult = deferredAppOpen.await()
-        deferredMinDelay.await()
+            // Parallel execution, wait on both to finish
+            val appOpenResult = deferredAppOpen.await()
+            deferredMinDelay.await()
 
-        Timber.d("initAppState() - end")
-        state = when (appOpenResult) {
-            is AppOpenResult.Success -> {
-                nStackPresenter.saveAppState(appOpenResult.appUpdateResponse.data)
-                state.copy(
-                    doneLoading = true,
-                    nstackUpdateAvailable = SingleEvent(appOpenResult.appUpdateResponse.data)
-                )
+            Timber.d("initAppState() - end")
+            state = when (appOpenResult) {
+                is Result.Success -> {
+                    nStackPresenter.saveAppState(appOpenResult.value.data)
+                    state.copy(
+                        doneLoading = true,
+                        nstackUpdateAvailable = SingleEvent(appOpenResult.value.data.update)
+                    )
+                }
+                else -> state.copy(doneLoading = true)
             }
-            else -> state.copy(doneLoading = true)
         }
     }
 }

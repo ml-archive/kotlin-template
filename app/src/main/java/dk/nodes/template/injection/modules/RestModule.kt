@@ -1,10 +1,12 @@
 package dk.nodes.template.injection.modules
 
+import android.os.Build
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
+import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.network.Api
 import dk.nodes.template.network.util.BufferedSourceConverterFactory
@@ -61,7 +63,14 @@ class RestModule {
             .connectTimeout(45, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(NMetaInterceptor(BuildConfig.BUILD_TYPE))
+            .addInterceptor(
+                NMetaInterceptor(
+                    NStack.env,
+                    NStack.appClientInfo.versionName,
+                    Build.VERSION.RELEASE,
+                    Build.MODEL
+                )
+            )
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()

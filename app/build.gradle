@@ -97,7 +97,7 @@ repositories {
 }
 
 dependencies {
-    
+
     fileTree(dir: "libs", include: ["*.jar"])
     androidTestImplementation("androidx.test.espresso:espresso-core:${versions.espresso}", {
         exclude group: "com.android.support", module: "support-annotations"
@@ -110,8 +110,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "com.google.android.material:material:$versions.material"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}"
@@ -131,14 +132,8 @@ dependencies {
     }
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
 
-    implementation "dk.nodes.nstack:nstack-kotlin:${versions.nodes_nstack_kotlin}"
+    implementation "dk.nodes.nstack:nstack-kotlin:${versions.nstack}"
     implementation "dk.nodes.arch:base:${versions.nodes_arch}"
-
-    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
-
-    implementation "io.reactivex.rxjava2:rxandroid:${versions.rx_android}"
-    implementation "io.reactivex.rxjava2:rxjava:${versions.rx_java}"
-    implementation "io.reactivex.rxjava2:rxkotlin:${versions.rx_kotlin}"
 
     // Testing
     testImplementation "junit:junit:${versions.junit}"
@@ -157,10 +152,9 @@ dependencies {
     implementation "androidx.arch.core:core-runtime:$versions.archCore"
     implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-common:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
-    kapt "androidx.lifecycle:lifecycle-compiler:${versions.lifecycle}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
 }

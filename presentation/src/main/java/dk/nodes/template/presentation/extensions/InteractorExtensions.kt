@@ -9,9 +9,6 @@ import dk.nodes.template.domain.interactors.InteractorResult
 import dk.nodes.template.domain.interactors.Loading
 import dk.nodes.template.domain.interactors.Success
 import dk.nodes.template.domain.interactors.Uninitialized
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,10 +30,6 @@ interface ResultInteractor<T> : BaseAsyncInteractor<CompleteResult<T>>
 @ExperimentalCoroutinesApi
 interface ChannelInteractor<T> : BaseAsyncInteractor<Unit> {
     fun receive(): ReceiveChannel<InteractorResult<T>>
-}
-
-interface RxInteractor<T> : BaseAsyncInteractor<Unit> {
-    fun observe(): Flowable<InteractorResult<T>>
 }
 
 interface FlowInteractor<T> : BaseAsyncInteractor<Flow<InteractorResult<T>>>
@@ -90,20 +83,6 @@ private class ResultInteractorImpl<T>(private val interactor: BaseAsyncInteracto
     }
 }
 
-private class RxInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
-    RxInteractor<T> {
-    override fun observe() = subject.toFlowable(BackpressureStrategy.LATEST)!!
-    private val subject = BehaviorSubject.createDefault<InteractorResult<T>>(Uninitialized)
-    override suspend operator fun invoke() {
-        subject.onNext(Loading())
-        try {
-            subject.onNext(Success(interactor()))
-        } catch (t: Throwable) {
-            subject.onError(t)
-        }
-    }
-}
-
 private class FlowInteractorImpl<T>(private val interactor: BaseAsyncInteractor<out T>) :
     FlowInteractor<T> {
     override suspend fun invoke(): Flow<InteractorResult<T>> {
@@ -129,10 +108,6 @@ fun <T> BaseAsyncInteractor<T>.asLiveData(): LiveDataInteractor<T> {
 @ExperimentalCoroutinesApi
 fun <T> BaseAsyncInteractor<T>.asChannel(): ChannelInteractor<T> {
     return ChannelInteractorImpl(this)
-}
-
-fun <T> BaseAsyncInteractor<T>.asRx(): RxInteractor<T> {
-    return RxInteractorImpl(this)
 }
 
 fun <T> BaseAsyncInteractor<T>.asFlow(): FlowInteractor<T> {
