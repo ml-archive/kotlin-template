@@ -8,19 +8,18 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import java.io.Serializable
 
 inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
     return when (this) {
-        is Fragment -> ViewModelProviders.of(this, factory).get(VM::class.java)
-        is FragmentActivity -> ViewModelProviders.of(this, factory).get(VM::class.java)
+        is Fragment -> ViewModelProvider(this, factory).get(VM::class.java)
+        is FragmentActivity -> ViewModelProvider(this, factory).get(VM::class.java)
         else -> throw IllegalAccessError("Invalid LifecycleOwner")
     }
 }
 
 inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewModelProvider.Factory): VM {
-    return ViewModelProviders.of(requireActivity(), factory).get(VM::class.java)
+    return ViewModelProvider(requireActivity(), factory).get(VM::class.java)
 }
 
 private object UninitializedValue

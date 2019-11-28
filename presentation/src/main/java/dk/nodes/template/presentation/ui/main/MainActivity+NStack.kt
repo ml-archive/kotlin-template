@@ -3,34 +3,36 @@ package dk.nodes.template.presentation.ui.main
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.nstack.kotlin.models.Message
 import dk.nodes.nstack.kotlin.models.RateReminder
+import dk.nodes.nstack.kotlin.models.Result
+import dk.nodes.nstack.kotlin.models.state
+import dk.nodes.nstack.kotlin.models.update
 import dk.nodes.template.presentation.nstack.Translation
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 fun MainActivity.setupNStack() {
-    NStack.onAppUpdateListener = { appUpdate ->
-        when (appUpdate.update.state) {
-            AppUpdateState.NONE -> {
+    lifecycleScope.launch {
+        when (val result = NStack.appOpen()) {
+            is Result.Success -> {
+                when (result.value.data.update.state) {
+                    AppUpdateState.NONE -> { /* Nothing to do */
+                    }
+                    AppUpdateState.UPDATE -> showUpdateDialog(result.value.data.update)
+                    AppUpdateState.FORCE -> showForceDialog(result.value.data.update)
+                    AppUpdateState.CHANGELOG -> showChangelogDialog(result.value.data.update)
+                }
+
+                result.value.data.message?.let { showMessageDialog(it) }
+                result.value.data.rateReminder?.let { showRateReminderDialog(it) }
             }
-            AppUpdateState.UPDATE -> {
-                showUpdateDialog(appUpdate.update)
-            }
-            AppUpdateState.FORCE -> {
-                showForceDialog(appUpdate.update)
-            }
-            AppUpdateState.CHANGELOG -> {
-                showChangelogDialog(appUpdate.update)
+            is Result.Error -> {
             }
         }
-        appUpdate.message?.let { showMessageDialog(it) }
-        appUpdate.rateReminder?.let { showRateReminderDialog(it) }
-    }
-    NStack.appOpen { success ->
-        Timber.e("appopen success = $success")
     }
 }
 

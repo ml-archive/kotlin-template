@@ -3,6 +3,7 @@ package dk.nodes.template.presentation.ui.main
 import androidx.lifecycle.viewModelScope
 import dk.nodes.template.presentation.nstack.NStackPresenter
 import dk.nodes.template.presentation.ui.base.BaseViewModel
+import dk.nodes.template.presentation.util.SingleEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,11 +20,11 @@ class MainActivityViewModel @Inject constructor(
         withContext(Dispatchers.IO) { delay(1000) }
         nStackPresenter
                 .whenChangelog {
-                    state = state.copy(nstackUpdate = it)
+                    state = state.copy(nstackUpdate = SingleEvent(it))
                 }.whenMessage {
-                    state = state.copy(nstackMessage = it)
+                    state = state.copy(nstackMessage = SingleEvent(it))
                 }.whenRateReminder {
-                    state = state.copy(nstackRateReminder = it)
+                    state = state.copy(nstackRateReminder = SingleEvent(it))
                 }
     }
 }

@@ -3,29 +3,24 @@
 buildscript {
 
     ext.versions = [
-            kotlin             : '1.3.50',
-            coroutines         : '1.3.2',
-            constraint_layout  : '2.0.0-beta2',
-            dagger             : "2.24",
-            lifecycle          : "2.1.0",
-            hockey_sdk         : "5.2.0",
-            timber             : "4.7.1",
-            junit              : '4.12',
-            espresso           : '3.2.0',
-            mockito            : '2.28.2',
-            nodes_nstack_kotlin: '3.2.0',
-            nstack_plugin      : '3.0.3',
-            nodes_arch         : '2.3.5',
-            retrofit           : "2.6.2",
-            okhttp             : "3.12.3",
-            rx_android         : '2.1.1',
-            rx_java            : "2.2.13",
-            rx_kotlin          : "2.4.0",
-            ktx                : "1.0.2",
-            rx_lint            : '1.7.0',
-            material           : '1.1.0-beta01',
-            archCore           : '2.1.0',
-            navigation         : '2.1.0'
+            kotlin           : '1.3.61',
+            coroutines       : '1.3.2',
+            constraint_layout: '2.0.0-beta3',
+            dagger           : "2.25.2",
+            lifecycle        : "2.2.0-rc02",
+            hockey_sdk       : "5.2.0",
+            timber           : "4.7.1",
+            junit            : '4.12',
+            espresso         : '3.2.0',
+            mockito          : '2.28.2',
+            nstack           : '3.2.2',
+            nodes_arch       : '2.3.5',
+            retrofit         : "2.6.2",
+            okhttp           : "3.14.2",
+            ktx              : "1.2.0-rc01",
+            material         : '1.1.0-alpha09',
+            archCore         : '2.1.0',
+            navigation       : '2.2.0-rc02'
     ]
 
     ext.keys = [
@@ -35,10 +30,10 @@ buildscript {
     ]
 
     ext.sdks = [
-            compileSdkVersion: 28,
-            buildToolsVersion: '28.0.3',
+            compileSdkVersion: 29,
+            buildToolsVersion: '29.0.0',
             minSdkVersion    : 21,
-            targetSdkVersion : 28
+            targetSdkVersion : 29
     ]
 
     repositories {
@@ -48,17 +43,17 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.1'
+        classpath 'com.android.tools.build:gradle:3.5.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "dk.nodes.nstack:translation:${versions.nstack_plugin}"
+        classpath "dk.nodes.nstack:translation:3.0.3"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
         classpath "dk.nodes.ci:bitrise:1.0"
     }
 }
 
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.25.0"
-    id 'com.github.ben-manes.versions' version "0.25.0"
+    id "com.diffplug.gradle.spotless" version "3.26.0"
+    id 'com.github.ben-manes.versions' version "0.27.0"
 }
 
 allprojects {
@@ -74,9 +69,35 @@ allprojects {
 subprojects {
     apply plugin: 'com.diffplug.gradle.spotless'
     spotless {
+        format 'misc', {
+            target '**/*.gradle'
+            trimTrailingWhitespace()
+            indentWithSpaces(4) // or spaces. Takes an integer argument if you don't like 4
+            endWithNewline()
+        }
         kotlin {
             target "**/*.kt"
             ktlint('0.33.0')
+            targetExclude("**/RateReminderActions.kt")
+        }
+        java {
+            target "**/*.java"
+            targetExclude '**/Translation.java'
+            googleJavaFormat('1.1').aosp()
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            // Treat all Kotlin warnings as errors, don't go full retarded
+            // allWarningsAsErrors = true
+
+            // Enable experimental coroutines APIs, including Flow
+            freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
+
+            // Set JVM target to 1.8
+            jvmTarget = "1.8"
         }
     }
 }
@@ -84,7 +105,7 @@ subprojects {
 dependencyUpdates.resolutionStrategy {
     componentSelection { rules ->
         rules.all { ComponentSelection selection ->
-            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview'].any { qualifier ->
+            boolean rejected = ['alpha', 'beta', 'cr', 'm', 'preview'].any { qualifier ->
                 selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
             }
             if (rejected) {

@@ -49,6 +49,10 @@ open class SingleEvent<out T>(private val content: T) {
     }
 }
 
+fun <T> SingleEvent<T>?.consume(block: (T) -> Unit) {
+    this?.consume()?.let(block)
+}
+
 /**
  * An [Observer] for [SingleEvent]s, simplifying the pattern of checking if the [SingleEvent]'s content has
  * already been consumed.
@@ -56,7 +60,8 @@ open class SingleEvent<out T>(private val content: T) {
  * [onEventUnconsumedContent] is *only* called if the [SingleEvent]'s contents has not been consumed.
  */
 
-class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Observer<SingleEvent<T>> {
+class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) :
+    Observer<SingleEvent<T>> {
     override fun onChanged(event: SingleEvent<T>?) {
         event?.consume()?.run(onEventUnconsumedContent)
     }

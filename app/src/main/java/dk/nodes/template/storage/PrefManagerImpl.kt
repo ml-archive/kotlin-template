@@ -2,8 +2,8 @@ package dk.nodes.template.storage
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import dk.nodes.template.domain.managers.PrefManager
 import javax.inject.Inject
 

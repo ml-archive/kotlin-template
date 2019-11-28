@@ -8,7 +8,7 @@ import dk.nodes.template.presentation.util.SingleEvent
 data class MainActivityViewState(
     val errorMessage: SingleEvent<String>? = null,
     val isLoading: Boolean = false,
-    val nstackMessage: Message? = null,
-    val nstackRateReminder: RateReminder? = null,
-    val nstackUpdate: AppUpdate? = null
+    val nstackMessage: SingleEvent<Message>? = null,
+    val nstackRateReminder: SingleEvent<RateReminder>? = null,
+    val nstackUpdate: SingleEvent<AppUpdate>? = null
 )

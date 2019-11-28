@@ -3,8 +3,11 @@ package dk.nodes.template.presentation.extensions
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
 fun Fragment.hideKeyboard() {
@@ -30,4 +33,8 @@ fun Fragment.dpToPx(dp: Int): Int {
 
 fun Context.dpToPx(dp: Int): Int {
     return (dp * (resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+}
+
+fun ViewGroup.inflate(@LayoutRes layout: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layout, this, attachToRoot)
 }
