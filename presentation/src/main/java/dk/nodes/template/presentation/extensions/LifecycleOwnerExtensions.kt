@@ -8,7 +8,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import java.io.Serializable
 
 inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
@@ -20,7 +19,7 @@ inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewMod
 }
 
 inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewModelProvider.Factory): VM {
-    return ViewModelProviders.of(requireActivity(), factory).get(VM::class.java)
+    return ViewModelProvider(requireActivity(), factory).get(VM::class.java)
 }
 
 private object UninitializedValue
