@@ -24,12 +24,12 @@ class SampleFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_sample, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragSampleFab.setOnClickListener { viewModel.switchTheme() }
         adapter = SampleAdapter().also(rv::setAdapter)
     }
 
@@ -40,11 +40,6 @@ class SampleFragment : BaseFragment() {
             showPosts(state)
             showErrorMessage(state)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
