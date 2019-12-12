@@ -20,5 +20,4 @@ object ThemeHelper {
         }
         AppCompatDelegate.setDefaultNightMode(systemTheme)
     }
-
 }
