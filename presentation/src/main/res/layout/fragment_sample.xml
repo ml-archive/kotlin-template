@@ -19,6 +19,8 @@
         android:orientation="vertical"
         android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:reverseLayout="false" />
+        app:reverseLayout="false"
+        tools:listitem="@layout/row_sample"
+        tools:visibility="visible" />
 
 </LinearLayout>

@@ -1,9 +1,7 @@
 package dk.nodes.template.presentation.ui.sample
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
@@ -26,6 +24,7 @@ class SampleFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_sample, container, false)
     }
 
@@ -41,6 +40,18 @@ class SampleFragment : BaseFragment() {
             showPosts(state)
             showErrorMessage(state)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.actionAppName -> viewModel.switchTheme()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showPosts(state: SampleViewState) {
