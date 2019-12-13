@@ -2,7 +2,6 @@ package dk.nodes.template.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
 import dk.nodes.template.domain.interactors.*
-import dk.nodes.template.models.Theme
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ThemeHelper
