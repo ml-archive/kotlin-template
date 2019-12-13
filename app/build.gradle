@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
-apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -64,24 +63,14 @@ android {
             dimension "default"
             applicationIdSuffix ".staging"
             //signingConfig signingConfigs.staging
-            deploy = "debug"
-            hockeyAppId = ""
-            manifestPlaceholders = [
-                    HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME        : "KotlinTemplateStaging"
-            ]
+            manifestPlaceholders = [APP_NAME: "KotlinTemplateStaging"]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
         production {
             dimension "default"
             applicationIdSuffix ".production"
             //signingConfig signingConfigs.production
-            deploy = "release"
-            hockeyAppId = ""
-            manifestPlaceholders = [
-                    HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME        : "KotlinTemplate"
-            ]
+            manifestPlaceholders = [APP_NAME: "KotlinTemplate"]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
@@ -126,7 +115,6 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
     kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
 
-    implementation "net.hockeyapp.android:HockeySDK:${versions.hockey_sdk}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
     implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
