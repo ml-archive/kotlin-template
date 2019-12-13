@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
-apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -64,7 +63,6 @@ android {
             dimension "default"
             applicationIdSuffix ".staging"
             //signingConfig signingConfigs.staging
-            deploy = "debug"
             manifestPlaceholders = [APP_NAME: "KotlinTemplateStaging"]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
@@ -72,7 +70,6 @@ android {
             dimension "default"
             applicationIdSuffix ".production"
             //signingConfig signingConfigs.production
-            deploy = "release"
             manifestPlaceholders = [APP_NAME: "KotlinTemplate"]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }

@@ -46,7 +46,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "dk.nodes.nstack:translation:3.0.3"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
-        classpath "dk.nodes.ci:bitrise:1.0"
     }
 }
 
