@@ -14,8 +14,7 @@ import javax.inject.Inject
 
 class SampleViewModel @Inject constructor(
     private val postsInteractor: PostFlowInteractor,
-    private val getThemeInteractor: GetThemeInteractor,
-    private val setThemeInteractor: SetThemeInteractor
+    private val switchThemeInteractor: SwitchThemeInteractor
 ) : BaseViewModel<SampleViewState>() {
 
     override val initState: SampleViewState = SampleViewState()
@@ -38,9 +37,7 @@ class SampleViewModel @Inject constructor(
 
     fun switchTheme() {
         viewModelScope.launch {
-            val newTheme = if (getThemeInteractor.invoke() == Theme.LIGHT) Theme.DARK else Theme.LIGHT
-            setThemeInteractor.invoke(newTheme)
-            ThemeHelper.applyTheme(newTheme)
+            ThemeHelper.applyTheme(switchThemeInteractor())
         }
     }
 
