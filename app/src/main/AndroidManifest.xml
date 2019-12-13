@@ -15,7 +15,7 @@
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/NoToolbarAppTheme">
 
         <!-- nstack app id and key from build.gradle manifest placeholder -->
         <meta-data
@@ -32,16 +32,17 @@
             android:value="staging"
             tools:replace="android:value" />
 
-        <activity android:name="dk.nodes.template.presentation.ui.splash.SplashActivity"
-            android:theme="@style/NoToolbarAppTheme">
+        <activity android:name="dk.nodes.template.presentation.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="dk.nodes.template.presentation.ui.main.MainActivity" android:exported="false">
-        </activity>
+        <activity
+            android:name="dk.nodes.template.presentation.ui.main.MainActivity"
+            android:exported="false" />
     </application>
 </manifest>

@@ -17,7 +17,7 @@ buildscript {
             retrofit         : "2.6.2",
             okhttp           : "3.14.2",
             ktx              : "1.2.0-rc01",
-            material         : '1.1.0-alpha09',
+            material         : '1.2.0-alpha02',
             archCore         : '2.1.0',
             navigation       : '2.2.0-rc02'
     ]
@@ -42,7 +42,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "dk.nodes.nstack:translation:3.0.3"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"

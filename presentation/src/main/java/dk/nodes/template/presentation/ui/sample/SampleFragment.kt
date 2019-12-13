@@ -1,9 +1,7 @@
 package dk.nodes.template.presentation.ui.sample
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
@@ -31,6 +29,7 @@ class SampleFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragSampleFab.setOnClickListener { viewModel.switchTheme() }
         adapter = SampleAdapter().also(rv::setAdapter)
     }
 
