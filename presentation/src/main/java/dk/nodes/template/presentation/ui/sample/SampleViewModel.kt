@@ -2,7 +2,6 @@ package dk.nodes.template.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
 import dk.nodes.template.domain.interactors.*
-import dk.nodes.template.domain.managers.ThemeManager
 import dk.nodes.template.models.Theme
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
@@ -15,7 +14,8 @@ import javax.inject.Inject
 
 class SampleViewModel @Inject constructor(
     private val postsInteractor: PostFlowInteractor,
-    private val themeManager: ThemeManager
+    private val getThemeInteractor: GetThemeInteractor,
+    private val setThemeInteractor: SetThemeInteractor
 ) : BaseViewModel<SampleViewState>() {
 
     override val initState: SampleViewState = SampleViewState()
@@ -38,8 +38,8 @@ class SampleViewModel @Inject constructor(
 
     fun switchTheme() {
         viewModelScope.launch {
-            val newTheme = if (themeManager.theme == Theme.LIGHT) Theme.DARK else Theme.LIGHT
-            themeManager.theme = newTheme
+            val newTheme = if (getThemeInteractor.invoke() == Theme.LIGHT) Theme.DARK else Theme.LIGHT
+            setThemeInteractor.invoke(newTheme)
             ThemeHelper.applyTheme(newTheme)
         }
     }
