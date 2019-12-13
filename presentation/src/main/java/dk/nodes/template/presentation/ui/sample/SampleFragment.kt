@@ -42,13 +42,6 @@ class SampleFragment : BaseFragment() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.actionAppName -> viewModel.switchTheme()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun showPosts(state: SampleViewState) {
         adapter.setData(state.posts)
     }
