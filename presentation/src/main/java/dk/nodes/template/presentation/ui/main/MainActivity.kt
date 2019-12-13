@@ -8,7 +8,6 @@ import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseActivity
 import dk.nodes.template.presentation.util.consume
-import net.hockeyapp.android.UpdateManager
 
 class MainActivity : BaseActivity() {
 
@@ -27,12 +26,6 @@ class MainActivity : BaseActivity() {
         viewState.nstackMessage.consume { showMessageDialog(it) }
         viewState.nstackRateReminder.consume { showRateReminderDialog(it) }
         viewState.nstackUpdate.consume { showChangelogDialog(it) }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // If we checked for hockey updates, unregister
-        UpdateManager.unregister()
     }
 
     companion object {

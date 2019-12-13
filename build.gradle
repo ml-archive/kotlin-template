@@ -8,7 +8,6 @@ buildscript {
             constraint_layout: '2.0.0-beta3',
             dagger           : "2.25.2",
             lifecycle        : "2.2.0-rc02",
-            hockey_sdk       : "5.2.0",
             timber           : "4.7.1",
             junit            : '4.12',
             espresso         : '3.2.0',
@@ -47,7 +46,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "dk.nodes.nstack:translation:3.0.3"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
-        classpath "dk.nodes.ci:bitrise:1.0"
     }
 }
 

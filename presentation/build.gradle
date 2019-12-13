@@ -63,7 +63,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
     testImplementation 'junit:junit:4.12'
     implementation "androidx.core:core-ktx:${versions.ktx}"
-    implementation "net.hockeyapp.android:HockeySDK:${versions.hockey_sdk}"
     implementation "com.jakewharton.timber:timber:${versions.timber}"
 
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
