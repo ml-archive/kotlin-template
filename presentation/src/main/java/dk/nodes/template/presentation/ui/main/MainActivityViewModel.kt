@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
     private val nStackPresenter: NStackPresenter
-) : BaseViewModel<MainActivityViewState>() {
-    override val initState: MainActivityViewState = MainActivityViewState()
+) : BaseViewModel<MainActivityViewState>(MainActivityViewState()) {
 
     fun checkNStack() = viewModelScope.launch {
         // Delay popup a bit so it's not super intrusive
