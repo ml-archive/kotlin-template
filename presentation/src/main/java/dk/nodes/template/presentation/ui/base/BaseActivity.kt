@@ -14,17 +14,20 @@ import dk.nodes.template.presentation.extensions.getViewModel
 import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes var resId: Int? = null) : AppCompatActivity(),
-    HasAndroidInjector {
+abstract class BaseActivity : AppCompatActivity, HasAndroidInjector {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    constructor() : super()
+    constructor(@LayoutRes resId: Int) : super(resId)
 
-    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        resId?.let(this::setContentView)
     }
 
     override fun attachBaseContext(newBase: Context) {
