@@ -39,7 +39,7 @@ android {
         production {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('debug.keystore')
+            storeFile file('key')
             storePassword 'android'
         }
     }
@@ -54,7 +54,6 @@ android {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.production
         }
     }
 
@@ -69,7 +68,7 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ".production"
-            //signingConfig signingConfigs.production
+            signingConfig signingConfigs.production
             manifestPlaceholders = [APP_NAME: "KotlinTemplate"]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }

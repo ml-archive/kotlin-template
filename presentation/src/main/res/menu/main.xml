@@ -5,7 +5,7 @@
     <item
         android:id="@+id/actionAppName"
         android:icon="@drawable/ic_half_moon_and_sun"
-        android:title="@string/switch_theme"
+        android:title="Todo"
         app:showAsAction="always" />
 
 </menu>
