@@ -29,7 +29,6 @@ android {
     }
 
     // Uncomment the following if you include signingConfigs
-    /*
     signingConfigs {
         staging {
             keyAlias 'androiddebugkey'
@@ -44,7 +43,7 @@ android {
             storePassword 'android'
         }
     }
-    */
+
 
     buildTypes {
         debug {
@@ -55,6 +54,7 @@ android {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.production
         }
     }
 
