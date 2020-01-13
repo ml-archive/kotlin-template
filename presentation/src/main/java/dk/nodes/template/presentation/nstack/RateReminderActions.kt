@@ -7,8 +7,13 @@ import dk.nodes.nstack.kotlin.NStack
  */
 object RateReminderActions {
 
+	private const val TEST = "test"
 
-    private suspend fun send(action: String) {
-        NStack.RateReminder.action(action)
-    }
+	suspend fun test() {
+		send(TEST)
+	}
+
+	private suspend fun send(action: String) {
+		NStack.RateReminder.action(action)
+	}
 }
