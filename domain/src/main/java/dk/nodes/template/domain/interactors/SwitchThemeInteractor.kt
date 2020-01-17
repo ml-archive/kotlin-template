@@ -1,7 +1,7 @@
 package dk.nodes.template.domain.interactors
 
 import dk.nodes.template.domain.managers.ThemeManager
-import dk.nodes.template.models.Theme
+import dk.nodes.template.domain.models.Theme
 import javax.inject.Inject
 
 class SwitchThemeInteractor @Inject constructor(

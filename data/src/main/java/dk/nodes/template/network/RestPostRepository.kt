@@ -1,8 +1,8 @@
 package dk.nodes.template.network
 
-import dk.nodes.template.models.Post
-import dk.nodes.template.repositories.PostRepository
-import dk.nodes.template.repositories.RepositoryException
+import dk.nodes.template.domain.models.Post
+import dk.nodes.template.domain.repositories.PostRepository
+import dk.nodes.template.domain.repositories.RepositoryException
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

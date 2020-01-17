@@ -37,7 +37,6 @@ android {
 
 dependencies {
     implementation project(':domain')
-    implementation project(':data')
     implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.arch.core:core-common:$versions.archCore"

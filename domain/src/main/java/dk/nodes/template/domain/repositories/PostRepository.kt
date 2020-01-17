@@ -1,6 +1,6 @@
-package dk.nodes.template.repositories
+package dk.nodes.template.domain.repositories
 
-import dk.nodes.template.models.Post
+import dk.nodes.template.domain.models.Post
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
