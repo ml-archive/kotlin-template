@@ -1,6 +1,6 @@
 package dk.nodes.template.domain.managers
 
-import dk.nodes.template.domain.models.Theme
+import dk.nodes.template.domain.entities.Theme
 import javax.inject.Inject
 
 class ThemeManagerImpl @Inject constructor(private val prefManager: PrefManager) : ThemeManager {

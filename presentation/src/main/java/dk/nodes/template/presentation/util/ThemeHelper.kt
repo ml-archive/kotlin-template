@@ -2,7 +2,7 @@ package dk.nodes.template.presentation.util
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
-import dk.nodes.template.domain.models.Theme
+import dk.nodes.template.domain.entities.Theme
 
 object ThemeHelper {
 

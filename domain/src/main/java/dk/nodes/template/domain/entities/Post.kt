@@ -1,4 +1,4 @@
-package dk.nodes.template.domain.models
+package dk.nodes.template.domain.entities
 
 data class Post(
     var userId: Int,

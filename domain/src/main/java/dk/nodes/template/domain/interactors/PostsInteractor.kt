@@ -1,6 +1,6 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.template.domain.models.Post
+import dk.nodes.template.domain.entities.Post
 import dk.nodes.template.domain.repositories.PostRepository
 import javax.inject.Inject
 
