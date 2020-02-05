@@ -23,7 +23,7 @@ import javax.inject.Singleton
 class RestModule {
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
             .add(Date::class.java, Rfc3339DateJsonAdapter())
@@ -37,7 +37,7 @@ class RestModule {
     }
 
     @Provides
-    @AppScope
+    @Singleton
     fun provideMoshiConverter(moshi: Moshi): Converter.Factory {
         return MoshiConverterFactory.create(moshi)
     }
