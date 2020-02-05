@@ -6,10 +6,14 @@ import dagger.android.support.DaggerFragment
 import dk.nodes.template.presentation.extensions.getSharedViewModel
 import dk.nodes.template.presentation.extensions.getViewModel
 import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
+import dk.nodes.template.presentation.util.ViewErrorController
 import javax.inject.Inject
 
 abstract class BaseFragment : DaggerFragment() {
+
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject lateinit var defaultErrorController: dagger.Lazy<ViewErrorController>
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)

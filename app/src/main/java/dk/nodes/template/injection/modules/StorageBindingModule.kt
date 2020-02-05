@@ -2,13 +2,20 @@ package dk.nodes.template.injection.modules
 
 import dagger.Binds
 import dagger.Module
-import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.domain.managers.PrefManager
+import dk.nodes.template.domain.managers.ThemeManager
+import dk.nodes.template.domain.managers.ThemeManagerImpl
 import dk.nodes.template.storage.PrefManagerImpl
+import javax.inject.Singleton
 
 @Module
 abstract class StorageBindingModule {
+
     @Binds
-    @AppScope
+    @Singleton
     abstract fun bindPrefManager(manager: PrefManagerImpl): PrefManager
+
+    @Binds
+    @Singleton
+    abstract fun bindThemeManager(manager: ThemeManagerImpl): ThemeManager
 }
