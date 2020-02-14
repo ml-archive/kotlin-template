@@ -3,7 +3,6 @@ package dk.nodes.template.network
 import dk.nodes.template.domain.entities.Post
 import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
-import dk.nodes.template.network.mappers.PostMapper
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +24,7 @@ class RestPostRepository @Inject constructor(private val api: Api) : PostReposit
         val response = api.getPosts()
         if (response.isSuccessful) {
 
-            return response.body()?.map(PostMapper::mapEntity)
+            return response.body()
                 ?.also {
                     postsChannel.send(it)
                 }
