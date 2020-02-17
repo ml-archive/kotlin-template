@@ -1,4 +1,4 @@
-package dk.nodes.template.repositories
+package dk.nodes.template.domain.repositories
 
 data class RepositoryException(
     val code: Int,

@@ -1,7 +1,7 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.template.models.Post
-import dk.nodes.template.repositories.PostRepository
+import dk.nodes.template.domain.entities.Post
+import dk.nodes.template.domain.repositories.PostRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
