@@ -4,6 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
@@ -19,15 +23,24 @@ fun MainActivity.setupNStack() {
     lifecycleScope.launch {
         when (val result = NStack.appOpen()) {
             is Result.Success -> {
-                when (result.value.data.update.state) {
-                    AppUpdateState.NONE -> { /* Nothing to do */
+                val appUpdateManager = AppUpdateManagerFactory.create(this@setupNStack)
+
+                appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                        appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+                    ) {   //  check for the type of update flow you want
+                        when (result.value.data.update.state) {
+                            AppUpdateState.NONE -> { /* Nothing to do */
+                            }
+                            AppUpdateState.UPDATE -> showUpdateDialog(result.value.data.update, appUpdateInfo)
+                            AppUpdateState.FORCE -> showForceDialog(result.value.data.update, appUpdateInfo)
+                            AppUpdateState.CHANGELOG -> showChangelogDialog(result.value.data.update, appUpdateInfo)
+                        }
                     }
-                    AppUpdateState.UPDATE -> showUpdateDialog(result.value.data.update)
-                    AppUpdateState.FORCE -> showForceDialog(result.value.data.update)
-                    AppUpdateState.CHANGELOG -> showChangelogDialog(result.value.data.update)
-                }
 
                 result.value.data.message?.let { showMessageDialog(it) }
+                }
                 result.value.data.rateReminder?.let { showRateReminderDialog(it) }
             }
             is Result.Error -> {
@@ -67,7 +80,11 @@ fun MainActivity.showMessageDialog(message: Message) {
         .show()
 }
 
-fun MainActivity.showUpdateDialog(appUpdate: AppUpdate) {
+fun MainActivity.showUpdateDialog(
+    appUpdate: AppUpdate,
+    appUpdateInfo: AppUpdateInfo
+) {
+
     AlertDialog.Builder(this)
         .setTitle(appUpdate.update?.translate?.title ?: return)
         .setMessage(appUpdate.update?.translate?.message ?: return)
@@ -77,7 +94,10 @@ fun MainActivity.showUpdateDialog(appUpdate: AppUpdate) {
         .show()
 }
 
-fun MainActivity.showChangelogDialog(appUpdate: AppUpdate) {
+fun MainActivity.showChangelogDialog(
+    appUpdate: AppUpdate,
+    appUpdateInfo: AppUpdateInfo
+) {
     AlertDialog.Builder(this)
         .setTitle(appUpdate.update?.translate?.title ?: return)
         .setMessage(appUpdate.update?.translate?.message ?: return)
@@ -105,7 +125,10 @@ fun MainActivity.startPlayStore() {
     }
 }
 
-fun MainActivity.showForceDialog(appUpdate: AppUpdate) {
+fun MainActivity.showForceDialog(
+    appUpdate: AppUpdate,
+    appUpdateInfo: AppUpdateInfo
+) {
     val dialog = AlertDialog.Builder(this)
         .setTitle(appUpdate.update?.translate?.title ?: return)
         .setMessage(appUpdate.update?.translate?.message ?: return)

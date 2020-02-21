@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
     private fun handleNStack(viewState: MainActivityViewState) {
         viewState.nstackMessage.consume { showMessageDialog(it) }
         viewState.nstackRateReminder.consume { showRateReminderDialog(it) }
-        viewState.nstackUpdate.consume { showChangelogDialog(it) }
+        viewState.nstackUpdate.consume { showChangelogDialog(it, appUpdateInfo) }
     }
 
     companion object {
