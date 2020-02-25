@@ -3,6 +3,7 @@ package dk.nodes.template.presentation.ui.sample
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.lifecycle.observe
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.util.consume

@@ -3,6 +3,7 @@ package dk.nodes.template.presentation.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.observe
 import dk.nodes.template.domain.extensions.guard
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.ui.base.BaseActivity

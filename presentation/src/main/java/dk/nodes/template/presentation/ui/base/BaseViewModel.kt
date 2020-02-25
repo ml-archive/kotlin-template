@@ -2,14 +2,15 @@ package dk.nodes.template.presentation.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import dk.nodes.template.presentation.extensions.LiveDataDelegate
+import dk.nodes.template.presentation.extensions.liveDataDelegate
 
 abstract class BaseViewModel<T : Any>(initState: T) : ViewModel() {
 
-    val viewState = LiveDataDelegate(initState)
-    protected var state by viewState
+    private val viewStateDelegate = liveDataDelegate(initState)
+    protected var state by viewStateDelegate
+    val viewState = viewStateDelegate.liveData
 
     protected fun <T> addStateSource(source: LiveData<T>, onChanged: (T) -> Unit) {
-        viewState.addSource(source, onChanged)
+        viewStateDelegate.addSource(source, onChanged)
     }
 }

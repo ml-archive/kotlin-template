@@ -37,25 +37,25 @@ inline fun <E, T : SingleEvent<E>> LiveData<T>.observeEvent(
 
 class LiveDataDelegate<T : Any>(
     initialState: T,
-    private val liveData: MediatorLiveData<T> = MediatorLiveData()
+    private val mediatorLiveData: MediatorLiveData<T> = MediatorLiveData()
 ) {
 
     init {
-        liveData.value = initialState
+        mediatorLiveData.value = initialState
     }
 
-    fun observe(lifecycleOwner: LifecycleOwner, observer: (T) -> Unit) {
-        liveData.observeNonNull(lifecycleOwner, observer)
-    }
+    val liveData: LiveData<T> = mediatorLiveData
 
     operator fun setValue(ref: Any, p: KProperty<*>, value: T) {
-        liveData.postValue(value)
+        mediatorLiveData.postValue(value)
     }
 
     operator fun getValue(ref: Any, p: KProperty<*>): T =
-        liveData.value!!
+        mediatorLiveData.value!!
 
     fun <T> addSource(source: LiveData<T>, onChanged: (T) -> Unit) {
-        liveData.addSource(source, onChanged)
+        mediatorLiveData.addSource(source, onChanged)
     }
 }
+
+fun <T : Any> liveDataDelegate(initialState: T) = LiveDataDelegate(initialState)
