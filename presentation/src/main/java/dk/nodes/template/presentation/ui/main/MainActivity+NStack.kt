@@ -13,11 +13,13 @@ import dk.nodes.nstack.kotlin.models.Result
 import dk.nodes.nstack.kotlin.models.state
 import dk.nodes.nstack.kotlin.models.update
 import dk.nodes.template.presentation.nstack.Translation
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun MainActivity.setupNStack() {
     lifecycleScope.launch {
-        when (val result = NStack.appOpen()) {
+        when (val result = withContext(Dispatchers.IO) { NStack.appOpen() }) {
             is Result.Success -> {
                 when (result.value.data.update.state) {
                     AppUpdateState.NONE -> { /* Nothing to do */
