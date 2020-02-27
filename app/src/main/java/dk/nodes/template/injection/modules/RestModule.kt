@@ -1,8 +1,8 @@
 package dk.nodes.template.injection.modules
 
 import android.os.Build
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
 import dagger.Provides
 import dk.nodes.nstack.kotlin.NStack
@@ -10,12 +10,10 @@ import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.network.Api
 import dk.nodes.template.network.util.BufferedSourceConverterFactory
-import dk.nodes.template.network.util.DateDeserializer
-import dk.nodes.template.network.util.ItemTypeAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -23,24 +21,13 @@ import javax.inject.Singleton
 
 @Module
 class RestModule {
-    @Provides
-    fun provideTypeFactory(): ItemTypeAdapterFactory {
-        return ItemTypeAdapterFactory()
-    }
-
-    @Provides
-    fun provideDateDeserializer(): DateDeserializer {
-        return DateDeserializer()
-    }
 
     @Provides
     @Singleton
-    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
-        return GsonBuilder()
-            .registerTypeAdapterFactory(typeFactory)
-            .registerTypeAdapter(Date::class.java, dateDeserializer)
-            .setDateFormat(DateDeserializer.DATE_FORMATS[0])
-            .create()
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(Date::class.java, Rfc3339DateJsonAdapter())
+            .build()
     }
 
     @Provides
@@ -51,8 +38,8 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideGsonConverter(gson: Gson): Converter.Factory {
-        return GsonConverterFactory.create(gson)
+    fun provideMoshiConverter(moshi: Moshi): Converter.Factory {
+        return MoshiConverterFactory.create(moshi)
     }
 
     @Provides

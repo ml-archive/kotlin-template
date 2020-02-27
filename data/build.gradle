@@ -21,9 +21,10 @@ dependencies {
     implementation project (':domain')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
-    implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
+    implementation("com.squareup.retrofit2:converter-moshi:${versions.retrofit}") {
         exclude module: "retrofit:${versions.retrofit}"
     }
+    implementation "com.squareup.moshi:moshi:$versions.moshi"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
 
