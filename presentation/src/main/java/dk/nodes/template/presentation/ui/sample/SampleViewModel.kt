@@ -1,7 +1,15 @@
 package dk.nodes.template.presentation.ui.sample
 
 import androidx.lifecycle.viewModelScope
-import dk.nodes.template.domain.interactors.*
+import dk.nodes.template.domain.interactors.Fail
+import dk.nodes.template.domain.interactors.InteractorResult
+import dk.nodes.template.domain.interactors.Loading
+import dk.nodes.template.domain.interactors.PostFlowInteractor
+import dk.nodes.template.domain.interactors.Success
+import dk.nodes.template.domain.interactors.SwitchThemeInteractor
+import dk.nodes.template.domain.interactors.asResult
+import dk.nodes.template.domain.interactors.invoke
+import dk.nodes.template.domain.interactors.runInteractor
 import dk.nodes.template.presentation.ui.base.BaseViewModel
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ThemeHelper
@@ -14,9 +22,7 @@ import javax.inject.Inject
 class SampleViewModel @Inject constructor(
     private val postsInteractor: PostFlowInteractor,
     private val switchThemeInteractor: SwitchThemeInteractor
-) : BaseViewModel<SampleViewState>() {
-
-    override val initState: SampleViewState = SampleViewState()
+) : BaseViewModel<SampleViewState>(SampleViewState()) {
 
     init {
         viewModelScope.launch {

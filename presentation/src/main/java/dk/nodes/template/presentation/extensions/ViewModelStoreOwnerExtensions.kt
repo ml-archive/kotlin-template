@@ -1,21 +1,17 @@
 package dk.nodes.template.presentation.extensions
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import java.io.Serializable
 
-inline fun <reified VM : ViewModel> LifecycleOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
-    return when (this) {
-        is Fragment -> ViewModelProvider(this, factory).get(VM::class.java)
-        is FragmentActivity -> ViewModelProvider(this, factory).get(VM::class.java)
-        else -> throw IllegalAccessError("Invalid LifecycleOwner")
-    }
+inline fun <reified VM : ViewModel> ViewModelStoreOwner.getViewModel(factory: ViewModelProvider.Factory): VM {
+    return ViewModelProvider(this, factory).get(VM::class.java)
 }
 
 inline fun <reified VM : ViewModel> Fragment.getSharedViewModel(factory: ViewModelProvider.Factory): VM {

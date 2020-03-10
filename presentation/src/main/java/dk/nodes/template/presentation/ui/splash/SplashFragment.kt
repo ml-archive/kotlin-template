@@ -3,9 +3,7 @@ package dk.nodes.template.presentation.ui.splash
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
@@ -17,13 +15,9 @@ import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.ui.main.*
 import dk.nodes.template.presentation.util.consume
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     private val viewModel by viewModel<SplashViewModel>()
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

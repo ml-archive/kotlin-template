@@ -1,19 +1,32 @@
 package dk.nodes.template.presentation.ui.base
 
+import android.content.Context
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.android.support.DaggerFragment
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import dagger.android.support.AndroidSupportInjection
 import dk.nodes.template.presentation.extensions.getSharedViewModel
 import dk.nodes.template.presentation.extensions.getViewModel
 import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import dk.nodes.template.presentation.util.ViewErrorController
 import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment() {
+abstract class BaseFragment : Fragment, HasAndroidInjector {
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    constructor()
+    constructor(@LayoutRes resId: Int) : super(resId)
 
-    @Inject lateinit var defaultErrorController: dagger.Lazy<ViewErrorController>
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var defaultErrorController: dagger.Lazy<ViewErrorController>
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     protected inline fun <reified VM : ViewModel> getViewModel(): VM =
         getViewModel(viewModelFactory)
@@ -29,4 +42,11 @@ abstract class BaseFragment : DaggerFragment() {
         lifecycleAwareLazy(this) {
             getSharedViewModel<VM>()
         }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
+    override fun androidInjector() = androidInjector
 }

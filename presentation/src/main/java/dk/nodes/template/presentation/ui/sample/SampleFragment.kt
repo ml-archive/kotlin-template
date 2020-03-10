@@ -1,7 +1,7 @@
 package dk.nodes.template.presentation.ui.sample
 
 import android.os.Bundle
-import android.view.*
+import android.view.View
 import androidx.core.view.isVisible
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
@@ -9,7 +9,7 @@ import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.util.consume
 import kotlinx.android.synthetic.main.fragment_sample.*
 
-class SampleFragment : BaseFragment() {
+class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
     private val viewModel by viewModel<SampleViewModel>()
     private lateinit var adapter: SampleAdapter
@@ -17,14 +17,6 @@ class SampleFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.fetchPosts()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_sample, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

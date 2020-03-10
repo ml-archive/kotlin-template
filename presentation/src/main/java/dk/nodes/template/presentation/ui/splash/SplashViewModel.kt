@@ -15,10 +15,12 @@ import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
     private val nStackPresenter: NStackPresenter
-) : BaseViewModel<SplashViewState>() {
-
-    override val initState: SplashViewState =
-        SplashViewState(doneLoading = false, nstackUpdateAvailable = null)
+) : BaseViewModel<SplashViewState>(
+    SplashViewState(
+        doneLoading = false,
+        nstackUpdateAvailable = null
+    )
+) {
 
     fun initAppState() {
         viewModelScope.launch {
