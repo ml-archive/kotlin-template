@@ -1,4 +1,4 @@
-package dk.nodes.template.network
+package dk.nodes.template.data.network
 
 import dk.nodes.template.domain.entities.Post
 import retrofit2.Response
