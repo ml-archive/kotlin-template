@@ -5,7 +5,7 @@ import dagger.Module
 import dk.nodes.template.domain.managers.PrefManager
 import dk.nodes.template.domain.managers.ThemeManager
 import dk.nodes.template.domain.managers.ThemeManagerImpl
-import dk.nodes.template.storage.PrefManagerImpl
+import dk.nodes.template.data.storage.PrefManagerImpl
 import javax.inject.Singleton
 
 @Module

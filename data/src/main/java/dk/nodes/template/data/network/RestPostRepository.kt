@@ -1,4 +1,4 @@
-package dk.nodes.template.network
+package dk.nodes.template.data.network
 
 import dk.nodes.template.domain.entities.Post
 import dk.nodes.template.domain.repositories.PostRepository

@@ -1,4 +1,4 @@
-package dk.nodes.template.network.util
+package dk.nodes.template.data.network.util
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
