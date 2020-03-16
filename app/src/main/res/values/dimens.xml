@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Common -->
-    <dimen name="screen_horizontal_margin">16dp</dimen>
-    <dimen name="screen_vertical_margin">16dp</dimen>
-    <dimen name="list_top_padding">8dp</dimen>
-</resources>

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="action_open_dialog" type="id"/>
+    <color name="ic_launcher_background">#3DDC84</color>
 </resources>
