@@ -20,6 +20,8 @@ android {
 dependencies {
     implementation project (':domain')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    implementation "androidx.core:core-ktx:${versions.ktx}"
+    implementation "androidx.preference:preference-ktx:1.1.0"
     implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
     implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
         exclude module: "retrofit:${versions.retrofit}"
