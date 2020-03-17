@@ -7,6 +7,7 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import retrofit2.Response
 import javax.inject.Inject
 
 class RestPostRepository @Inject constructor(private val api: Api) : PostRepository {
@@ -20,13 +21,17 @@ class RestPostRepository @Inject constructor(private val api: Api) : PostReposit
     }
 
     override suspend fun getPosts(): List<Post> = with(api.getPosts()) {
-        body()?.let {
+        return result.also {
             postsChannel.send(it)
+        }
+    }
+
+    private val <T> Response<T>.result: T
+        get() = body()?.let {
             return it
         } ?: throw(RepositoryException(
                 code = code(),
                 errorBody = errorBody()?.string(),
                 msg = message()
         ))
-    }
 }
