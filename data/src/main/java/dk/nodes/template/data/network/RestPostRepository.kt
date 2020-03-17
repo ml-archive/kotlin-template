@@ -11,34 +11,22 @@ import javax.inject.Inject
 
 class RestPostRepository @Inject constructor(private val api: Api) : PostRepository {
 
-    private val postsChannel = BroadcastChannel<List<Post>>(Channel.CONFLATED)
-        .also {
-            it.offer(listOf())
-        }
+    private val postsChannel = BroadcastChannel<List<Post>>(Channel.CONFLATED).apply {
+        offer(listOf())
+    }
 
     override fun getPostsFlow(): Flow<List<Post>> {
         return postsChannel.asFlow()
     }
 
-    override suspend fun getPosts(): List<Post> {
-        val response = api.getPosts()
-        if (response.isSuccessful) {
-
-            return response.body()
-                ?.also {
-                    postsChannel.send(it)
-                }
-                ?: throw(RepositoryException(
-                    response.code(),
-                    response.errorBody()?.string(),
-                    response.message()
-                ))
-        } else {
-            throw(RepositoryException(
-                response.code(),
-                response.errorBody()?.string(),
-                response.message()
-            ))
-        }
+    override suspend fun getPosts(): List<Post> = with(api.getPosts()) {
+        body()?.let {
+            postsChannel.send(it)
+            return it
+        } ?: throw(RepositoryException(
+                code = code(),
+                errorBody = errorBody()?.string(),
+                msg = message()
+        ))
     }
 }
