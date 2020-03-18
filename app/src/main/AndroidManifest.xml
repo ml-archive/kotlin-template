@@ -15,7 +15,7 @@
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/NoToolbarAppTheme">
+        android:theme="@style/MyTheme.DayNight">
 
         <!-- nstack app id and key from build.gradle manifest placeholder -->
         <meta-data

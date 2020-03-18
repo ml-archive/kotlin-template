@@ -11,7 +11,6 @@
         android:id="@+id/fragSampleToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:title="@string/app_name"
@@ -43,12 +42,9 @@
         android:id="@+id/fragSampleFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foregroundTint="@color/colorFabIcon"
         android:src="@drawable/ic_half_moon_and_sun"
-        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/colorFabIcon"
         app:useCompatPadding="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
