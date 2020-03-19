@@ -7,6 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -15,6 +16,7 @@ import dk.nodes.template.presentation.extensions.getSharedViewModel
 import dk.nodes.template.presentation.extensions.getViewModel
 import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
 import dk.nodes.template.presentation.extensions.observeNonNull
+import dk.nodes.template.presentation.navigation.FragmentNavigationHandler
 import dk.nodes.template.presentation.navigation.Route
 import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ViewErrorController
@@ -61,23 +63,8 @@ abstract class BaseFragment : Fragment, HasAndroidInjector {
     }
 
     private fun handleNavigationEvent(navEvent: SingleEvent<Route>) = navEvent.consume { route ->
-        when (route) {
-            is Route.DirectionId -> findNavController().navigate(route.id)
-            is Route.Back -> findNavController().navigateUp()
-            is Route.Activity -> {
-                val intent = Intent(context, route.clazz).apply {
-                    route.args?.let(this::putExtras)
-                }
-                if (route.finish) activity?.finish()
-                startActivity(intent)
-            }
-            is Route.ActivityResult -> {
-                val intent = Intent(context, route.clazz).apply {
-                    route.args?.let(this::putExtras)
-                }
-                startActivityForResult(intent, route.requestCode)
-            }
-        }
+        val handler = FragmentNavigationHandler(this)
+        handler.handle(route)
     }
 
     override fun onAttach(context: Context) {
