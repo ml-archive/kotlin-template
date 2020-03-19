@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_sample.*
 
 class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
-    private val viewModel by viewModel<SampleViewModel>()
+    override val viewModel by viewModel<SampleViewModel>()
     private lateinit var adapter: SampleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
