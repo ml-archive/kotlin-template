@@ -1,11 +1,13 @@
 package dk.nodes.template.presentation.ui.base
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.*
+import dk.nodes.template.presentation.navigation.Route
+import dk.nodes.template.presentation.util.SingleEvent
 
 abstract class BaseViewModel<T : Any>(initState: T) : ViewModel() {
+
+    private val _navigationLiveData: MutableLiveData<SingleEvent<Route>> = MutableLiveData()
+    val navigationLiveData: LiveData<SingleEvent<Route>> get() = _navigationLiveData
 
     private val _viewState = MediatorLiveData<T>().apply { value = initState }
     val viewState = _viewState.distinctUntilChanged()
@@ -22,5 +24,9 @@ abstract class BaseViewModel<T : Any>(initState: T) : ViewModel() {
 
     protected fun <T> addStateSource(source: LiveData<T>, onChanged: (T) -> Unit) {
         _viewState.addSource(source, onChanged)
+    }
+
+    protected fun navigateTo(route: Route) {
+        _navigationLiveData.postValue(SingleEvent(route))
     }
 }

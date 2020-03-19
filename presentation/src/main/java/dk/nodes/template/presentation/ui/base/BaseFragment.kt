@@ -1,23 +1,32 @@
 package dk.nodes.template.presentation.ui.base
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dk.nodes.template.presentation.extensions.getSharedViewModel
 import dk.nodes.template.presentation.extensions.getViewModel
 import dk.nodes.template.presentation.extensions.lifecycleAwareLazy
+import dk.nodes.template.presentation.extensions.observeNonNull
+import dk.nodes.template.presentation.navigation.Route
+import dk.nodes.template.presentation.util.SingleEvent
 import dk.nodes.template.presentation.util.ViewErrorController
+import dk.nodes.template.presentation.util.consume
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment, HasAndroidInjector {
 
     constructor()
     constructor(@LayoutRes resId: Int) : super(resId)
+
+    abstract val viewModel: BaseViewModel<*>
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -42,6 +51,34 @@ abstract class BaseFragment : Fragment, HasAndroidInjector {
         lifecycleAwareLazy(this) {
             getSharedViewModel<VM>()
         }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.navigationLiveData.observeNonNull(viewLifecycleOwner) { navEvent ->
+            handleNavigationEvent(navEvent)
+        }
+    }
+
+    private fun handleNavigationEvent(navEvent: SingleEvent<Route>) = navEvent.consume { route ->
+        when (route) {
+            is Route.DirectionId -> findNavController().navigate(route.id)
+            is Route.Back -> findNavController().navigateUp()
+            is Route.Activity -> {
+                val intent = Intent(context, route.clazz).apply {
+                    route.args?.let(this::putExtras)
+                }
+                if (route.finish) activity?.finish()
+                startActivity(intent)
+            }
+            is Route.ActivityResult -> {
+                val intent = Intent(context, route.clazz).apply {
+                    route.args?.let(this::putExtras)
+                }
+                startActivityForResult(intent, route.requestCode)
+            }
+        }
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
