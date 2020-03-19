@@ -1,9 +1,12 @@
 package dk.nodes.template.presentation.navigation
 
 import android.os.Bundle
+import androidx.navigation.NavDirections
 
 sealed class Route {
     data class DirectionId(val id: Int) : Route()
+
+    data class Direction(val navDirections: NavDirections) : Route()
 
     data class Activity(
             val clazz: Class<*>,
