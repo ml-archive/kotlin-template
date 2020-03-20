@@ -51,6 +51,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
+
+    // Utils & Extensions
+    implementation "dk.nodes.utils:kotlin:${versions.nodes_utils}"
+    implementation "dk.nodes.utils:android:${versions.nodes_utils}"
+
 //    implementation "dk.nodes.arch:base:${versions.nodes_arch}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
     implementation "com.google.dagger:dagger-android:${versions.dagger}"
