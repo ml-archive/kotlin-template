@@ -3,6 +3,7 @@ package dk.nodes.template.injection.modules
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dk.nodes.okhttputils.oauth.OAuthAuthenticator
 import dk.nodes.okhttputils.oauth.OAuthCallback
 import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.okhttputils.oauth.OAuthRepository
@@ -26,11 +27,10 @@ class OAuthModule {
         fun bindOAuthCallback(oAuthCallback: OAuthCallbackImpl): OAuthCallback
     }
 
-
     @Provides
     @Singleton
     fun provideOAuthHeader(): OAuthHeader {
-        // modify header type name here
+        // modify header type & name here
         return OAuthHeader()
     }
 
@@ -40,7 +40,7 @@ class OAuthModule {
         return OAuthInterceptor(repository, oAuthHeader)
     }
 
-  /*  @Provides
+    @Provides
     @Singleton
     fun provideOAuthAuthenticator(
             repository: OAuthRepository,
@@ -48,6 +48,5 @@ class OAuthModule {
             oAuthCallback: OAuthCallback
     ): OAuthAuthenticator {
         return OAuthAuthenticator(repository, oAuthCallback, oAuthHeader)
-    }*/
-
+    }
 }

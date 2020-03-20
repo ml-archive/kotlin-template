@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
+import dk.nodes.okhttputils.oauth.OAuthAuthenticator
 import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.data.network.Api
@@ -58,12 +59,16 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(oAuthInterceptor: OAuthInterceptor): OkHttpClient {
+    fun provideHttpClient(
+            oAuthAuthenticator: OAuthAuthenticator,
+            oAuthInterceptor: OAuthInterceptor
+    ): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(oAuthInterceptor)
+                .authenticator(oAuthAuthenticator)
                 .addInterceptor(
                         NMetaInterceptor(
                                 NStack.env,
