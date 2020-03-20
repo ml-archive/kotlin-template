@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dk.nodes.template.domain.entities.Post
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.extensions.inflate
+import dk.nodes.utils.android.view.inflate
 import kotlinx.android.synthetic.main.row_sample.view.*
 
 class SampleAdapter : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
