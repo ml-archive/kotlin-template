@@ -148,4 +148,8 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.ktx}"
 
     implementation "androidx.preference:preference-ktx:1.1.0"
+
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+
 }
