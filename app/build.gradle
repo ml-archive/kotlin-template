@@ -85,6 +85,7 @@ android {
 }
 
 repositories {
+    maven { url "https://jitpack.io" }
     mavenLocal()
 }
 
@@ -131,7 +132,7 @@ dependencies {
     // required if you want to use Mockito for Android tests
     androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
-    //For Espresso UI testing
+    // For Espresso UI testing
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-intents:${versions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${versions.espresso}"
@@ -148,4 +149,9 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.ktx}"
 
     implementation "androidx.preference:preference-ktx:1.1.0"
+
+    // Chucker (like Charles but on device)
+    debugImplementation "com.github.ChuckerTeam.Chucker:library:3.2.0"
+    releaseImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+
 }
