@@ -3,8 +3,8 @@ package dk.nodes.template.presentation.ui.sample
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.lifecycle.observe
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.util.consume
 import kotlinx.android.synthetic.main.fragment_sample.*
@@ -27,7 +27,7 @@ class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.viewState.observeNonNull(this) { state ->
+        viewModel.viewState.observe(this) { state ->
             showLoading(state)
             showPosts(state)
             showErrorMessage(state)

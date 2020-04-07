@@ -3,9 +3,9 @@ package dk.nodes.template.presentation.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.observe
 import dk.nodes.template.domain.extensions.guard
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseActivity
 import dk.nodes.template.presentation.util.consume
 
@@ -15,7 +15,7 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.viewState.observeNonNull(this) { state ->
+        viewModel.viewState.observe(this) { state ->
             handleNStack(state)
         }
         savedInstanceState.guard { viewModel.checkNStack() }

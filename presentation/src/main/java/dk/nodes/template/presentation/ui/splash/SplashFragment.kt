@@ -5,14 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.observe
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.nstack.kotlin.models.state
 import dk.nodes.nstack.kotlin.models.update
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
-import dk.nodes.template.presentation.ui.main.*
+import dk.nodes.template.presentation.ui.main.MainActivity
 import dk.nodes.template.presentation.util.consume
 
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
@@ -21,7 +21,7 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.viewState.observeNonNull(viewLifecycleOwner) { state ->
+        viewModel.viewState.observe(viewLifecycleOwner) { state ->
             handleNStack(state)
             handleNavigation(state)
         }
@@ -55,28 +55,28 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
     private fun startPlayStore() {
         try {
             startActivity(
-                    Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=${context?.packageName}")
-                    )
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=${context?.packageName}")
+                )
             )
         } catch (anfe: android.content.ActivityNotFoundException) {
             startActivity(
-                    Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=${context?.packageName}")
-                    )
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=${context?.packageName}")
+                )
             )
         }
     }
 
     private fun showForceDialog(appUpdate: AppUpdate) {
         val dialog = AlertDialog.Builder(context ?: return)
-                .setTitle(appUpdate.update?.translate?.title ?: return)
-                .setMessage(appUpdate.update?.translate?.message ?: return)
-                .setCancelable(false)
-                .setPositiveButton(appUpdate.update?.translate?.positiveButton, null)
-                .create()
+            .setTitle(appUpdate.update?.translate?.title ?: return)
+            .setMessage(appUpdate.update?.translate?.message ?: return)
+            .setCancelable(false)
+            .setPositiveButton(appUpdate.update?.translate?.positiveButton, null)
+            .create()
 
         dialog.setOnShowListener {
             val b = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
