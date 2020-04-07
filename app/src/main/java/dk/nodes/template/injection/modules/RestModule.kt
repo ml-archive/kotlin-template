@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
+import dk.nodes.okhttputils.oauth.OAuthAuthenticator
+import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.data.network.Api
 import dk.nodes.template.data.network.util.BufferedSourceConverterFactory
@@ -37,10 +39,10 @@ class RestModule {
     @Singleton
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         return GsonBuilder()
-            .registerTypeAdapterFactory(typeFactory)
-            .registerTypeAdapter(Date::class.java, dateDeserializer)
-            .setDateFormat(DateDeserializer.DATE_FORMATS[0])
-            .create()
+                .registerTypeAdapterFactory(typeFactory)
+                .registerTypeAdapter(Date::class.java, dateDeserializer)
+                .setDateFormat(DateDeserializer.DATE_FORMATS[0])
+                .create()
     }
 
     @Provides
@@ -57,19 +59,24 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
+    fun provideHttpClient(
+            oAuthAuthenticator: OAuthAuthenticator,
+            oAuthInterceptor: OAuthInterceptor
+    ): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
-            .connectTimeout(45, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .addInterceptor(
-                NMetaInterceptor(
-                    NStack.env,
-                    NStack.appClientInfo.versionName,
-                    Build.VERSION.RELEASE,
-                    Build.MODEL
+                .connectTimeout(45, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(oAuthInterceptor)
+                .authenticator(oAuthAuthenticator)
+                .addInterceptor(
+                        NMetaInterceptor(
+                                NStack.env,
+                                NStack.appClientInfo.versionName,
+                                Build.VERSION.RELEASE,
+                                Build.MODEL
+                        )
                 )
-            )
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
@@ -83,16 +90,16 @@ class RestModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        client: OkHttpClient,
-        converter: Converter.Factory,
-        @Named("NAME_BASE_URL") baseUrl: String
+            client: OkHttpClient,
+            converter: Converter.Factory,
+            @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
-            .client(client)
-            .baseUrl(baseUrl)
-            .addConverterFactory(BufferedSourceConverterFactory())
-            .addConverterFactory(converter)
-            .build()
+                .client(client)
+                .baseUrl(baseUrl)
+                .addConverterFactory(BufferedSourceConverterFactory())
+                .addConverterFactory(converter)
+                .build()
     }
 
     @Provides
