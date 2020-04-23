@@ -1,6 +1,10 @@
 package dk.nodes.template.injection.modules
 
+import android.content.Context
 import android.os.Build
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -59,23 +63,41 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(
-            oAuthAuthenticator: OAuthAuthenticator,
-            oAuthInterceptor: OAuthInterceptor
-    ): OkHttpClient {
+    fun provideChuckerInterceptor(context: Context): ChuckerInterceptor {
+        // Create the Collector
+        val chuckerCollector = ChuckerCollector(
+            context = context,
+            // Toggles visibility of the push notification
+            showNotification = true,
+            // Allows to customize the retention period of collected data
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+        // Create the Interceptor
+        return ChuckerInterceptor(
+            context = context,
+            // The previously created Collector
+            collector = chuckerCollector,
+            // The max body content length in bytes, after this responses will be truncated.
+            maxContentLength = 250000L
+            // List of headers to replace with ** in the Chucker UI
+            // headersToRedact = setOf("Auth-Token")
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(chuckerInterceptor: ChuckerInterceptor): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
-                .connectTimeout(45, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(oAuthInterceptor)
-                .authenticator(oAuthAuthenticator)
-                .addInterceptor(
-                        NMetaInterceptor(
-                                NStack.env,
-                                NStack.appClientInfo.versionName,
-                                Build.VERSION.RELEASE,
-                                Build.MODEL
-                        )
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(chuckerInterceptor)
+            .addInterceptor(
+                NMetaInterceptor(
+                    NStack.env,
+                    NStack.appClientInfo.versionName,
+                    Build.VERSION.RELEASE,
+                    Build.MODEL
                 )
 
         if (BuildConfig.DEBUG) {
