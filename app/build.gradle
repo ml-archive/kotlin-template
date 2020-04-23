@@ -49,7 +49,7 @@ android {
     buildTypes {
         debug {
             // uncomment the following line if you add a flavorbased signingConfig for debug builds
-            //signingConfig null
+            // signingConfig null
         }
         release {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
@@ -59,6 +59,13 @@ android {
     }
 
     productFlavors {
+        // The dev flavor is intended to be the same as staging, but with LeakCanary enabled
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [APP_NAME: "KotlinTemplateDev"]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
@@ -85,6 +92,7 @@ android {
 }
 
 repositories {
+    maven { url "https://jitpack.io" }
     mavenLocal()
 }
 
@@ -135,7 +143,7 @@ dependencies {
     // required if you want to use Mockito for Android tests
     androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
-    //For Espresso UI testing
+    // For Espresso UI testing
     androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-intents:${versions.espresso}"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:${versions.espresso}"
@@ -152,4 +160,13 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.ktx}"
 
     implementation "androidx.preference:preference-ktx:1.1.0"
+
+    // Chucker (like Charles but on device)
+    devImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+    stagingImplementation "com.github.ChuckerTeam.Chucker:library:3.2.0"
+    productionImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+
+    // LeakCanary
+    devImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+
 }
