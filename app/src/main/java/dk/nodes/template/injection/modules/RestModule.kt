@@ -63,26 +63,28 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideChuckerInterceptor(context: Context): ChuckerInterceptor {
-        // Create the Collector
-        val chuckerCollector = ChuckerCollector(
-            context = context,
-            // Toggles visibility of the push notification
-            showNotification = true,
-            // Allows to customize the retention period of collected data
-            retentionPeriod = RetentionManager.Period.ONE_HOUR
-        )
-        // Create the Interceptor
-        return ChuckerInterceptor(
-            context = context,
-            // The previously created Collector
-            collector = chuckerCollector,
-            // The max body content length in bytes, after this responses will be truncated.
-            maxContentLength = 250000L
-            // List of headers to replace with ** in the Chucker UI
-            // headersToRedact = setOf("Auth-Token")
-        )
-    }
+    fun provideChuckerCollector(context: Context) = ChuckerCollector(
+        context = context,
+        // Toggles visibility of the push notification
+        showNotification = true,
+        // Allows to customize the retention period of collected data
+        retentionPeriod = RetentionManager.Period.ONE_HOUR
+    )
+
+    @Provides
+    @Singleton
+    fun provideChuckerInterceptor(
+        context: Context,
+        chuckerCollector: ChuckerCollector
+    ) = ChuckerInterceptor(
+        context = context,
+        // The previously created Collector
+        collector = chuckerCollector,
+        // The max body content length in bytes, after this responses will be truncated.
+        maxContentLength = 250000L
+        // List of headers to replace with ** in the Chucker UI
+        // headersToRedact = setOf("Auth-Token")
+    )
 
     @Provides
     @Singleton
@@ -99,6 +101,7 @@ class RestModule {
                     Build.VERSION.RELEASE,
                     Build.MODEL
                 )
+            )
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()

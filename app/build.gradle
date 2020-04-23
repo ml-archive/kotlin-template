@@ -49,7 +49,7 @@ android {
     buildTypes {
         debug {
             // uncomment the following line if you add a flavorbased signingConfig for debug builds
-            //signingConfig null
+            // signingConfig null
         }
         release {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
@@ -59,6 +59,13 @@ android {
     }
 
     productFlavors {
+        // The dev flavor is intended to be the same as staging, but with LeakCanary enabled
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [APP_NAME: "KotlinTemplateDev"]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
@@ -155,10 +162,11 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.0"
 
     // Chucker (like Charles but on device)
-    debugImplementation "com.github.ChuckerTeam.Chucker:library:3.2.0"
-    releaseImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+    devImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+    stagingImplementation "com.github.ChuckerTeam.Chucker:library:3.2.0"
+    productionImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
 
     // LeakCanary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+    devImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
 }
