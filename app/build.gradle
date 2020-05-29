@@ -83,6 +83,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -159,14 +160,17 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
 
-    implementation "androidx.preference:preference-ktx:1.1.0"
+    implementation "androidx.preference:preference-ktx:${versions.preferences}"
 
     // Chucker (like Charles but on device)
-    devImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
-    stagingImplementation "com.github.ChuckerTeam.Chucker:library:3.2.0"
-    productionImplementation "com.github.ChuckerTeam.Chucker:library-no-op:3.2.0"
+    devImplementation "com.github.ChuckerTeam.Chucker:library-no-op:${versions.chucker}"
+    stagingImplementation "com.github.ChuckerTeam.Chucker:library:${versions.chucker}"
+    productionImplementation "com.github.ChuckerTeam.Chucker:library-no-op:${versions.chucker}"
 
     // LeakCanary
-    devImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+    devImplementation "com.squareup.leakcanary:leakcanary-android:${versions.leak_canary}"
+
+    // Java 8+ API desugaring support
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugaring"
 
 }

@@ -9,6 +9,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -21,7 +22,7 @@ dependencies {
     implementation project (':domain')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
-    implementation "androidx.preference:preference-ktx:1.1.0"
+    implementation "androidx.preference:preference-ktx:${versions.preferences}"
     implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
     implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
         exclude module: "retrofit:${versions.retrofit}"
@@ -31,5 +32,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
-
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugaring"
 }
