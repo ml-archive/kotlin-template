@@ -9,6 +9,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -31,5 +32,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
-
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.5'
 }

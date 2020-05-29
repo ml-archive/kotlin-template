@@ -83,6 +83,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -168,5 +169,8 @@ dependencies {
 
     // LeakCanary
     devImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+
+    // Java 8+ API desugaring support
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.5'
 
 }
