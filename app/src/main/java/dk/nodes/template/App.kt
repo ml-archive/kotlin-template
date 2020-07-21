@@ -1,20 +1,24 @@
 package dk.nodes.template
 
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
+import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
+import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
+
 import dk.nodes.template.inititializers.AppInitializer
-import dk.nodes.template.injection.components.DaggerAppComponent
 import javax.inject.Inject
 
-class App : DaggerApplication() {
+@HiltAndroidApp
+class App : Application() {
 
-    @Inject lateinit var initializer: AppInitializer
+    @Inject
+    lateinit var initializer: AppInitializer
     override fun onCreate() {
         super.onCreate()
         initializer.init(this)
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(NStackBaseContext(base))
     }
 }

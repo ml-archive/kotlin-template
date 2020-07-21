@@ -1,5 +1,8 @@
 package dk.nodes.template.presentation.ui.sample
 
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dk.nodes.template.domain.interactors.Fail
 import dk.nodes.template.domain.interactors.InteractorResult
@@ -17,11 +20,11 @@ import dk.nodes.template.presentation.util.ViewErrorController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class SampleViewModel @Inject constructor(
+class SampleViewModel @ViewModelInject constructor(
     private val postsInteractor: PostFlowInteractor,
-    private val switchThemeInteractor: SwitchThemeInteractor
+    private val switchThemeInteractor: SwitchThemeInteractor,
+    @Assisted val savedState: SavedStateHandle
 ) : BaseViewModel<SampleViewState>(SampleViewState()) {
 
     init {

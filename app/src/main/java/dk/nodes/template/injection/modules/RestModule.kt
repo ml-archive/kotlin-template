@@ -9,10 +9,11 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
-import dk.nodes.okhttputils.oauth.OAuthAuthenticator
-import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.data.network.Api
 import dk.nodes.template.data.network.util.BufferedSourceConverterFactory
@@ -28,7 +29,8 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class RestModule {
+@InstallIn(ApplicationComponent::class)
+object RestModule {
     @Provides
     fun provideTypeFactory(): ItemTypeAdapterFactory {
         return ItemTypeAdapterFactory()
@@ -63,7 +65,7 @@ class RestModule {
 
     @Provides
     @Singleton
-    fun provideChuckerCollector(context: Context) = ChuckerCollector(
+    fun provideChuckerCollector(@ApplicationContext context: Context) = ChuckerCollector(
         context = context,
         // Toggles visibility of the push notification
         showNotification = true,
@@ -74,7 +76,7 @@ class RestModule {
     @Provides
     @Singleton
     fun provideChuckerInterceptor(
-        context: Context,
+        @ApplicationContext context: Context,
         chuckerCollector: ChuckerCollector
     ) = ChuckerInterceptor(
         context = context,
@@ -115,9 +117,9 @@ class RestModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-            client: OkHttpClient,
-            converter: Converter.Factory,
-            @Named("NAME_BASE_URL") baseUrl: String
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
                 .client(client)

@@ -5,7 +5,7 @@ import dk.nodes.template.domain.managers.PrefManager
 import javax.inject.Inject
 
 class OAuthPreferencesRepository @Inject constructor(
-        private val prefManager: PrefManager
+    private val prefManager: PrefManager
 ) : OAuthRepository {
 
     override fun getAccessToken(): String? {

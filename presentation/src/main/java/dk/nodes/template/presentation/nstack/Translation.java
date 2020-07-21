@@ -25,9 +25,9 @@ public class Translation {
 		public static String unknownError = "Ukendt fejl, pr\u00F8v igen.";
 	}
 	public final static class test {
-		public static String title = "NStack Demo";
+		public static String title = "NStack \'Demo\'";
 		public static String message = "Bacon ipsum dolor amet magna meatball jerky in, shank sunt do burgdoggen spare ribs. Lorem boudin eiusmod short ribs pastrami. Sausage bresaola do turkey, dolor qui tail ground round culpa boudin nulla minim sunt beef ribs ham. Cillum in pastrami adipisicing swine lorem, velit sunt meatloaf bresaola short loin fugiat tri-tip boudin.";
-		public static String subTitle = "Subtitle demo";
+		public static String subTitle = "Subtitle \"demo\"";
 		public static String on = "on";
 		public static String off = "off";
 	}

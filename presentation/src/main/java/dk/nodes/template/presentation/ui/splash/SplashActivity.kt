@@ -1,6 +1,8 @@
 package dk.nodes.template.presentation.ui.splash
 
+import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import dk.nodes.template.presentation.R
-import dk.nodes.template.presentation.ui.base.BaseActivity
 
-class SplashActivity : BaseActivity(R.layout.activity_splash)
+@AndroidEntryPoint
+class SplashActivity : AppCompatActivity(R.layout.activity_splash)

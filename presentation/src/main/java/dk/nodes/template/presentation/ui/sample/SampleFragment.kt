@@ -3,16 +3,23 @@ package dk.nodes.template.presentation.ui.sample
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
-import dk.nodes.template.presentation.ui.base.BaseFragment
+import dk.nodes.template.presentation.util.ViewErrorController
 import dk.nodes.template.presentation.util.consume
 import kotlinx.android.synthetic.main.fragment_sample.*
+import javax.inject.Inject
 
-class SampleFragment : BaseFragment(R.layout.fragment_sample) {
+@AndroidEntryPoint
+class SampleFragment : Fragment(R.layout.fragment_sample) {
 
-    private val viewModel by viewModel<SampleViewModel>()
+    private val viewModel by viewModels<SampleViewModel>()
     private lateinit var adapter: SampleAdapter
+    @Inject
+    lateinit var defaultErrorController: ViewErrorController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +52,7 @@ class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
     private fun showErrorMessage(state: SampleViewState) {
         state.viewError.consume { viewError ->
-            defaultErrorController.get().showErrorSnackbar(requireView(), viewError) {
+            defaultErrorController.showErrorSnackbar(requireView(), viewError) {
                 viewModel.fetchPosts()
             }
         }
