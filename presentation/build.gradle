@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'dk.nstack.translation.plugin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 translation {
     appId = keys.appId
@@ -51,6 +52,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:${versions.lifecycle}"
+
+
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    implementation "androidx.core:core-ktx:1.3.0"
+    implementation "androidx.activity:activity:1.1.0"
 
     // Utils & Extensions
     implementation "dk.nodes.utils:kotlin:${versions.nodes_utils}"
@@ -58,10 +66,17 @@ dependencies {
 
 //    implementation "dk.nodes.arch:base:${versions.nodes_arch}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
-    implementation "com.google.dagger:dagger-android:${versions.dagger}"
-    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
-    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
-    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+//    implementation "com.google.dagger:dagger-android:${versions.dagger}"
+//    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
+//    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+//    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+
+    implementation "com.google.dagger:hilt-android:2.28.3-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28.3-alpha"
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
+
+
     implementation "dk.nodes.nstack:nstack-kotlin:$versions.nstack"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"

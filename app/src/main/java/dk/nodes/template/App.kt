@@ -1,20 +1,24 @@
 package dk.nodes.template
 
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
 import dk.nodes.template.inititializers.AppInitializer
-import dk.nodes.template.injection.components.DaggerAppComponent
 import javax.inject.Inject
 
-class App : DaggerApplication() {
+@HiltAndroidApp
+class App : Application() {
 
-    @Inject lateinit var initializer: AppInitializer
+    @Inject
+    lateinit var initializer: AppInitializer
     override fun onCreate() {
         super.onCreate()
+        instance = this
         initializer.init(this)
     }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.factory().create(this)
+    companion object {
+        lateinit var instance: App
+        private set
     }
 }

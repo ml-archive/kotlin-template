@@ -3,15 +3,18 @@ package dk.nodes.template.presentation.ui.sample
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
 import dk.nodes.template.presentation.ui.base.BaseFragment
 import dk.nodes.template.presentation.util.consume
 import kotlinx.android.synthetic.main.fragment_sample.*
 
+@AndroidEntryPoint
 class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
-    private val viewModel by viewModel<SampleViewModel>()
+    private val viewModel by viewModels<SampleViewModel>()
     private lateinit var adapter: SampleAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

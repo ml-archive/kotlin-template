@@ -3,6 +3,8 @@ package dk.nodes.template.injection.modules
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import dk.nodes.okhttputils.oauth.OAuthAuthenticator
 import dk.nodes.okhttputils.oauth.OAuthCallback
 import dk.nodes.okhttputils.oauth.OAuthInterceptor
@@ -13,9 +15,11 @@ import dk.nodes.template.data.network.oauth.OAuthPreferencesRepository
 import javax.inject.Singleton
 
 @Module(includes = [OAuthModule.BindingModule::class])
-class OAuthModule {
+@InstallIn(ApplicationComponent::class)
+object OAuthModule {
 
     @Module
+    @InstallIn(ApplicationComponent::class)
     interface BindingModule {
 
         @Binds

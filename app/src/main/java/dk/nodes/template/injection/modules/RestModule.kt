@@ -9,6 +9,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
 import dk.nodes.okhttputils.oauth.OAuthAuthenticator
@@ -28,7 +30,8 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class RestModule {
+@InstallIn(ApplicationComponent::class)
+object RestModule {
     @Provides
     fun provideTypeFactory(): ItemTypeAdapterFactory {
         return ItemTypeAdapterFactory()
