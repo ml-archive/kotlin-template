@@ -4,15 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dk.nodes.template.domain.extensions.guard
 import dk.nodes.template.presentation.R
 import dk.nodes.template.presentation.extensions.observeNonNull
-import dk.nodes.template.presentation.ui.base.BaseActivity
 import dk.nodes.template.presentation.util.consume
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val viewModel by viewModels<MainActivityViewModel>()
 

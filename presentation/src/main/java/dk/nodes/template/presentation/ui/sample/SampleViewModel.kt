@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 class SampleViewModel @ViewModelInject constructor(
     private val postsInteractor: PostFlowInteractor,
     private val switchThemeInteractor: SwitchThemeInteractor,
-    @Assisted private val savedState: SavedStateHandle
+    @Assisted val savedState: SavedStateHandle
 ) : BaseViewModel<SampleViewState>(SampleViewState()) {
 
     init {
