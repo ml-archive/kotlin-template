@@ -1,8 +1,6 @@
 package dk.nodes.template.presentation.ui.splash
 
-import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.Result
@@ -14,11 +12,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 class SplashViewModel @ViewModelInject constructor(
-    private val nStackPresenter: NStackPresenter,
-    @Assisted private val savedState: SavedStateHandle
+    private val nStackPresenter: NStackPresenter
 ) : BaseViewModel<SplashViewState>(
     SplashViewState(
         doneLoading = false,
