@@ -47,9 +47,9 @@ object OAuthModule {
     @Provides
     @Singleton
     fun provideOAuthAuthenticator(
-            repository: OAuthRepository,
-            oAuthHeader: OAuthHeader,
-            oAuthCallback: OAuthCallback
+        repository: OAuthRepository,
+        oAuthHeader: OAuthHeader,
+        oAuthCallback: OAuthCallback
     ): OAuthAuthenticator {
         return OAuthAuthenticator(repository, oAuthCallback, oAuthHeader)
     }

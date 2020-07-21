@@ -13,8 +13,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
-import dk.nodes.okhttputils.oauth.OAuthAuthenticator
-import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.data.network.Api
 import dk.nodes.template.data.network.util.BufferedSourceConverterFactory
@@ -118,9 +116,9 @@ object RestModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-            client: OkHttpClient,
-            converter: Converter.Factory,
-            @Named("NAME_BASE_URL") baseUrl: String
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
                 .client(client)

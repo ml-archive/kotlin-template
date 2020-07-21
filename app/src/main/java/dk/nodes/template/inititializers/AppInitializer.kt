@@ -39,5 +39,4 @@ class AppInitializerImpl @Inject constructor(
             }
         }
     }
-
 }
