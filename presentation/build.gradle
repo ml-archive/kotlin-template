@@ -61,11 +61,9 @@ dependencies {
 
 //    implementation "dk.nodes.arch:base:${versions.nodes_arch}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
-//    implementation "com.google.dagger:dagger-android:${versions.dagger}"
-//    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
-//    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
-//    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
 
+
+    // Hilt
     implementation "com.google.dagger:hilt-android:2.28.3-alpha"
     kapt "com.google.dagger:hilt-android-compiler:2.28.3-alpha"
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'

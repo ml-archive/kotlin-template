@@ -13,12 +13,6 @@ class App : Application() {
     lateinit var initializer: AppInitializer
     override fun onCreate() {
         super.onCreate()
-        instance = this
         initializer.init(this)
-    }
-
-    companion object {
-        lateinit var instance: App
-        private set
     }
 }
