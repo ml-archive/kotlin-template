@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ActivityContext
 import dk.nodes.template.presentation.nstack.Translation
 import dk.nodes.template.domain.repositories.RepositoryException
 import javax.inject.Inject
 
-class ViewErrorController @Inject constructor(val context: Context) {
+class ViewErrorController @Inject constructor(@ActivityContext val context: Context) {
 
     fun showErrorDialog(error: ViewError, cancelable: Boolean = true, dismissAction: (() -> Unit)? = null) {
         val builder = AlertDialog.Builder(context)

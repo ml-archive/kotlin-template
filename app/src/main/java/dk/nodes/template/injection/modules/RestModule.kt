@@ -11,6 +11,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
 import dk.nodes.template.BuildConfig
@@ -64,7 +65,7 @@ object RestModule {
 
     @Provides
     @Singleton
-    fun provideChuckerCollector(context: Context) = ChuckerCollector(
+    fun provideChuckerCollector(@ApplicationContext context: Context) = ChuckerCollector(
         context = context,
         // Toggles visibility of the push notification
         showNotification = true,
@@ -75,7 +76,7 @@ object RestModule {
     @Provides
     @Singleton
     fun provideChuckerInterceptor(
-        context: Context,
+        @ApplicationContext context: Context,
         chuckerCollector: ChuckerCollector
     ) = ChuckerInterceptor(
         context = context,

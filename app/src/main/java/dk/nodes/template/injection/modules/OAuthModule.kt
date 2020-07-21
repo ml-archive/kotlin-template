@@ -14,22 +14,9 @@ import dk.nodes.template.data.network.oauth.OAuthCallbackImpl
 import dk.nodes.template.data.network.oauth.OAuthPreferencesRepository
 import javax.inject.Singleton
 
-@Module(includes = [OAuthModule.BindingModule::class])
+@Module
 @InstallIn(ApplicationComponent::class)
 object OAuthModule {
-
-    @Module
-    @InstallIn(ApplicationComponent::class)
-    interface BindingModule {
-
-        @Binds
-        @Singleton
-        fun bindOAuthRepository(repository: OAuthPreferencesRepository): OAuthRepository
-
-        @Binds
-        @Singleton
-        fun bindOAuthCallback(oAuthCallback: OAuthCallbackImpl): OAuthCallback
-    }
 
     @Provides
     @Singleton
@@ -40,7 +27,10 @@ object OAuthModule {
 
     @Provides
     @Singleton
-    fun provideOAuthInterceptor(repository: OAuthRepository, oAuthHeader: OAuthHeader): OAuthInterceptor {
+    fun provideOAuthInterceptor(
+        repository: OAuthRepository,
+        oAuthHeader: OAuthHeader
+    ): OAuthInterceptor {
         return OAuthInterceptor(repository, oAuthHeader)
     }
 
@@ -53,4 +43,17 @@ object OAuthModule {
     ): OAuthAuthenticator {
         return OAuthAuthenticator(repository, oAuthCallback, oAuthHeader)
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+interface OAuthBindingModule {
+
+    @Binds
+    @Singleton
+    fun bindOAuthRepository(repository: OAuthPreferencesRepository): OAuthRepository
+
+    @Binds
+    @Singleton
+    fun bindOAuthCallback(oAuthCallback: OAuthCallbackImpl): OAuthCallback
 }
