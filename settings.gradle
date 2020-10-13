@@ -1,5 +1,4 @@
 include ':domain:core'
 include ':domain:common'
 include ':domain:data'
-include ':domain'
 include ':app'
