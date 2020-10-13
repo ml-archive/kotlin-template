@@ -150,12 +150,12 @@ dependencies {
     // The following section is only used to force the latest version to resolve conflicts
     implementation "androidx.arch.core:core-common:$versions.archCore"
     implementation "androidx.arch.core:core-runtime:$versions.archCore"
-    implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
 
     implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"

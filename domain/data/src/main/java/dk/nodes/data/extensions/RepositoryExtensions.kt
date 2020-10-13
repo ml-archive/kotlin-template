@@ -1,12 +1,12 @@
 package dk.nodes.data.extensions
 
-import dk.nodes.template.core.repositories.RepositoryException
+import dk.nodes.template.core.interfaces.repositories.RepositoryException
 import retrofit2.Response
 
-fun <T> Response<T>.mapException(): dk.nodes.template.core.repositories.RepositoryException {
-    return dk.nodes.template.core.repositories.RepositoryException(
-            this.code(),
-            this.errorBody()?.string(),
-            this.message()
+fun <T> Response<T>.mapException(): RepositoryException {
+    return RepositoryException(
+        this.code(),
+        this.errorBody()?.string(),
+        this.message()
     )
 }
