@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain:core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    implementation "androidx.core:core-ktx:${versions.ktx}"
+    implementation "androidx.preference:preference-ktx:${versions.preferences}"
+    implementation("com.squareup.retrofit2:retrofit:${versions.retrofit}")
+    implementation("com.squareup.retrofit2:converter-gson:${versions.retrofit}") {
+        exclude module: "retrofit:${versions.retrofit}"
+    }
+    // Nodes OkHTTP utilities
+    implementation "dk.nodes.utils:okhttp:${versions.nodes_utils_okhttp}"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
+    implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$versions.desugaring"
+
+}

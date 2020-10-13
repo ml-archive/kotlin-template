@@ -5,9 +5,9 @@ import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.domain.managers.ThemeManager
-import dk.nodes.template.presentation.nstack.Translation
-import dk.nodes.template.presentation.util.ThemeHelper
+import dk.nodes.template.core.managers.ThemeManager
+import dk.nodes.template.nstack.Translation
+import dk.nodes.template.util.ThemeHelper
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,8 +16,8 @@ interface AppInitializer {
 }
 
 class AppInitializerImpl @Inject constructor(
-    private val themeManager: ThemeManager,
-    private val chuckerCollector: ChuckerCollector
+        private val themeManager: dk.nodes.template.core.managers.ThemeManager,
+        private val chuckerCollector: ChuckerCollector
 ) : AppInitializer {
     override fun init(app: Application) {
         NStack.translationClass = Translation::class.java

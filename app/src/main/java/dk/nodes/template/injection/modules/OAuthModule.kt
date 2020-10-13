@@ -8,8 +8,8 @@ import dk.nodes.okhttputils.oauth.OAuthCallback
 import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.okhttputils.oauth.OAuthRepository
 import dk.nodes.okhttputils.oauth.entities.OAuthHeader
-import dk.nodes.template.data.network.oauth.OAuthCallbackImpl
-import dk.nodes.template.data.network.oauth.OAuthPreferencesRepository
+import dk.nodes.data.network.oauth.OAuthCallbackImpl
+import dk.nodes.data.network.oauth.OAuthPreferencesRepository
 import javax.inject.Singleton
 
 @Module(includes = [OAuthModule.BindingModule::class])

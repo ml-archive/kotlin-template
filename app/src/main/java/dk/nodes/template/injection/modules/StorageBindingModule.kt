@@ -2,10 +2,10 @@ package dk.nodes.template.injection.modules
 
 import dagger.Binds
 import dagger.Module
-import dk.nodes.template.domain.managers.PrefManager
-import dk.nodes.template.domain.managers.ThemeManager
-import dk.nodes.template.domain.managers.ThemeManagerImpl
-import dk.nodes.template.data.storage.PrefManagerImpl
+import dk.nodes.template.core.interfaces.managers.PrefManager
+import dk.nodes.template.core.managers.ThemeManager
+import dk.nodes.template.core.managers.ThemeManagerImpl
+import dk.nodes.data.storage.PrefManagerImpl
 import javax.inject.Singleton
 
 @Module
@@ -17,5 +17,5 @@ abstract class StorageBindingModule {
 
     @Binds
     @Singleton
-    abstract fun bindThemeManager(manager: ThemeManagerImpl): ThemeManager
+    abstract fun bindThemeManager(manager: dk.nodes.template.core.managers.ThemeManagerImpl): dk.nodes.template.core.managers.ThemeManager
 }
