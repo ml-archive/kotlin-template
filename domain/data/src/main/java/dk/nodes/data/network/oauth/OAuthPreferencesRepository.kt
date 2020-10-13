@@ -1,11 +1,11 @@
 package dk.nodes.data.network.oauth
 
 import dk.nodes.okhttputils.oauth.OAuthRepository
-import dk.nodes.template.core.managers.PrefManager
+import dk.nodes.template.core.interfaces.managers.PrefManager
 import javax.inject.Inject
 
 class OAuthPreferencesRepository @Inject constructor(
-        private val prefManager: dk.nodes.template.core.managers.PrefManager
+    private val prefManager: PrefManager
 ) : OAuthRepository {
 
     override fun getAccessToken(): String? {
