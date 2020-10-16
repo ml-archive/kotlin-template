@@ -11,13 +11,11 @@ import dagger.Module
 import dagger.Provides
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.provider.NMetaInterceptor
-import dk.nodes.okhttputils.oauth.OAuthAuthenticator
-import dk.nodes.okhttputils.oauth.OAuthInterceptor
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.data.network.Api
-import dk.nodes.template.data.network.util.BufferedSourceConverterFactory
-import dk.nodes.template.data.network.util.DateDeserializer
-import dk.nodes.template.data.network.util.ItemTypeAdapterFactory
+import dk.nodes.data.network.Api
+import dk.nodes.data.network.util.BufferedSourceConverterFactory
+import dk.nodes.data.network.util.DateDeserializer
+import dk.nodes.data.network.util.ItemTypeAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -115,9 +113,9 @@ class RestModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-            client: OkHttpClient,
-            converter: Converter.Factory,
-            @Named("NAME_BASE_URL") baseUrl: String
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
                 .client(client)

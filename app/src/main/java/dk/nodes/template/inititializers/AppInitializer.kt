@@ -1,13 +1,12 @@
 package dk.nodes.template.inititializers
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import com.chuckerteam.chucker.api.ChuckerCollector
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.domain.managers.ThemeManager
-import dk.nodes.template.presentation.nstack.Translation
-import dk.nodes.template.presentation.util.ThemeHelper
+import dk.nodes.template.nstack.Translation
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,9 +15,9 @@ interface AppInitializer {
 }
 
 class AppInitializerImpl @Inject constructor(
-    private val themeManager: ThemeManager,
     private val chuckerCollector: ChuckerCollector
 ) : AppInitializer {
+    @SuppressLint("AppOpenMissing")
     override fun init(app: Application) {
         NStack.translationClass = Translation::class.java
         NStack.init(app, BuildConfig.DEBUG)
@@ -26,7 +25,6 @@ class AppInitializerImpl @Inject constructor(
             NStack.enableLiveEdit(app)
             Timber.plant(Timber.DebugTree(), chuckerTree())
         }
-        ThemeHelper.applyTheme(themeManager.theme)
     }
 
     private fun chuckerTree() = object : Timber.Tree() {
@@ -39,5 +37,4 @@ class AppInitializerImpl @Inject constructor(
             }
         }
     }
-
 }

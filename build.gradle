@@ -3,30 +3,35 @@
 buildscript {
 
     ext.versions = [
-            kotlin             : '1.3.72',
-            coroutines         : '1.3.7',
-            constraint_layout  : '2.0.0-beta6',
-            dagger             : '2.28',
-            lifecycle          : '2.2.0',
-            timber             : "4.7.1",
-            junit              : '4.13',
-            espresso           : '3.2.0',
-            mockito            : '3.3.3',
-            nstack             : '3.2.5',
-            nodes_arch         : '2.3.5',
-            retrofit           : '2.9.0',
-            okhttp             : '4.6.0',
-            ktx                : '1.3.0',
-            material           : '1.2.0-beta01',
-            archCore           : '2.1.0',
-            navigation         : '2.2.2',
-            nodes_utils        : '1.0.0',
-            nodes_utils_okhttp : '0.12.2',
-            preferences        : '1.1.1',
-            chucker            : '3.2.0',
-            leak_canary        : '2.3',
-            desugaring         : '1.0.5'
+            kotlin            : '1.4.10',
+            appcompat         : '1.2.0',
+            coroutines        : '1.3.9',
+            constraint_layout : '2.0.1',
+            dagger            : '2.29.1',
+            lifecycle         : '2.2.0',
+            timber            : "4.7.1",
+            junit             : '4.13.1',
+            espresso          : '3.3.0',
+            mockito           : '3.3.3',
+            nstack            : '3.2.5',
+            nodes_arch        : '2.3.5',
+            retrofit          : '2.9.0',
+            okhttp            : '4.9.0',
+            ktx               : '1.3.2',
+            material          : '1.2.1',
+            archCore          : '2.1.0',
+            navigation        : '2.3.0',
+            nodes_utils       : '1.0.0',
+            nodes_utils_okhttp: '0.12.2',
+            preferences       : '1.1.1',
+            chucker           : '3.3.0',
+            leak_canary       : '2.5',
+            desugaring        : '1.0.9'
     ]
+
+    ext {
+        kotlin_version = '1.4.10'
+    }
 
     ext.keys = [
             appId       : 'bOdrNuZd4syxuAz6gyCb3xwBCjA8U4h4IcQI',
@@ -36,8 +41,8 @@ buildscript {
 
     ext.sdks = [
             compileSdkVersion: 29,
-            buildToolsVersion: '29.0.0',
-            minSdkVersion    : 21,
+            buildToolsVersion: '29.0.2',
+            minSdkVersion    : 23,
             targetSdkVersion : 29
     ]
 
@@ -48,7 +53,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "dk.nodes.nstack:translation:${versions.nstack}"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
@@ -56,8 +61,8 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.27.2"
-    id 'com.github.ben-manes.versions' version "0.28.0"
+    id "com.diffplug.spotless" version "5.6.1"
+    id 'com.github.ben-manes.versions' version "0.33.0"
 }
 
 allprojects {
@@ -66,12 +71,13 @@ allprojects {
         maven { url 'https://maven.google.com' }
         jcenter()
         mavenLocal()
+        google()
     }
 }
 
 
 subprojects {
-    apply plugin: 'com.diffplug.gradle.spotless'
+    apply plugin: 'com.diffplug.spotless'
     spotless {
         format 'misc', {
             target '**/*.gradle'

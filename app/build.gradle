@@ -63,21 +63,31 @@ android {
         dev {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [APP_NAME: "KotlinTemplateDev"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplateDev",
+                    env     : "staging"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
             //signingConfig signingConfigs.staging
-            manifestPlaceholders = [APP_NAME: "KotlinTemplateStaging"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplateStaging",
+                    env     : "staging"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
         production {
+
             dimension "default"
             applicationIdSuffix ".production"
             //signingConfig signingConfigs.production
-            manifestPlaceholders = [APP_NAME: "KotlinTemplate"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplate",
+                    env     : "production"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
@@ -103,14 +113,16 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:${versions.espresso}", {
         exclude group: "com.android.support", module: "support-annotations"
     })
-    implementation project (':domain')
-    implementation project (':presentation')
-    implementation project (':data')
+    implementation project(':domain:core')
+    implementation project(':domain:common')
+    implementation project(':domain:data')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
+
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "com.google.android.material:material:$versions.material"
@@ -133,9 +145,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation("com.squareup.okhttp3:logging-interceptor:${versions.okhttp}")
-
     implementation "dk.nodes.nstack:nstack-kotlin:${versions.nstack}"
-//    implementation "dk.nodes.arch:base:${versions.nodes_arch}"
 
     // Testing
     testImplementation "junit:junit:${versions.junit}"
@@ -152,13 +162,16 @@ dependencies {
     // The following section is only used to force the latest version to resolve conflicts
     implementation "androidx.arch.core:core-common:$versions.archCore"
     implementation "androidx.arch.core:core-runtime:$versions.archCore"
-    implementation "androidx.lifecycle:lifecycle-livedata-core:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:${versions.navigation}"
+    implementation "androidx.navigation:navigation-ui-ktx:${versions.navigation}"
 
     implementation "androidx.preference:preference-ktx:${versions.preferences}"
 

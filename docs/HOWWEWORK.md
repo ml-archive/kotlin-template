@@ -13,7 +13,7 @@
 
 ## Enterprise level projects
 
-### Code quaulity
+### Code quality
 Enterprise level projects also contain `lintrules` module with custom linting rules to maintain code quaulity. Moreover, each module uses `detect` and `klint` gradle plugins to maintain code style and cleanliness. Every pull request made, will launch these checks to make sure develop/master branches are always "clean" and release-ready. You can also run these checks manually using `gradle` commands like so:
 ```
 ./gradlew detekt
