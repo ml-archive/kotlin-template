@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import dk.nodes.template.core.extensions.guard
-import dk.nodes.template.presentation.R
+import dk.nodes.template.R
 import dk.nodes.template.extensions.observeNonNull
 import dk.nodes.template.base.BaseActivity
 import dk.nodes.template.util.consume
 
-class MainActivity : dk.nodes.template.base.BaseActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(R.layout.activity_main) {
 
     private val viewModel by viewModel<MainActivityViewModel>()
 

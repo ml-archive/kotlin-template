@@ -8,7 +8,7 @@ class GetPostUseCase @Inject constructor(
     private val postRepository: PostRepository
 ) {
 
-    suspend fun getPosts(): List<Post> {
+    suspend operator fun invoke(): List<Post> {
         return postRepository.getPosts()
     }
 }

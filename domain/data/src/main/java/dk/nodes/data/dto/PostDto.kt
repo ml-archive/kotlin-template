@@ -1,10 +1,10 @@
 package dk.nodes.data.dto
 
 data class PostDto(
-        var userId: Int,
-        var id: Int,
-        var title: String,
-        var body: String
+    var userId: Int,
+    var id: Int,
+    var title: String,
+    var body: String
 )
 
 fun PostDto.mapPost(): dk.nodes.template.core.entities.Post {

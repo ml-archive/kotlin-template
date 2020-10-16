@@ -3,6 +3,7 @@ package dk.nodes.template.screens.main
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
@@ -11,8 +12,8 @@ import dk.nodes.nstack.kotlin.models.RateReminder
 import dk.nodes.nstack.kotlin.models.Result
 import dk.nodes.nstack.kotlin.models.state
 import dk.nodes.nstack.kotlin.models.update
-import dk.nodes.template.nstack.Translation
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 fun MainActivity.setupNStack() {

@@ -9,14 +9,13 @@ import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.nstack.kotlin.models.state
 import dk.nodes.nstack.kotlin.models.update
-import dk.nodes.template.presentation.R
+import dk.nodes.template.R
 import dk.nodes.template.extensions.observeNonNull
 import dk.nodes.template.base.BaseFragment
-import dk.nodes.template.presentation.screens.main.*
 import dk.nodes.template.util.consume
 import dk.nodes.template.screens.main.MainActivity
 
-class SplashFragment : dk.nodes.template.base.BaseFragment(R.layout.fragment_splash) {
+class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
     private val viewModel by viewModel<SplashViewModel>()
 

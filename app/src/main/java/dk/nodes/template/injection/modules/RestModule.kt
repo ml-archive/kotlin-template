@@ -113,9 +113,9 @@ class RestModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-            client: OkHttpClient,
-            converter: Converter.Factory,
-            @Named("NAME_BASE_URL") baseUrl: String
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
                 .client(client)

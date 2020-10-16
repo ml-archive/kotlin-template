@@ -2,12 +2,11 @@
 
 buildscript {
 
-
     ext.versions = [
             kotlin            : '1.4.10',
             appcompat         : '1.2.0',
             coroutines        : '1.3.9',
-            constraint_layout : '2.0.0-beta6',
+            constraint_layout : '2.0.1',
             dagger            : '2.29.1',
             lifecycle         : '2.2.0',
             timber            : "4.7.1",
@@ -27,7 +26,7 @@ buildscript {
             preferences       : '1.1.1',
             chucker           : '3.3.0',
             leak_canary       : '2.5',
-            desugaring        : '1.0.5'
+            desugaring        : '1.0.9'
     ]
 
     ext {
@@ -72,6 +71,7 @@ allprojects {
         maven { url 'https://maven.google.com' }
         jcenter()
         mavenLocal()
+        google()
     }
 }
 

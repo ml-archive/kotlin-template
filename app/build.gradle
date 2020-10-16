@@ -63,21 +63,31 @@ android {
         dev {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [APP_NAME: "KotlinTemplateDev"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplateDev",
+                    env     : "staging"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
         staging {
             dimension "default"
             applicationIdSuffix ".staging"
             //signingConfig signingConfigs.staging
-            manifestPlaceholders = [APP_NAME: "KotlinTemplateStaging"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplateStaging",
+                    env     : "staging"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
         production {
+
             dimension "default"
             applicationIdSuffix ".production"
             //signingConfig signingConfigs.production
-            manifestPlaceholders = [APP_NAME: "KotlinTemplate"]
+            manifestPlaceholders = [
+                    APP_NAME: "KotlinTemplate",
+                    env     : "production"
+            ]
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
     }
@@ -103,14 +113,16 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:${versions.espresso}", {
         exclude group: "com.android.support", module: "support-annotations"
     })
-    implementation project (':domain:core')
-    implementation project (':domain:common')
-    implementation project (':domain:data')
+    implementation project(':domain:core')
+    implementation project(':domain:common')
+    implementation project(':domain:data')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
+
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraint_layout}"
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "com.google.android.material:material:$versions.material"

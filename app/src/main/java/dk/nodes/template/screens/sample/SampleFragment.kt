@@ -3,13 +3,13 @@ package dk.nodes.template.screens.sample
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import dk.nodes.template.presentation.R
+import dk.nodes.template.R
 import dk.nodes.template.extensions.observeNonNull
 import dk.nodes.template.base.BaseFragment
 import dk.nodes.template.util.consume
 import kotlinx.android.synthetic.main.fragment_sample.*
 
-class SampleFragment : dk.nodes.template.base.BaseFragment(R.layout.fragment_sample) {
+class SampleFragment : BaseFragment(R.layout.fragment_sample) {
 
     private val viewModel by viewModel<SampleViewModel>()
     private lateinit var adapter: SampleAdapter

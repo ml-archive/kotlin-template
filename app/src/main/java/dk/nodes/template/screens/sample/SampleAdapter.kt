@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dk.nodes.template.core.entities.Post
-import dk.nodes.template.presentation.R
-import dk.nodes.utils.android.view.inflate
+import dk.nodes.template.R
+import dk.nodes.template.extensions.inflate
+
 import kotlinx.android.synthetic.main.row_sample.view.*
 
 class SampleAdapter : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
 
-    private val list = mutableListOf<dk.nodes.template.core.entities.Post>()
+    private val list = mutableListOf<Post>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.row_sample))
@@ -23,7 +24,7 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
         holder.bind(list[position])
     }
 
-    fun setData(list: List<dk.nodes.template.core.entities.Post>) {
+    fun setData(list: List<Post>) {
         val diff = DiffUtil.calculateDiff(PostDiff(this.list, list))
         this.list.clear()
         this.list += list
@@ -32,7 +33,7 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(post: dk.nodes.template.core.entities.Post) {
+        fun bind(post: Post) {
             itemView.run {
                 titleTv.text = post.title
                 bodyTv.text = post.body
@@ -41,8 +42,8 @@ class SampleAdapter : RecyclerView.Adapter<SampleAdapter.ViewHolder>() {
     }
 
     private inner class PostDiff(
-            private val oldList: List<dk.nodes.template.core.entities.Post>,
-            private val newList: List<dk.nodes.template.core.entities.Post>
+        private val oldList: List<Post>,
+        private val newList: List<Post>
     ) : DiffUtil.Callback() {
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return newList[newItemPosition].id == oldList[oldItemPosition].id

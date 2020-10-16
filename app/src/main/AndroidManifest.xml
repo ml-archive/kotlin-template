@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="dk.nodes.nstack.env"
-            android:value="staging"
+            android:value="${env}"
             tools:replace="android:value" />
 
         <activity android:name="dk.nodes.template.screens.splash.SplashActivity">

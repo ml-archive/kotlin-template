@@ -26,9 +26,9 @@ dependencies {
     implementation group: 'javax.inject', name: 'javax.inject', version: '1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     implementation "androidx.core:core-ktx:${versions.ktx}"
-    implementation "androidx.appcompat:appcompat:$versions.appcompat"
+    implementation "androidx.appcompat:appcompat:${versions.appcompat}"
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation 'androidx.test.:extjunit:1.1.2'
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.expresso"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.expresso}"
 
 }

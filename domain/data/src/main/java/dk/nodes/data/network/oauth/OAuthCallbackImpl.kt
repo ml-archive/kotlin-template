@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class OAuthCallbackImpl @Inject constructor() : OAuthCallback {
     override fun provideAuthInfo(refreshToken: String?): OAuthResult<OAuthInfo> {
-        return  OAuthResult.Success(OAuthInfo(
+        return OAuthResult.Success(OAuthInfo(
                 accessToken = "newAccessToken",
                 refreshToken = "new/old refresh token"
         ))
