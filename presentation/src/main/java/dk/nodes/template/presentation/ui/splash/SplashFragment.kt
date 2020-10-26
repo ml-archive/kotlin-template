@@ -17,13 +17,12 @@ import dk.nodes.template.presentation.util.consume
 
 class SplashFragment : BaseFragment(R.layout.fragment_splash) {
 
-    private val viewModel by viewModel<SplashViewModel>()
+    override val viewModel by viewModel<SplashViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.viewState.observeNonNull(viewLifecycleOwner) { state ->
             handleNStack(state)
-            handleNavigation(state)
         }
         viewModel.initAppState()
     }
@@ -39,17 +38,6 @@ class SplashFragment : BaseFragment(R.layout.fragment_splash) {
                 }
             }
         }
-    }
-
-    private fun handleNavigation(state: SplashViewState) {
-        if (state.doneLoading && state.nstackUpdateAvailable?.peek()?.state != AppUpdateState.FORCE) {
-            showApp()
-        }
-    }
-
-    private fun showApp() {
-        startActivity(MainActivity.createIntent(requireContext()))
-        activity?.overridePendingTransition(0, 0)
     }
 
     private fun startPlayStore() {
